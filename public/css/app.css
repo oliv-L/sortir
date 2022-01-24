@@ -40,3 +40,16 @@ footer
     background-color: darkgreen;
     padding: 1rem 0;
 }
+
+.authentification
+{
+    text-align: center;
+}
+label
+{
+display: block;
+}
+input
+{
+margin-bottom: 10px;
+}

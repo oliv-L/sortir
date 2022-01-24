@@ -13,8 +13,8 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous identifiez !</h1>
+    <div class="authentification">
+    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous identifier !</h1>
     <label for="inputEmail">Pseudo / Email </label>
     <input type="email" {# value="{{ last_username }}" #} name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword">Mot de passe</label>
@@ -34,9 +34,10 @@
             </label>
         </div>
     #}
-
+    <br>
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+    </div>
 </form>
 {% endblock %}
