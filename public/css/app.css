@@ -1,0 +1,42 @@
+body
+{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+main
+{
+    background-color: darkseagreen;
+}
+header
+{
+
+    background-color: darkgreen;
+    padding: 0.8rem 0;
+}
+header h1
+{
+   text-align: center;
+}
+header p
+{
+    text-align: center;
+}
+
+.header-nav
+{
+    text-align: right;
+    padding-right: 10rem;
+}
+main
+{
+    flex: 1;
+    padding: 2rem 0;
+}
+
+footer
+{
+    text-align: center;
+    background-color: darkgreen;
+    padding: 1rem 0;
+}
