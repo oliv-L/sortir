@@ -10,12 +10,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main_home")
+     * @Route("/home", name="main_home")
      *
      */
     public function home(): Response
     {
-        return $this->render('security/login.html.twig',
-        );
+        return $this->render('main/home.html.twig');
+
     }
+
+    /**
+     * @Route("/", name="main_accueil")
+     *
+     */
+    public function acceuil(): Response
+    {
+        return $this->redirectToRoute("app_login");
+
+    }
+
 }
