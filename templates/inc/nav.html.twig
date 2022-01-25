@@ -7,8 +7,9 @@
                 <li class="nav-item"><a class="nav-link" href="#" title="Home" >Lien 1</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" title="Create a new task">Lien 2</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Lien 3</a></li>
-                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Lien 4</a></li>
+
                 {% if app.user %}
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Créer une sortie</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('profil_information', {'id':app.user.id}) }}">Mon profil</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ path('app_logout') }}" >Déconnexion</a></li>
                 {% endif %}

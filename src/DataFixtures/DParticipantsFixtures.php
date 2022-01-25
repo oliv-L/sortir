@@ -17,7 +17,7 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class ParticipantsFixtures extends Fixture implements DependentFixtureInterface
+class DParticipantsFixtures extends Fixture implements DependentFixtureInterface
 {
     /**
      * @var UserPasswordHasherInterface
@@ -99,7 +99,7 @@ class ParticipantsFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    public function getDependencies() : array
+   public function getDependencies() : array
     {
        return [CampusFixtures::class];
     }
