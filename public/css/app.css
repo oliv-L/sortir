@@ -87,3 +87,8 @@ nav a:hover
 {
     font-weight: bold;
 }
+
+.navcustom{
+    color: black;
+    text-decoration: none;
+}
