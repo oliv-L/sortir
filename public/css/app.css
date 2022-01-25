@@ -53,3 +53,13 @@ input
 {
 margin-bottom: 10px;
 }
+
+nav a
+{
+    text-decoration: none;
+    color: black;
+}
+nav a:hover
+{
+    font-weight: bold;
+}
