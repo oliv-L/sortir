@@ -10,7 +10,7 @@
                 <li class="nav-item"><a class="nav-link" href="#">Lien 3</a></li>
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Lien 4</a></li>
                 {% if app.user %}
-                 <a href="{{ path('app_logout') }}" >Déconnexion</a>
+                <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ path('app_logout') }}" >Déconnexion</a></li>
                 {% endif %}
             </ul>
         </div>
