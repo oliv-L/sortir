@@ -1,3 +1,8 @@
 <nav>
-    <li><a href="#">test nav</a></li>
+    <div class="header-nav">
+    <a href="#">test nav</a>
+    {% if app.user %}
+    <a href="{{ path('app_logout') }}">Déconnexion</a>
+    {% endif %}
+    </div>
 </nav>

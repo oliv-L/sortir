@@ -26,7 +26,8 @@ header p
 .header-nav
 {
     text-align: right;
-    padding-right: 10rem;
+    margin-right: 50px;
+
 }
 main
 {
@@ -58,6 +59,7 @@ nav a
 {
     text-decoration: none;
     color: black;
+    margin:10px;
 }
 nav a:hover
 {
