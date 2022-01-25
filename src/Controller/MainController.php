@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use http\Cookie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/main", name="main_home")
+     * @Route("/", name="main_home")
      *
      */
     public function home(): Response
@@ -25,6 +26,7 @@ class MainController extends AbstractController
      */
     public function acceuil(): Response
     {
+
         return $this->redirectToRoute("app_login");
 
     }

@@ -10,8 +10,11 @@ class telephoneValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         $phoneNumberUtil = \libphonenumber\PhoneNumberUtil::getInstance();
-    try { $phoneNumberObject = $phoneNumberUtil->parse($value, 'FR');
-            if ($phoneNumberUtil->isValidNumber($phoneNumberObject) === false )
+
+
+        try {
+            $phoneNumberObject = $phoneNumberUtil->parse($value, 'FR');
+            if ($phoneNumberUtil->isValidNumber($phoneNumberObject) === false)
             {
                 return $this->context
                     ->buildViolation($constraint->message)

@@ -26,7 +26,7 @@ class ProfilController extends AbstractController
         $profilForm = $this->createForm(ProfilType::class, $participant);
         $profilForm ->handleRequest($request);
 
-        if($profilForm->isSubmitted() && $profilForm->isValid())
+        if($profilForm->isSubmitted() && $profilForm->isValid() )
         {
             $entityManager->persist($participant);
             $entityManager->flush();

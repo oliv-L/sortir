@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Participant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -35,6 +36,19 @@ class ParticipantRepository extends ServiceEntityRepository implements PasswordU
         $this->_em->persist($user);
         $this->_em->flush();
     }
+
+   /*public function updateProfil($data, EntityManagerInterface $entityManager)
+    {
+       $dql ='SELECT COUNT(*) FROM app\entity\Participant WHERE pseudo='.$data;
+       if($dql>0)
+       {
+           return $this->"pseudo deja existant";
+       }
+       else{
+
+       }
+
+    }*/
 
     // /**
     //  * @return Participant[] Returns an array of Participant objects

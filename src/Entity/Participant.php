@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
- * @UniqueEntity(fields={"email", "pseudo"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email", "pseudo"}, message="il existe déjà un compte avec cet email ou ce pseudo")
  */
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -54,7 +54,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=false)
      * @AppAssert\Telephone()
      */
     private $telephone;
@@ -70,6 +70,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $actif;
 
     /**
+     *
      * @Assert\Length(min=3, max=50, minMessage="Ce pseudo est trop court", maxMessage="Ce pseudo est trop long")
      * @ORM\Column(type="string", length=50, unique=true)
      */

@@ -19,7 +19,7 @@ class ProfilType extends AbstractType
            ->add('pseudo')
            ->add('prenom')
            ->add('nom')
-           ->add('telephone' )
+           ->add('telephone', null, ['required'=>false] )
            ->add('email')
            ->add('plainPassword',RepeatedType::class,[
                 'type'=>PasswordType::class,

@@ -41,6 +41,7 @@ class ParticipantsFixtures extends Fixture implements DependentFixtureInterface
          $participant->setActif(true);
          $participant->setEmail("romainBernier@sortir.com");
          $participant->setPrenom("Romain");
+         $participant->setTelephone('0123456789');
         $participant->setCampus($faker->randomElement($campus));
          $participant->setAdministrateur(true);
          $password = $this->passwordHasher->hashPassword($participant, "admin");
@@ -54,6 +55,7 @@ class ParticipantsFixtures extends Fixture implements DependentFixtureInterface
         $participant->setActif(true);
         $participant->setEmail("corentinPasquette@sortir.com");
         $participant->setPrenom("Corentin");
+        $participant->setTelephone('0123456789');
         $participant->setAdministrateur(true);
         $participant->setCampus($faker->randomElement($campus));
         $password = $this->passwordHasher->hashPassword($participant, "admin");
@@ -64,6 +66,7 @@ class ParticipantsFixtures extends Fixture implements DependentFixtureInterface
         $participant->setNom("Lepetit");
         $participant->setRoles(['ROLE_ADMIN']);
         $participant->setPseudo("Olivier");
+        $participant->setTelephone('0123456789');
         $participant->setCampus($faker->randomElement($campus));
         $participant->setActif(true);
         $participant->setEmail("olivierLepetit@sortir.com");
@@ -75,7 +78,7 @@ class ParticipantsFixtures extends Fixture implements DependentFixtureInterface
 
 
 
-        for ($i=1; $i<=10; $i++)
+        for ($i=1; $i<10; $i++)
         {
             $participant = new Participant();
             $participant->setNom($faker->lastName());
@@ -88,6 +91,7 @@ class ParticipantsFixtures extends Fixture implements DependentFixtureInterface
             $participant->setAdministrateur(false);
             $password = $this->passwordHasher->hashPassword($participant, "user");
             $participant->setPassword($password);
+            $participant->setTelephone('01'.($i-1).'345678'.$i);
             $manager->persist($participant);
         }
 
