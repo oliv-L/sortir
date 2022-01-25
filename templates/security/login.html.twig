@@ -17,29 +17,31 @@
         </div>
     {% endif %}
 
-    <main class="form-signin text-center">
+    <div class="authentification">
+    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous identifier !</h1>
+    <label for="inputEmail">Pseudo / Email </label>
+    <input type="email" {# value="{{ last_username }}" #} name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Mot de passe</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
 
-            <h1 class="h3 mb-3 fw-normal">Veuillez vous identifier !</h1>
+    {#
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
 
-            <div class="form-floating">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-            </div></br>
-            <div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-            </div>
-
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Se souvenir de moi
-                </label>
-            </div>
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Se connecter</button>
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-    </main>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    #}
+    <br>
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+    </div>
 </form>
 {% endblock %}

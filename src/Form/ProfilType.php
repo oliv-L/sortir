@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Participant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -20,18 +21,17 @@ class ProfilType extends AbstractType
            ->add('nom')
            ->add('telephone' )
            ->add('email')
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
+           ->add('plainPassword',RepeatedType::class,[
+                'type'=>PasswordType::class,
+                'invalid_message'=> ' les deux saisies doivent être identiques',
                 'mapped' => false,
+                'first_options'=>['label'=>'mot de passe'],
+                'second_options'=>['label'=>'Confirmation'],
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit avoir {{ limit }} characteres minimum',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),

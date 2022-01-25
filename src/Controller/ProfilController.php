@@ -28,9 +28,6 @@ class ProfilController extends AbstractController
 
         if($profilForm->isSubmitted() && $profilForm->isValid())
         {
-            //$participant->setAdministrateur();
-            //$participant->setActif();
-            //$participant->setRoles();
             $entityManager->persist($participant);
             $entityManager->flush();
             return $this->redirectToRoute('main_home');
