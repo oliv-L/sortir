@@ -5,15 +5,46 @@
 {% endblock %}
 
 {% block body %}
-<div class="form-photo-profil">
-    <img src="#" title="photo du profil">
-</div>
+    <main class="form-profil text-center">
+    <h2>Modifiez votre profil</h2>
+    <div class="form-photo-profil">
+        <img src="#" title="photo du profil">
+    </div>
+        {{ form_start(profil) }}
 
-<div class="form-profil">
-    {{ form_start(profil) }}
-    {{ form_widget(profil) }}
-    <button>Validation</button>
-    <button>Annuler</button>
-    {{ form_end(profil) }}
-</div>
+            {{ form_label(profil.pseudo, "Pseudo", {'label_attr': {'class': 'form-floating '}}) }}
+            {{ form_errors(profil.pseudo) }}
+            {{ form_widget(profil.pseudo, {'attr': {'class': 'form-control text-center'}}) }}
+
+            {{ form_label(profil.prenom, "Prenom", {'label_attr': {'class': 'form-floating '}}) }}
+            {{ form_errors(profil.prenom) }}
+            {{ form_widget(profil.prenom, {'attr': {'class': 'form-control text-center '}}) }}
+
+            {{ form_label(profil.nom, "Nom", {'label_attr': {'class': 'form-floating '}}) }}
+            {{ form_errors(profil.nom) }}
+            {{ form_widget(profil.nom, {'attr': {'class': 'form-control text-center '}}) }}
+
+        {{ form_label(profil.telephone, "Telephone", {'label_attr': {'class': 'form-floating '}}) }}
+        {{ form_errors(profil.telephone) }}
+        {{ form_widget(profil.telephone, {'attr': {'class': 'form-control text-center '}}) }}
+
+        {{ form_label(profil.email, "Email", {'label_attr': {'class': 'form-floating '}}) }}
+        {{ form_errors(profil.email) }}
+        {{ form_widget(profil.email, {'attr': {'class': 'form-control text-center '}}) }}
+
+        {{ form_label(profil.plainPassword, "Mot de passe", {'label_attr': {'class': 'form-floating '}}) }}
+        {{ form_errors(profil.plainPassword) }}
+        {{ form_widget(profil.plainPassword, {'attr': {'class': 'form-control text-center '}}) }}
+
+       {# {{ form_widget(profil) }}#}
+        <button class="btn btn-lg btn-secondary" type="submit">
+            Valider
+        </button>
+
+        <button class="btn btn-lg btn-secondary" type="submit">
+            Annuler
+        </button>
+        {{ form_end(profil) }}
+    </div>
+</main>
 {% endblock %}
