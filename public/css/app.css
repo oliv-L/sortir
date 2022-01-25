@@ -11,7 +11,7 @@ main
 header
 {
 
-    background-color: rgba(165, 10, 7, 0.7);
+    background-color: 	hsl(345,70%,40%);
     padding: 0.8rem 0;
 }
 header h1
@@ -32,7 +32,7 @@ main
 footer
 {
     text-align: center;
-    background-color: rgba(165, 10, 7, 0.7);
+    background-color: 	hsl(345,70%,40%);
     padding: 1rem 0;
 }
 
