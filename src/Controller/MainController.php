@@ -8,10 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route ("/", name="main_")
+ */
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main_home")
+     * @Route("/main", name="home")
      *
      */
     public function home(): Response
@@ -20,10 +23,11 @@ class MainController extends AbstractController
 
     }
 
-    /**
-     * @Route("/", name="main_accueil")
-     *
+
+   /**
+     * @Route("/", name="accueil")
      */
+
     public function acceuil(): Response
     {
 

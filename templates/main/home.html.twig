@@ -5,5 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Notre page d'accueil</h1>
+    {% if app.user %}
+        <h1>Notre page d'accueil</h1>
+
+    {% else %}
+        <p> Veuillez vous connecter : <a href="{{ path('app_login') }}">Connexion</a> </p>
+    {% endif %}
+
 {% endblock %}
