@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints as AppAssert;
 use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
@@ -40,17 +42,20 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
+     * @Assert\Length(max=50, maxMessage="Ce nom est trop long")
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
 
     /**
+     * @Assert\Length(max=50, maxMessage="Ce prenom est trop long")
      * @ORM\Column(type="string", length=50)
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=10, nullable=true)
+     * @AppAssert\Telephone()
      */
     private $telephone;
 
@@ -65,7 +70,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $actif;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @Assert\Length(min=3, max=50, minMessage="Ce pseudo est trop court", maxMessage="Ce pseudo est trop long")
+     * @ORM\Column(type="string", length=50, unique=true)
      */
     private $pseudo;
 

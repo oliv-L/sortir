@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    profil de {{ participant.pseudo }}
+{% endblock %}
+
+{% block body %}
+<div class="form-photo-profil">
+    <img src="#" title="photo du profil">
+</div>
+
+<div class="form-profil">
+    {{ form_start(profil) }}
+    {{ form_widget(profil) }}
+    <button>Validation</button>
+    <button>Annuler</button>
+    {{ form_end(profil) }}
+</div>
+{% endblock %}
