@@ -32,9 +32,13 @@
         {{ form_errors(profil.email) }}
         {{ form_widget(profil.email, {'attr': {'class': 'form-control text-center '}}) }}
 
-        {{ form_label(profil.plainPassword, "Mot de passe", {'label_attr': {'class': 'form-floating '}}) }}
-        {{ form_errors(profil.plainPassword) }}
-        {{ form_widget(profil.plainPassword, {'attr': {'class': 'form-control text-center '}}) }}
+        {{ form_label(profil.plainPassword.first, "Mot de passe", {'label_attr': {'class': 'form-floating '}}) }}
+        {{ form_errors(profil.plainPassword.first) }}
+        {{ form_widget(profil.plainPassword.first, {'attr': {'class': 'form-control text-center '}}) }}
+
+        {{ form_label(profil.plainPassword.second, "Confirmation", {'label_attr': {'class': 'form-floating '}}) }}
+        {{ form_errors(profil.plainPassword.second) }}
+        {{ form_widget(profil.plainPassword.second, {'attr': {'class': 'form-control text-center '}}) }}
 
        {# {{ form_widget(profil) }}#}
         <button class="btn btn-lg btn-secondary" type="submit">
