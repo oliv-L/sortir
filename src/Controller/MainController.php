@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use http\Cookie;
+use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +18,11 @@ class MainController extends AbstractController
      * @Route("/main", name="home")
      *
      */
-    public function home(): Response
+    public function home(SortieRepository $sortieRespository): Response
     {
-        return $this->render('main/home.html.twig');
+
+        $sorties = $sortieRespository->findAll();
+        return $this->render('main/home.html.twig', ['sorties' => $sorties]);
 
     }
 

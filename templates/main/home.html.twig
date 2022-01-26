@@ -6,7 +6,53 @@
 
 {% block body %}
     {% if app.user %}
-        <h1>Notre page d'accueil</h1>
+
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title text-center" >Liste des sorties</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Nom de la sortie </th>
+                        <th>Date de la sortie</th>
+                        <th>Clôture</th>
+                        <th>Nombre de place</th>
+                        <th>Etat</th>
+                        <th>Inscrits</th>
+                        <th>Organisateur</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+                    <tbody>
+                    {% for sortie in sorties %}
+                        {# 1-  Mettre lien pour afficher le profil de l'orga
+                        2- gérer inscrit ou non
+                        3- gérer les actions
+                        #}
+                        <tr>
+                            <td>{{ sortie.nom }}</td>
+                            <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i') }}</td>
+                            <td>{{ sortie.dateLimiteInscription | date('d/m/Y ') }}</td>
+                            <td>{{ sortie.nbInscriptionsMax}}</td>
+                            <td>{{ sortie.etat.libelle }}</td>
+                            <td>X</td>
+                            {# Faire la page afficher profil d'un autre utilisateur, changer la path par la suite #}
+                            <td ><a href="{{ path('profil_information', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
+                            <td>Action</td>
+
+
+
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
 
     {% else %}
         <p> Veuillez vous connecter : <a href="{{ path('app_login') }}">Connexion</a> </p>

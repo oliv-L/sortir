@@ -10,7 +10,7 @@
     <div class="form-photo-profil">
         <img src="#" title="photo du profil">
     </div>
-        {{ form_start(profil) }}
+         {{ form_start(profil) }}
 
             {{ form_label(profil.pseudo, "Pseudo", {'label_attr': {'class': 'form-floating '}}) }}
             {{ form_errors(profil.pseudo) }}
@@ -40,7 +40,9 @@
         {{ form_errors(profil.plainPassword.second) }}
         {{ form_widget(profil.plainPassword.second, {'attr': {'class': 'form-control text-center '}}) }}
 
-       {# {{ form_widget(profil) }}#}
+       {# {{ form_widget(profil) }}
+        {{ form_start(profil) }}
+        {{ form_widget(profil) }}#}
         <button class="btn btn-lg btn-secondary" type="submit">
             Valider
         </button>

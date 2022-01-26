@@ -1,15 +1,15 @@
 <?php
 
 namespace App\Validator\Constraints;
+use libphonenumber\PhoneNumberUtil;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-
 class telephoneValidator extends ConstraintValidator
 {
 
     public function validate($value, Constraint $constraint)
     {
-        $phoneNumberUtil = \libphonenumber\PhoneNumberUtil::getInstance();
+        $phoneNumberUtil = PhoneNumberUtil::getInstance();
 
 
         try {
