@@ -140,7 +140,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->getAdministrateur() == true)
         {
-            $roles[] = ['ROLE_USER','ROLE_ADMIN'];
+            $roles[] ='ROLE_ADMIN';
         }
         else {
             $roles[] = 'ROLE_USER';
