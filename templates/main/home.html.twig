@@ -6,8 +6,74 @@
 
 {% block body %}
     {% if app.user %}
+<div>
+    <p>Date du jour: {{ "now"| date('d/m/Y ') }} </p>
+    <p>{{ app.user.pseudo }}</p>
+</div>
+        <div class="container">
+        <main>
+        <h3>Filtrer les sorties</h3>
+            <div class="col-md-4">
+            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option selected>Open this select menu</option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+            <div class="col-md-4">
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="icone-loupe" type="submit">Search</button>
+        </form>
+            </div>
+            <div>
+                <p>Entre </p>
+                <input type="datetime-local" >
+                <p>Et</p>
+                <input type="datetime-local" >
+
+            </div>
+
+            <div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sorties dont je suis l'organisateur(trice)
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sorties auquelles je suis incrit(te)
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sorties auquelles je ne suis pas incrit(te)
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Sorties terminées
+                    </label>
+                </div>
+
+            </div>
+            <div>
+                <button class="btn btn-lg btn-secondary" type="submit">
+                    Rechercher
+                </button>
+            </div>
 
 
+        </main>
+        </div>
         <div class="card mb-4">
             <div class="card-body">
                 <h2 class="card-title text-center" >Liste des sorties</h2>
@@ -39,7 +105,7 @@
                             <td>{{ sortie.etat.libelle }}</td>
                             <td>X</td>
                             {# Faire la page afficher profil d'un autre utilisateur, changer la path par la suite #}
-                            <td ><a href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
+                            <td ><a href="{{ path('profil_information', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
                             <td>Action</td>
 
 
