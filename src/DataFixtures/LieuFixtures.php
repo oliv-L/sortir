@@ -30,7 +30,7 @@ class LieuFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies() : array
     {
-        return [AVilleFixtures::class];
+        return [VilleFixtures::class];
     }
 
 }

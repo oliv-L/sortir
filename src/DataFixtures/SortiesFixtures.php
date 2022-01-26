@@ -53,7 +53,7 @@ class SortiesFixtures extends Fixture implements DependentFixtureInterface
 
         public function getDependencies() : array
             {
-                return [CampusFixtures::class, EtatFixtures::class, DParticipantsFixtures::class];
+                return [CampusFixtures::class, EtatFixtures::class, ParticipantsFixtures::class];
             }
 
 }
