@@ -28,10 +28,10 @@ class MainController extends AbstractController
      * @Route("/", name="accueil")
      */
 
-    public function acceuil(): Response
+    public function accueil(): Response
     {
 
-        return $this->redirectToRoute("app_login");
+        return $this->redirectToRoute("main_homephp ");
 
     }
 

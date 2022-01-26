@@ -36,7 +36,7 @@ class DParticipantsFixtures extends Fixture implements DependentFixtureInterface
 
          $participant = new Participant();
          $participant->setNom("Bernier");
-         $participant->setRoles(['ROLE_ADMIN']);
+         $participant->getRoles();
          $participant->setPseudo("Romain");
          $participant->setActif(true);
          $participant->setEmail("romainBernier@sortir.com");
@@ -50,7 +50,7 @@ class DParticipantsFixtures extends Fixture implements DependentFixtureInterface
 
         $participant = new Participant();
         $participant->setNom("Pasquette");
-        $participant->setRoles(['ROLE_ADMIN']);
+        $participant->getRoles();
         $participant->setPseudo("Corentin");
         $participant->setActif(true);
         $participant->setEmail("corentinPasquette@sortir.com");
@@ -64,7 +64,7 @@ class DParticipantsFixtures extends Fixture implements DependentFixtureInterface
 
         $participant = new Participant();
         $participant->setNom("Lepetit");
-        $participant->setRoles(['ROLE_ADMIN']);
+        $participant->getRoles();
         $participant->setPseudo("Olivier");
         $participant->setTelephone('0123456789');
         $participant->setCampus($faker->randomElement($campus));
@@ -82,7 +82,7 @@ class DParticipantsFixtures extends Fixture implements DependentFixtureInterface
         {
             $participant = new Participant();
             $participant->setNom($faker->lastName());
-            $participant->setRoles(['ROLE_USER']);
+            $participant->getRoles();
             $participant->setPseudo($faker->firstName());
             $participant->setActif(true);
             $participant->setCampus($faker->randomElement($campus));

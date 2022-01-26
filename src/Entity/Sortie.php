@@ -30,7 +30,7 @@ class Sortie
     private $dateHeureDebut;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $duree;
 
@@ -71,7 +71,7 @@ class Sortie
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="organisateur")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $organisateur_sortie;
+    private $organisateurSortie;
 
     /**
      * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sorties")
@@ -198,12 +198,12 @@ class Sortie
 
     public function getOrganisateurSortie(): ?Participant
     {
-        return $this->organisateur_sortie;
+        return $this->organisateurSortie;
     }
 
-    public function setOrganisateurSortie(?Participant $organisateur_sortie): self
+    public function setOrganisateurSortie(?Participant $organisateurSortie): self
     {
-        $this->organisateur_sortie = $organisateur_sortie;
+        $this->organisateurSortie = $organisateurSortie;
 
         return $this;
     }

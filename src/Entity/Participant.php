@@ -32,31 +32,29 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $email;
 
-    /**
-     * @ORM\Column(type="json")
-     */
-    private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private $motDePasse;
 
     /**
+     * @Assert\NotBlank
      * @Assert\Length(max=50, maxMessage="Ce nom est trop long")
      * @ORM\Column(type="string", length=50)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank
      * @Assert\Length(max=50, maxMessage="Ce prenom est trop long")
      * @ORM\Column(type="string", length=50)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=false)
+     * @ORM\Column(type="string", length=10)
      * @AppAssert\Telephone()
      */
     private $telephone;
@@ -87,7 +85,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur_sortie")
      */
-    private $organisateur;
+    private $organisateurs;
 
     /**
      * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participants")
@@ -96,7 +94,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->organisateur = new ArrayCollection();
+        $this->organisateurs = new ArrayCollection();
         $this->sorties = new ArrayCollection();
     }
 
@@ -140,31 +138,28 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
+        if ($this->getAdministrateur() == true)
+        {
+            $roles[] = ['ROLE_USER','ROLE_ADMIN'];
+        }
+        else {
+            $roles[] = 'ROLE_USER';
+        }
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
 
     /**
      * @see PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->motDePasse;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $motDePasse): self
     {
-        $this->password = $password;
+        $this->motDePasse = $motDePasse;
 
         return $this;
     }
@@ -276,15 +271,15 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection|Sortie[]
      */
-    public function getOrganisateur(): Collection
+    public function getOrganisateurs(): Collection
     {
-        return $this->organisateur;
+        return $this->organisateurs;
     }
 
     public function addOrganisateur(Sortie $organisateur): self
     {
-        if (!$this->organisateur->contains($organisateur)) {
-            $this->organisateur[] = $organisateur;
+        if (!$this->organisateurs->contains($organisateur)) {
+            $this->organisateurs[] = $organisateur;
             $organisateur->setOrganisateurSortie($this);
         }
 
@@ -293,7 +288,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeOrganisateur(Sortie $organisateur): self
     {
-        if ($this->organisateur->removeElement($organisateur)) {
+        if ($this->organisateurs->removeElement($organisateur)) {
             // set the owning side to null (unless already changed)
             if ($organisateur->getOrganisateurSortie() === $this) {
                 $organisateur->setOrganisateurSortie(null);

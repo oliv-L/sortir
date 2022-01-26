@@ -33,6 +33,7 @@ class SortiesFixtures extends Fixture implements DependentFixtureInterface
            $sortie->setDateHeureDebut(new \DateTime());
            $sortie->setDateLimiteInscription(new \DateTime());
            $sortie->setNbInscriptionsMax(random_int(4,20));
+           $sortie->setDuree(90);
            $sortie->setEtat($faker->randomElement($etat));
            $sortie->setCampus($faker->randomElement($campus));
            $sortie->setLieu($faker->randomElement($lieu));
