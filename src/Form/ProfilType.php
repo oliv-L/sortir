@@ -22,6 +22,7 @@ class ProfilType extends AbstractType
            ->add('telephone', null, ['required'=>false] )
            ->add('email')
            ->add('plainPassword',RepeatedType::class,[
+                'required'=>false,
                 'type'=>PasswordType::class,
                 'invalid_message'=> ' les deux saisies doivent être identiques',
                 'mapped' => false,
@@ -46,6 +47,7 @@ class ProfilType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Participant::class,
+            'attr' =>['novalidate'=>'novalidate']
         ]);
     }
 }

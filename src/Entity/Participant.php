@@ -14,7 +14,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
- * @UniqueEntity(fields={"email", "pseudo"}, message="il existe déjà un compte avec cet email ou ce pseudo")
+ * @UniqueEntity("email", message="il existe déjà un compte avec cet email")
+ * @UniqueEntity("pseudo", message="Ce pseudo est déjà utilisé")
  */
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -27,6 +28,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message="Ce n'est pas une adresse mail valide")
      */
     private $email;
 
@@ -70,7 +72,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $actif;
 
     /**
-     *
+     * @Assert\NotBlank(message="Vous devez renseigner un pseudo")
      * @Assert\Length(min=3, max=50, minMessage="Ce pseudo est trop court", maxMessage="Ce pseudo est trop long")
      * @ORM\Column(type="string", length=50, unique=true)
      */
@@ -252,7 +254,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->pseudo;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setPseudo(?string $pseudo): self
     {
         $this->pseudo = $pseudo;
 

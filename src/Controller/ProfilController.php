@@ -26,12 +26,14 @@ class ProfilController extends AbstractController
         $profilForm = $this->createForm(ProfilType::class, $participant);
         $profilForm ->handleRequest($request);
 
-        if($profilForm->isSubmitted() && $profilForm->isValid() )
-        {
-            $entityManager->persist($participant);
-            $entityManager->flush();
-            return $this->redirectToRoute('main_home');
-        }
+
+           if ($profilForm->isSubmitted() && $profilForm->isValid())
+           {
+               $entityManager->persist($participant);
+               $entityManager->flush();
+               return $this->redirectToRoute('main_home');
+           }
+
 
         return $this->render('profil/informationProfil.html.twig', [
             'profil' => $profilForm->createView(),

@@ -1,17 +1,19 @@
 <nav class="navcustom navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href="#">Sortir.com</a>
+        {% if app.user %}
+        <p class="navbar-brand">Bienvenue {{ app.user.pseudo }}</p>
+        {% endif %}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#" title="Home" >Lien 1</a></li>
+                {#  <li class="nav-item"><a class="nav-link" href="#" title="Home" >Lien 1</a></li>
                 <li class="nav-item"><a class="nav-link" href="#" title="Create a new task">Lien 2</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Lien 3</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Lien 3</a></li>#}
 
                 {% if app.user %}
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Créer une sortie</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('profil_information', {'id':app.user.id}) }}">Mon profil</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ path('app_logout') }}" >Déconnexion</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ path('app_logout') }}" >Déconnexion </a></li>
                 {% endif %}
             </ul>
         </div>
