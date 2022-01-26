@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
+use App\Entity\Sortie;
 use App\Form\ProfilType;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -38,6 +39,20 @@ class ProfilController extends AbstractController
         return $this->render('profil/informationProfil.html.twig', [
             'profil' => $profilForm->createView(),
             'participant'=>$participant
+
+        ]);
+    }
+
+    /**
+     * @Route("/profilParticipant/{id}", name="profil_profilParticipant")
+     */
+    public function showProfil(ParticipantRepository $participantRepository, $id){
+        $participant = $participantRepository->find($id);
+
+       // $organisateur = $em->getRepository(Sortie::class)->findSortie($id);
+
+        return $this->render("profil/profilParticipant.html.twig", [
+            "participant"=>$participant
 
         ]);
     }

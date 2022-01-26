@@ -39,7 +39,7 @@
                             <td>{{ sortie.etat.libelle }}</td>
                             <td>X</td>
                             {# Faire la page afficher profil d'un autre utilisateur, changer la path par la suite #}
-                            <td ><a href="{{ path('profil_information', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
+                            <td ><a href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
                             <td>Action</td>
 
 
