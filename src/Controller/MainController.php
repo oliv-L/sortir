@@ -31,7 +31,7 @@ class MainController extends AbstractController
     public function accueil(): Response
     {
 
-        return $this->redirectToRoute("main_homephp ");
+        return $this->redirectToRoute("main_home");
 
     }
 
