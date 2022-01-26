@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
+
 use App\Entity\Sortie;
 use App\Form\ProfilType;
 use App\Repository\ParticipantRepository;

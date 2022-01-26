@@ -123,3 +123,8 @@ button a
 {
     text-align: center;
 }
+
+.btn-secondary a{
+    text-decoration: none;
+    color: white;
+}

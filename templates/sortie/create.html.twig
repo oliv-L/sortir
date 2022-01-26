@@ -33,22 +33,26 @@
       {{ form_widget(sortieForm.infosSortie) }}
     </div>
     <div class="form-sortie-creation-bloc">
-        <p> info de campus</p>
-        <p> info de ville</p>
+        <p>Campus : {{ app.user.campus.nom }}</p>
+        <p>Ville : todo</p>
         {{ form_label(sortieForm.lieu) }}
         {{ form_errors(sortieForm.lieu) }}
         {{ form_widget(sortieForm.lieu) }}
-        <p>rue</p>
-        <p>code postal</p>
-        <p>latitude</p>
-        <p>longitude</p>
-      {{ form_widget(sortieForm) }}
+        <p>rue : todo</p>
+        <p>code postal : todo</p>
+        <p>latitude : todo</p>
+        <p>longitude : todo</p>
+     
+
     </div>
   </div>
     <div class="form-bouton-create">
-        <button> Enregistrer</button>
-        <button> Publier</button>
-        <button> Annuler</button>
+        {{ form_widget(sortieForm) }}
+      {#   <label class="btn btn-lg btn-secondary" type="submit" name="En creation"> Enregistrer</label>
+        <label class="btn btn-lg btn-secondary" type="submit" name="Ouvert"> Publier</label>
+       #}
+        <button class="btn btn-lg btn-secondary" type="submit"> <a href="{{ path('main_home') }}">Annuler</a></button>
+
         {{ form_end(sortieForm) }}
     </div>
 
