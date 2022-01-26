@@ -22,7 +22,7 @@ class SortieType extends AbstractType
                 DateTimeType::class,
                 ['html5'=>true,
                     'widget'=>'single_text'])
-            ->add('duree', NumberType::class,['min'=>0,'max'=>300, 'step'=>15])
+            ->add('duree',null,['attr'=>['min'=>0, 'max'=>300, 'step'=>15]])
             ->add('dateLimiteInscription',
                 DateType::class,
                      ['html5'=>true,
