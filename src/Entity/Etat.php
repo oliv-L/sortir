@@ -12,6 +12,27 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Etat
 {
+    public static function creee(){
+        return 'créée';
+    }
+    public static function ouverte(){
+        return 'ouverte';
+    }
+    public static function enCours(){
+        return 'en cours';
+    }
+    public static function cloturee(){
+        return 'cloturée';
+    }
+    public static function finie(){
+        return 'passée';
+    }
+    public static function annulee(){
+        return 'annulée';
+    }
+    public static function archivee(){
+        return 'archivée';
+    }
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -123,7 +123,15 @@
                             <td>X</td>
                             {# Faire la page afficher profil d'un autre utilisateur, changer la path par la suite #}
                             <td ><a href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
-                            <td>Action</td>
+                            {# Générer les actions possibles : s'inscrire, se désinscrire, afficher si en cours, publier
+                            Creer une action inscrire qui prend en parametre une sortie et un participant
+                            en cliquant sur le bouton s'inscrire le participant se rajoute à la liste, la table
+                            participant_sortie est alimentée par l'alimentation des tables sorties champ participants et de la table
+                            participant champ sorties#}
+                            {#  <td><a href="{{ path( 'main/sinscrire', {'id': sortie.participant.id} ) }}" class="btn btn-secondary"
+                                   role="button">
+                                    S'inscrire
+                                </a></td>#}
 
 
 
