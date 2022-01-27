@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
+use App\Model\FiltreSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,26 +22,44 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function filtreSortie($idCampus,
-                                 $search,
-                                 $idOrganisateur,
-                                 $dateMin,
-                                 $dateMax,
-                                 $etat)
+    public function filtreSortie(FiltreSortie $filtreSortie,
+                                 UserInterface $participant)
     {
 
         $queryBuilder=$this->createQueryBuilder('s');
-        if($idCampus != null)
-        $queryBuilder->andWhere('s.campus = '.$idCampus);
-        if($search != null)
-        $queryBuilder->andWhere('s.nom islike = %'.$search.'%');
-        if($idOrganisateur != null)
-        $queryBuilder->andWhere('s.organisateurSortie = '.$idOrganisateur);
-        if($dateMin != null && $dateMax != null)
-        $queryBuilder->andWhere('s.dateHeureDebut between'.$dateMin.'and'.$dateMax);
-        if($etat != null)
-        $queryBuilder->andWhere('s.etat ='.$etat);
 
+        if($filtreSortie->getCampus()->getId())
+        {
+            $queryBuilder->andWhere('s.campus =:campus');
+            $queryBuilder->setParameter(':campus', $filtreSortie->getCampus()->getId());
+        }
+
+        if($filtreSortie->getSearch())
+        {
+            $queryBuilder->andWhere('s.nom islike = % :search%');
+            $queryBuilder->setParameter(':search', $filtreSortie->getSearch());
+        }
+
+        if($filtreSortie->getOrganisateur())
+        {
+            $queryBuilder->andWhere('s.organisateur_sortie_id = :organisateur');
+            $queryBuilder->setParameter(':organisateur', $participant->getUserIdentifier()->getId());
+        }
+
+        if($filtreSortie->getDateMin() && $filtreSortie->getDateMax())
+        {
+            $queryBuilder->andWhere('s.date_heure_debut between :dateMin and :dateMax');
+            $queryBuilder->setParameter('dateMin', $filtreSortie->getDateMin());
+            $queryBuilder->setParameter('dateMax', $filtreSortie->getDateMax());
+        }
+
+        if($filtreSortie->getSortiePassee()) {
+            $etat = new Etat();
+            $etat->setLibelle('Fermé');
+            $queryBuilder->andWhere('s.etat = :etat ');
+            $queryBuilder->setParameter('etat', $etat);
+        }
+        //todo définir la date du moment
         //todo filtrage par participant ou non
 
         $query = $queryBuilder->getQuery()->getResult();
