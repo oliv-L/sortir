@@ -13,10 +13,10 @@ class FiltreSortie
     private ?string $search = null;
     private ?\DateTimeInterface $dateMin = null;
     private ?\DateTimeInterface $dateMax = null;
-    private ?boolean $organisateur;
-    private ?boolean $inscrit;
-    private ?boolean $nonInscrit;
-    private ?Boolean $sortiePassee;
+    private $organisateur = false;
+    private $inscrit = false;
+    private $nonInscrit = false;
+    private $sortiePassee = false;
 
 
     /**

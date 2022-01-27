@@ -3,13 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Etat;
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Model\FiltreSortie;
-use App\Entity\Participant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -24,7 +24,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function filtreSortie(FiltreSortie $filtreSortie)
+    public function filtreSortie(FiltreSortie $filtreSortie, UserInterface $participant)
     {
 
         $queryBuilder=$this->createQueryBuilder('s');
@@ -37,20 +37,19 @@ class SortieRepository extends ServiceEntityRepository
 
         if($filtreSortie->getSearch())
         {
-            $queryBuilder->andWhere('s.nom islike = % :search%');
-            $queryBuilder->setParameter(':search', $filtreSortie->getSearch());
+            $queryBuilder->andWhere('s.nom like :search');
+            $queryBuilder->setParameter(':search', '%'.$filtreSortie->getSearch().'%');
         }
 
         if($filtreSortie->getOrganisateur())
         {
-            $participant = new Participant();
-            $queryBuilder->andWhere('s.organisateur_sortie_id = :organisateur');
-            $queryBuilder->setParameter(':organisateur', $participant->getUserIdentifier()->getId());
+            $queryBuilder->andWhere('s.organisateurSortie = :organisateur');
+            $queryBuilder->setParameter(':organisateur', $participant->getId());
         }
 
         if($filtreSortie->getDateMin() && $filtreSortie->getDateMax())
         {
-            $queryBuilder->andWhere('s.date_heure_debut between :dateMin and :dateMax');
+            $queryBuilder->andWhere('s.dateHeureDebut between :dateMin and :dateMax');
             $queryBuilder->setParameter('dateMin', $filtreSortie->getDateMin());
             $queryBuilder->setParameter('dateMax', $filtreSortie->getDateMax());
         }

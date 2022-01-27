@@ -18,15 +18,15 @@
 
             {{ form_label(searchForm.search) }} {{ form_widget(searchForm.search) }}
 
-            {{ form_label(searchForm.date_debut) }}{{ form_widget(searchForm.date_debut) }}
+            {{ form_label(searchForm.dateMin) }}{{ form_widget(searchForm.dateMin) }}
 
-            {{ form_label(searchForm.date_fin) }}{{ form_widget(searchForm.date_fin) }}
+            {{ form_label(searchForm.dateMax) }}{{ form_widget(searchForm.dateMax) }}
 
     <div>
-            {{ form_label(searchForm.CB1) }}{{ form_widget(searchForm.CB1) }}
-            {{ form_label(searchForm.CB2) }}{{ form_widget(searchForm.CB2) }}
-            {{ form_label(searchForm.CB3) }} {{ form_widget(searchForm.CB3) }}
-            {{ form_label(searchForm.CB4) }}{{ form_widget(searchForm.CB4) }}<br>
+            {{ form_label(searchForm.organisateur) }}{{ form_widget(searchForm.organisateur) }}
+            {{ form_label(searchForm.inscrit) }}{{ form_widget(searchForm.inscrit) }}
+            {{ form_label(searchForm.nonInscrit) }} {{ form_widget(searchForm.nonInscrit) }}
+            {{ form_label(searchForm.sortiePassee) }}{{ form_widget(searchForm.sortiePassee) }}<br>
 
     </div><button>Rechercher</button>
             {{ form_end(searchForm) }}
