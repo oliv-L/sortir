@@ -19,11 +19,13 @@ class MainController extends AbstractController
      * @Route("/main", name="home")
      *
      */
-    public function home(SortieRepository $sortieRespository): Response
+    public function home(SortieRepository $sortieRespository,
+                         CampusRepository $campusRepository): Response
     {
 
         $sorties = $sortieRespository->findAll();
-        return $this->render('main/home.html.twig', ['sorties' => $sorties]);
+        $campus = $campusRepository->findAll();
+        return $this->render('main/home.html.twig', ['sorties' => $sorties, 'campus'=>$campus]);
 
     }
 

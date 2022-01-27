@@ -22,7 +22,7 @@ class Sortie
 
     /**
      * @Assert\NotBlank (message="Vous devez donner un nom à votre sortie")
-     * @Assert\Length (min=5, max=20, minMessage="Votre nom est trop court", maxMessage="Pour plus d'info voir dans les infos sorties")
+     * @Assert\Length (min=2, max=20, minMessage="Votre nom est trop court", maxMessage="Pour plus d'info voir dans les infos sorties")
      * @ORM\Column(type="string", length=50)
      */
     private $nom;

@@ -15,10 +15,10 @@
         <h3>Filtrer les sorties</h3>
             <div class="col-md-4">
             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option selected>Filtrer par campus</option>
+                {% for c in campus %}
+                    <option value="{{ c.id }}">{{ c.nom | upper }}</option>
+                {% endfor %}
             </select>
         </div>
             <div class="col-md-4">
