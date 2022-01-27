@@ -13,20 +13,36 @@
         <div class="container">
         <main>
         <h3>Filtrer les sorties</h3>
+         {{ form_start(searchForm) }}
+            {{ form_label(searchForm.campus) }}{{ form_widget(searchForm.campus) }}
+
+            {{ form_label(searchForm.search) }} {{ form_widget(searchForm.search) }}
+
+            {{ form_label(searchForm.date_debut) }}{{ form_widget(searchForm.date_debut) }}
+
+            {{ form_label(searchForm.date_fin) }}{{ form_widget(searchForm.date_fin) }}
+
+    <div>
+            {{ form_label(searchForm.CB1) }}{{ form_widget(searchForm.CB1) }}
+            {{ form_label(searchForm.CB2) }}{{ form_widget(searchForm.CB2) }}
+            {{ form_label(searchForm.CB3) }} {{ form_widget(searchForm.CB3) }}
+            {{ form_label(searchForm.CB4) }}{{ form_widget(searchForm.CB4) }}<br>
+
+    </div><button>Rechercher</button>
+            {{ form_end(searchForm) }}
+         {#    <form>
             <div class="col-md-4">
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+            <select class="form-select form-select-lg mb-3" id="choixCampus" aria-label=".form-select-lg example">
                 <option selected>Filtrer par campus</option>
                 {% for c in campus %}
-                    <option value="{{ c.id }}">{{ c.nom | upper }}</option>
+                    <option id="campus" value="{{ c.id }}">{{ c.nom | upper }}</option>
                 {% endfor %}
             </select>
         </div>
-            <div class="col-md-4">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="icone-loupe" type="submit">Search</button>
-        </form>
-            </div>
+
+        <div class="col-md-4">
+                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </div>
             <div>
                 <p>Entre </p>
                 <input type="datetime-local" >
@@ -37,21 +53,21 @@
 
             <div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox"  value="" id="flexCheckDefault"  id="id" value="{{app.user.id }}">
                     <label class="form-check-label" for="flexCheckDefault">
                         Sorties dont je suis l'organisateur(trice)
                     </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox"  value="" id="flexCheckDefault"  id="id" value="{{app.user.id }}">
                     <label class="form-check-label" for="flexCheckDefault">
                         Sorties auxquelles je suis incrit(te)
                     </label>
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <input class="form-check-input" type="checkbox"  value="" id="flexCheckDefault"  id="id" value="{{app.user.id }}">
                     <label class="form-check-label" for="flexCheckDefault">
                         Sorties auxquelles je ne suis pas incrit(te)
                     </label>
@@ -70,7 +86,8 @@
                     Rechercher
                 </button>
             </div>
-
+      </form>
+         #}
 
         </main>
         </div>

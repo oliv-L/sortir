@@ -19,6 +19,32 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function filtreSortie($idCampus,
+                                 $search,
+                                 $idOrganisateur,
+                                 $dateMin,
+                                 $dateMax,
+                                 $etat)
+    {
+
+        $queryBuilder=$this->createQueryBuilder('s');
+        if($idCampus != null)
+        $queryBuilder->andWhere('s.campus = '.$idCampus);
+        if($search != null)
+        $queryBuilder->andWhere('s.nom islike = %'.$search.'%');
+        if($idOrganisateur != null)
+        $queryBuilder->andWhere('s.organisateurSortie = '.$idOrganisateur);
+        if($dateMin != null && $dateMax != null)
+        $queryBuilder->andWhere('s.dateHeureDebut between'.$dateMin.'and'.$dateMax);
+        if($etat != null)
+        $queryBuilder->andWhere('s.etat ='.$etat);
+
+        //todo filtrage par participant ou non
+
+        $query = $queryBuilder->getQuery()->getResult();
+
+        return $query;
+    }
  /*   public function findSortie($idOrganisateur){
         return $this->createQueryBuilder('e')
             ->andWhere('e.organisateur_sortie_id = :val')
