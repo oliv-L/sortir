@@ -8,7 +8,7 @@ use phpDocumentor\Reflection\Types\Boolean;
 
 class FiltreSortie
 {
-    private Campus $campus;
+    private ?Campus $campus;
    // ? : valide la possibilité d'un null
     private ?string $search = null;
     private ?\DateTimeInterface $dateMin = null;
@@ -18,24 +18,24 @@ class FiltreSortie
     private $nonInscrit = false;
     private $sortiePassee = false;
 
-
     /**
-     * @return Campus
+     * @return Campus|null
      */
-    public function getCampus(): Campus
+    public function getCampus(): ?Campus
     {
         return $this->campus;
     }
 
     /**
-     * @param Campus $campus
+     * @param Campus|null $campus
      * @return FiltreSortie
      */
-    public function setCampus(Campus $campus): FiltreSortie
+    public function setCampus(?Campus $campus): FiltreSortie
     {
         $this->campus = $campus;
         return $this;
     }
+
 
     /**
      * @return string|null

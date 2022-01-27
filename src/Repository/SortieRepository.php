@@ -29,7 +29,8 @@ class SortieRepository extends ServiceEntityRepository
 
         $queryBuilder=$this->createQueryBuilder('s');
 
-        if($filtreSortie->getCampus()->getId())
+
+            if($filtreSortie->getCampus()->getId())
         {
             $queryBuilder->andWhere('s.campus =:campus');
             $queryBuilder->setParameter(':campus', $filtreSortie->getCampus()->getId());
