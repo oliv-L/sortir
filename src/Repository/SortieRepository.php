@@ -5,8 +5,10 @@ namespace App\Repository;
 use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Model\FiltreSortie;
+use App\Entity\Participant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -22,8 +24,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
-    public function filtreSortie(FiltreSortie $filtreSortie,
-                                 UserInterface $participant)
+    public function filtreSortie(FiltreSortie $filtreSortie)
     {
 
         $queryBuilder=$this->createQueryBuilder('s');
@@ -42,6 +43,7 @@ class SortieRepository extends ServiceEntityRepository
 
         if($filtreSortie->getOrganisateur())
         {
+            $participant = new Participant();
             $queryBuilder->andWhere('s.organisateur_sortie_id = :organisateur');
             $queryBuilder->setParameter(':organisateur', $participant->getUserIdentifier()->getId());
         }

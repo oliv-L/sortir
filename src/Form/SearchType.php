@@ -20,16 +20,16 @@ class SearchType extends AbstractType
         $builder
             ->add('campus', EntityType::class,['class'=>Campus::class, 'choice_label'=>'nom', 'required'=>false])
             ->add('search', TextType::class, ['required'=>false])
-            ->add('date_debut', DateTimeType::class,
+            ->add('dateMin', DateTimeType::class,
                 ['html5'=>true,
                     'widget'=>'single_text', 'required'=>false])
-            ->add('date_fin', DateTimeType::class,
+            ->add('dateMax', DateTimeType::class,
                 ['html5'=>true,
                     'widget'=>'single_text', 'required'=>false])
-            ->add('CB1', CheckboxType::class, ['label'=>'Sorties dont je suis l\'organisateur(trice)', 'required'=>false ])
-            ->add('CB2', CheckboxType::class, ['label'=>'Sorties auxquelles je suis incrit(te)', 'required'=>false])
-            ->add('CB3', CheckboxType::class, ['label'=>'Sorties auxquelles je ne suis pas incrit(te)', 'required'=>false])
-            ->add('CB4', CheckboxType::class,['label'=>'Sorties passées', 'required'=>false])
+            ->add('organisateur', CheckboxType::class, ['label'=>'Sorties dont je suis l\'organisateur(trice)', 'required'=>false ])
+            ->add('inscrit', CheckboxType::class, ['label'=>'Sorties auxquelles je suis incrit(te)', 'required'=>false])
+            ->add('nonInscrit', CheckboxType::class, ['label'=>'Sorties auxquelles je ne suis pas incrit(te)', 'required'=>false])
+            ->add('sortiePassee', CheckboxType::class,['label'=>'Sorties passées', 'required'=>false])
         ;
     }
 
