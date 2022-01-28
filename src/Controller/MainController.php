@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Sortie;
@@ -37,18 +38,19 @@ class MainController extends AbstractController
     {
 
         $filtreSortie = new FiltreSortie();
-
-
         $filtreSortie->setCampus($this->getUser()->getCampus());
 
         $searchForm = $this->createForm(SearchType::class, $filtreSortie);
         $searchForm->handleRequest($request);
-        if ($filtreSortie->getCampus() === null) {
-            $filtreSortie->setCampus($this->getUser()->getCampus());
-        }
-        $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
+        if ($searchForm->isSubmitted())
+        {
 
+            dd($filtreSortie);
+       }
+
+        $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
         $campus = $campusRepository->findAll();
+
 
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,

@@ -45,10 +45,6 @@ class SortiesFixtures extends Fixture implements DependentFixtureInterface
 
                $sortie->addParticipant($faker->randomElement($participant));
            }
-           //for ($i = 1; $i <= 4;$i++) {
-//
-   //            $sortie->addParticipant($faker->randomElement($participant));
-   //        };
 
            $manager->persist($sortie);
        }

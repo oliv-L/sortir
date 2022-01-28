@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,25 +20,33 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     /**
-     * @Route("/create", name="create")
+     * @Route("/create/{id}", name="create")
      */
     public function create(EntityManagerInterface $entityManager,
                            Request                $request,
-                           EtatRepository         $etatRepository
+                           EtatRepository         $etatRepository,
+                           $id =0,
+                           SortieRepository $sortieRepository
+
 
     ): Response
     {
 
         $sortie = new Sortie();
+        if($id !=0)
+        {
+            $sortie = $sortieRepository->find($id);
+        }
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
 
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
 
             if ($sortieForm->get('save')->isClicked()) {
-                $etat = $etatRepository->findOneBy(['libelle' => 'En creation']);
+                $etat = $etatRepository->findOneBy(['libelle' => Etat::creee()]);
+
             } else {
-                $etat = $etatRepository->findOneBy(['libelle' => 'Ouvert']);
+                $etat = $etatRepository->findOneBy(['libelle' => Etat::ouverte()]);
 
             }
 

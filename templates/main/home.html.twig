@@ -7,8 +7,8 @@
 {% block body %}
     {% if app.user %}
 <div class="profil">
-    <p>Date du jour: {{ "now"| date('d/m/Y ') }} </p>
-    <p>{{ app.user.pseudo }} {%  for role in app.user.roles%}{{role}}{% endfor %}</p>
+    <p>Date du jour: {{ "now"| date('d/m/Y ') }} {{ app.user.pseudo }} {%  for role in app.user.roles%}{{role}}{% endfor %}</p>
+
 </div>
         <main class="form-filtre text-center">
             <div class="row ">
@@ -19,24 +19,24 @@
                 {{ form_start(searchForm) }}
 
                 <div class="form-group row text-center">
-                    {{ form_label(searchForm.campus, "Campus", {'label_attr' : {'class' : 'col-auto col-form-label-lg '}}) }}
+                         {{ form_label(searchForm.campus, "Campus", {'label_attr' : {'class' : 'col-auto col-form-label-lg '}}) }}
 
                     <div class="col-2">
-                    {{ form_widget(searchForm.campus, {'attr': {'class' : 'form-select '}}) }}
+                         {{ form_widget(searchForm.campus, {'attr': {'class' : 'form-select '}}) }}
 
                     </div>
                     <div class="col-4">
-                    {{ form_label(searchForm.organisateur ,"Sorties dont je suis l'organisateur(trice)", {'label_attr' : {'class' : 'custom-control-label '}}) }}
+                        {{ form_label(searchForm.organisateur ,"Sorties dont je suis l'organisateur(trice)", {'label_attr' : {'class' : 'custom-control-label '}}) }}
                         {{ form_widget(searchForm.organisateur , {'attr' : {'class' : 'custom-control-input '}}) }}
                     </div>
 
                 </div>
 
                 <div class="form-group row  text-center">
-                    {{ form_label(searchForm.search, "Recherchez" , {'label_attr' : {'class' : 'col-auto col-form-label-lg'}}) }}
+                        {{ form_label(searchForm.search, "Recherchez" , {'label_attr' : {'class' : 'col-auto col-form-label-lg'}}) }}
                     <div class="col-2">
                     {{ form_widget(searchForm.search, {'attr': {'class' : 'form-control'}}) }}
-                </div>
+                    </div>
                     <div class="col-4">
                         {{ form_label(searchForm.inscrit ,"Sorties auxelles je suis inscrit(e)", {'label_attr' : {'class' : 'custom-control-label'}}) }}
                         {{ form_widget(searchForm.inscrit , {'attr' : {'class' : 'custom-control-input'}}) }}
@@ -55,24 +55,23 @@
                     </div>
                 </div>
 
-                    <div class="form-group row  text-center">
+                <div class="form-group row  text-center">
 
                         {{ form_label(searchForm.dateMax, "Et le ", {'label_attr' : {'class' : 'col-auto col-form-label-lg'}}) }}
-
                     <div class="col-2">
                         {{ form_widget(searchForm.dateMax , {'attr' : {'class' : 'form-control'}}) }}
                     </div>
-                <div class="col-4">
-                    {{ form_label(searchForm.sortiePassee ,"Sorties passées", {'label_attr' : {'class' : 'custom-control-label'}}) }}
-                    {{ form_widget(searchForm.sortiePassee , {'attr' : {'class' : 'custom-control-input'}}) }}
-
-                </div>
+                    <div class="col-4">
+                        {{ form_label(searchForm.sortiePassee ,"Sorties passées", {'label_attr' : {'class' : 'custom-control-label'}}) }}
+                        {{ form_widget(searchForm.sortiePassee , {'attr' : {'class' : 'custom-control-input'}}) }}
                     </div>
+                </div>
 
                 <div class="col-4">
-                <button class="btn btn-secondary text-center" >Rechercher</button>
+                      <button class="btn btn-secondary text-center" type="submit">Rechercher</button>
+                    {{ form_end(searchForm) }}
                 </div>
-                {{ form_end(searchForm) }}
+
 
             </form>
 
@@ -124,7 +123,29 @@
                                   <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                      role="button">
                                       Afficher
+{# affichage du bouton se desinscrire si on est inscrit#}
                                   </a>
+                            {% for s in app.user.sorties %}
+
+                                  {% if s.id == sortie.id %}
+                                  <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                     role="button">
+                                     Se Désinscrire
+                                  </a>
+                                  {% endif %}
+                                  {% endfor %}
+
+  {# affichage du bouton modifier si on est le createur et si l'etat est creee#}
+                            {% if  creee()  == sortie.etat.libelle %}
+                                {% if sortie.getOrganisateurSortie.id == app.user.id %}
+                                          <a href="{{ path( 'sortie_create', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                             role="button">
+                                              Modifier
+                                          </a>
+                                      {% endif %}
+                                  {% endif %}
+
+
                               </td>
 
                         </tr>

@@ -32,8 +32,8 @@ class SortieType extends AbstractType
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
             ->add('lieu', EntityType::class, ['class'=>Lieu::class, 'choice_label'=>'nom', 'attr'=>['id'=>'lieu']])
-            ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
-            ->add('saveAndAdd', SubmitType::class, ['label' => 'Publier la sortie'])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer', 'attr'=>['class'=>"btn btn-lg btn-secondary"]])
+            ->add('saveAndAdd', SubmitType::class, ['label' => 'Publier la sortie', 'attr'=>['class'=>"btn btn-lg btn-secondary"]])
 
 
 
