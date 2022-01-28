@@ -21,12 +21,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 
 /**
- * @Route ("/", name="main_")
+ * @Route ("/main", name="main_")
  */
 class MainController extends AbstractController
 {
     /**
-     * @Route("/main", name="home")
+     * @Route("/", name="home")
      *
      */
     public function home(SortieRepository $sortieRespository,
@@ -59,7 +59,7 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/main/sinscrire/{id}", name="sinscrire")
+     * @Route ("/sinscrire/{id}", name="sinscrire")
      *
      */
     public function inscription(EntityManagerInterface $em, int $id): Response
