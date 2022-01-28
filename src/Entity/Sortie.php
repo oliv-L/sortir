@@ -87,7 +87,7 @@ class Sortie
     private $organisateurSortie;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sorties")
+     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sorties",cascade={"persist"} )
      */
     private $participants;
 
