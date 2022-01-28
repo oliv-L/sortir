@@ -4,7 +4,7 @@ namespace App\Validator\Constraints;
 use libphonenumber\PhoneNumberUtil;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-class telephoneValidator extends ConstraintValidator
+class TelephoneValidator extends ConstraintValidator
 {
 
     public function validate($value, Constraint $constraint)

@@ -31,30 +31,29 @@ class MainController extends AbstractController
      */
     public function home(SortieRepository $sortieRespository,
                          CampusRepository $campusRepository,
-                         Request $request,
-                         UserInterface $participant
-                         ): Response
+                         Request          $request
+
+    ): Response
     {
 
         $filtreSortie = new FiltreSortie();
-        $participant->getUserIdentifier();
 
-        $filtreSortie->setCampus($participant->getCampus());
+
+        $filtreSortie->setCampus($this->getUser()->getCampus());
 
         $searchForm = $this->createForm(SearchType::class, $filtreSortie);
         $searchForm->handleRequest($request);
-        if($filtreSortie->getCampus() === null)
-        {
-            $filtreSortie->setCampus($participant->getCampus());
+        if ($filtreSortie->getCampus() === null) {
+            $filtreSortie->setCampus($this->getUser()->getCampus());
         }
-        $sorties = $sortieRespository->filtreSortie($filtreSortie, $participant);
+        $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
 
-       $campus = $campusRepository->findAll();
+        $campus = $campusRepository->findAll();
 
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,
-            'campus'=>$campus
-            ,'searchForm'=>$searchForm->createView()
+            'campus' => $campus
+            , 'searchForm' => $searchForm->createView()
         ]);
 
     }
@@ -66,41 +65,43 @@ class MainController extends AbstractController
     public function inscription(EntityManagerInterface $em, int $id): Response
     {
 
-        $sortie = $em->getRepository(Sortie::class)->find($id);
-        if(!$sortie)
-        {//erreur404}
-        //Est ce que la sortie est publiée?
-        $sortiePubliee = $sortie->getStatus()->getLibelle() === Etat::ouverte();
+     /*   $sortie = $em->getRepository(Sortie::class)->find($id);
+        if (!$sortie) {//erreur404}
+            //Est ce que la sortie est publiée?
+            $sortiePubliee = $sortie->getStatus()->getLibelle() === Etat::ouverte();
 
-        //Est ce que les inscriptions sont ouvertes?
-        $sortieOuverte = $sortie->getDateLimiteInscription() > new \DateTime('now');
+            //Est ce que les inscriptions sont ouvertes?
+            $sortieOuverte = $sortie->getDateLimiteInscription() > new \DateTime('now');
 
-        $sortieRemplie = count($sortie->getParticipants())->//nombre total autorisé;
+            $sortieRemplie = count($sortie->getParticipants())->//nombre total autorisé;
 
-        $inscriptionDispo = $sortiePubliee && $sortieOuverte;
+            $inscriptionDispo = $sortiePubliee && $sortieOuverte;
 
-        if ($inscriptionDispo) {
-            $sortie->addParticipant($this->getUser());
-            $em->persist($sortie);
-            $em->flush();
-            $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');
-        } else {
-            $this->addFlash('error', 'Impossible de s\'inscrire à l\'événement');
+            if ($inscriptionDispo) {
+                $sortie->addParticipant($this->getUser());
+                $em->persist($sortie);
+                $em->flush();
+                $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');
+            } else {
+                $this->addFlash('error', 'Impossible de s\'inscrire à l\'événement');
+            }
+
+            return $this->redirectToRoute('main_home');
+
         }
-
+        //return pour faire sauter le warning
         return $this->redirectToRoute('main_home');
 
     }
-
-   /**
+    /**
      * @Route("/", name="accueil")
      */
+    /*
+        public function accueil(): Response
+        {
+*/
+            return $this->redirectToRoute("main_home");
 
-    public function accueil(): Response
-    {
-
-        return $this->redirectToRoute("main_home");
-
-    }
+        }
 
 }
