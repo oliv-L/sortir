@@ -103,5 +103,18 @@ class MainController extends AbstractController
             return $this->redirectToRoute("main_home");
 
         }
+    /**
+     * @Route ("/afficher/{id}", name="afficher")
+     *
+     */
+
+    public function afficherSortie(SortieRepository $sortieRepository, $id){
+        
+        $sortie = $sortieRepository->find($id);
+
+        return $this->render('sortie/affichage.html.twig', ['sortie' => $sortie]);
+
+    }
+
 
 }

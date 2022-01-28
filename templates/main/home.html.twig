@@ -116,10 +116,16 @@
                             en cliquant sur le bouton s'inscrire le participant se rajoute à la liste, la table
                             participant_sortie est alimentée par l'alimentation des tables sorties champ participants et de la table
                             participant champ sorties#}
-                              <td><a href="{{ path( 'main_sinscrire', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                              <td>
+                                  <a href="{{ path( 'main_sinscrire', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                    role="button">
                                     S'inscrire
-                                </a></td>
+                                </a>
+                                  <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                     role="button">
+                                      Afficher
+                                  </a>
+                              </td>
 
                         </tr>
                     {% endfor %}

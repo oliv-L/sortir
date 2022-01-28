@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Creation d'une sortie{% endblock %}
+
+{% block body %}
+    <main class="form-profil text-center">
+
+        <h2>Sortie {{ sortie.nom | upper }} organisée par {{ sortie.organisateurSortie.pseudo }} </h2>
+
+        <div class="form-profil text-center">
+           {# <h5>Nom de la sortie : {{ sortie.nom }}</h5> #}
+             <h5>Date et heure de la sortie : {{ sortie.dateHeureDebut | date('d/m/Y H:i') }}</h5>
+            <h5>Date limite d'inscription : {{ sortie.dateLimiteInscription | date('d/m/Y')}}</h5>
+            <h5>Nombre de place : {{ sortie.nbInscriptionsMax}}</h5>
+            <h5>Duree : {{ sortie.duree}}</h5>
+            <h5>Infos: {{ sortie.infosSortie}}</h5>
+            <h5>Campus : {{ sortie.campus.nom}}</h5>
+            <h5>Lieu : {{ sortie.lieu.nom}}</h5>
+            <h5>Rue: {{ sortie.lieu.rue}}</h5>
+            <h5>Code Postal : {{ sortie.lieu.ville.codePostal}}</h5>
+            <h5>Latitude : {{ sortie.lieu.latitude}}</h5>
+            <h5>Longitude : {{ sortie.lieu.longitude}}</h5>
+            <a href="{{ path( 'main_home') }}" class="btn btn-secondary btn-lg"
+               role="button">
+                Retour
+            </a>
+
+        </div>
+    </main>
+{% endblock %}
