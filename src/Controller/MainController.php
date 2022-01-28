@@ -2,12 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
+use App\Entity\Participant;
+use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Model\FiltreSortie;
 
 use App\Repository\SortieRepository;
 use App\Repository\CampusRepository;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -55,6 +59,38 @@ class MainController extends AbstractController
 
     }
 
+    /**
+     * @Route ("/main/sinscrire/{id}", name="sinscrire")
+     *
+     */
+    public function inscription(EntityManagerInterface $em, int $id): Response
+    {
+
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+        if(!$sortie)
+        {//erreur404}
+        //Est ce que la sortie est publiée?
+        $sortiePubliee = $sortie->getStatus()->getLibelle() === Etat::ouverte();
+
+        //Est ce que les inscriptions sont ouvertes?
+        $sortieOuverte = $sortie->getDateLimiteInscription() > new \DateTime('now');
+
+        $sortieRemplie = count($sortie->getParticipants())->//nombre total autorisé;
+
+        $inscriptionDispo = $sortiePubliee && $sortieOuverte;
+
+        if ($inscriptionDispo) {
+            $sortie->addParticipant($this->getUser());
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');
+        } else {
+            $this->addFlash('error', 'Impossible de s\'inscrire à l\'événement');
+        }
+
+        return $this->redirectToRoute('main_home');
+
+    }
 
    /**
      * @Route("/", name="accueil")
