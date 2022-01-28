@@ -16,6 +16,11 @@
                     <h5>Email : {{ participant.email }}</h5><br>
                     <h5>Campus : {{ participant.getCampus.nom | upper}}</h5>
 
+                <a href="{{ path( 'main_home') }}" class="btn btn-secondary btn-lg"
+                   role="button">
+                    Retour
+                </a>
+
             </div>
     </main>
 {% endblock %}
