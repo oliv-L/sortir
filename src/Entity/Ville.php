@@ -18,6 +18,7 @@ class Ville
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({"listeVilles"})
+     * @Groups ({"listeLieux"})
      */
     private $id;
 

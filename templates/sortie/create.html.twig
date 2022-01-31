@@ -39,13 +39,13 @@
         <label for="villes"> Villes : </label>
         <select name="villes" id="villes">
         </select>
-        {{ form_label(sortieForm.lieu) }}
+       {#  } {{ form_label(sortieForm.lieu) }}
         {{ form_errors(sortieForm.lieu) }}
         {{ form_widget(sortieForm.lieu) }}
-
-       {# <label for="lieu"> Lieu : </label>
+       #}
+       <label for="lieu"> Lieu : </label>
         <select name="lieu" id="lieu">
-        </select>#}
+        </select>
 
         <div >rue :<div id="rue"></div></div>
         <p>code postal : todo</p>
