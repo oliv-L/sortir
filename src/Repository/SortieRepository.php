@@ -68,6 +68,24 @@ class SortieRepository extends ServiceEntityRepository
 
         return $query;
     }
+
+    public function MiseAJourEtat($etat)
+    {
+
+        $queryBuilder = $this->createQueryBuilder('s');
+        $queryBuilder->andWhere('s.etat=:etat');
+        $queryBuilder->setParameter('etat', $etat->getId());
+/*
+        $queryBuilder->andWhere('s.etat=:etatCloturee');
+        $etat->setLibelle(Etat::cloturee());
+        $queryBuilder->setParameter('etatCloturee', $etat);
+
+        $queryBuilder->andWhere('s.etat=:etatFinie');
+        $etat->setLibelle(Etat::finie());
+        $queryBuilder->setParameter('etatFinie', $etat);
+*/
+       return $queryBuilder->getQuery()->getResult();
+    }
  /*   public function findSortie($idOrganisateur){
         return $this->createQueryBuilder('e')
             ->andWhere('e.organisateur_sortie_id = :val')

@@ -68,6 +68,41 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete(Sortie $sortie, EntityManagerInterface $entityManager)
+    {
+        if(!$sortie)
+        {
+            throw $this->createNotFoundException('cette sortie n\'existe plus');
+        }
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute('main_home');
+
+
+    }
+
+    /**
+     * @Route("/publier/{id}", name="publier")
+     */
+    public function publier(Sortie $sortie,
+                            EntityManagerInterface $entityManager,
+                            EtatRepository $etatRepository)
+    {
+        if(!$sortie)
+        {
+            throw $this->createNotFoundException('cette sortie n\'existe plus');
+        }
+        $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::ouverte()]));
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute('main_home');
+
+
+    }
+
+    /**
      * @Route("/desincription/{id}", name="desinscription")
      */
     public function desinscription(Sortie $sortie,
@@ -87,4 +122,5 @@ class SortieController extends AbstractController
 */
         return $this->redirectToRoute('main_home');
     }
+
 }

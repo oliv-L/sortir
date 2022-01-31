@@ -82,16 +82,15 @@
                         <th>Nom de la sortie </th>
                         <th>Date de la sortie</th>
                         <th>Clôture</th>
-                        <th>Nombre de places</th>
+                        <th>Nombre de place</th>
                         <th>Etat</th>
-                        <th>Inscrit</th>
+                        <th>Inscrits</th>
                         <th>Organisateur</th>
                         <th>Action</th>
                     </tr>
 
                     </thead>
                     <tbody>
-
                     {% for sortie in sorties %}
                         {# 1-  Mettre lien pour afficher le profil de l'orga
                         2- gérer inscrit ou non
@@ -101,7 +100,7 @@
                             <td>{{ sortie.nom }}</td>
                             <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i') }}</td>
                             <td>{{ sortie.dateLimiteInscription | date('d/m/Y ') }}</td>
-                            <td>{{sortie.participants | length }}  / {{ sortie.nbInscriptionsMax}}</td>
+                            <td>{{ sortie.participants | length }} / {{ sortie.nbInscriptionsMax}}</td>
                             <td>{{ sortie.etat.libelle }}</td>
                             <td>
                             {% for s in app.user.sorties %}
@@ -116,27 +115,43 @@
                             en cliquant sur le bouton s'inscrire le participant se rajoute à la liste, la table
                             participant_sortie est alimentée par l'alimentation des tables sorties champ participants et de la table
                             participant champ sorties#}
-                              <td>
-                                  <a href="{{ path( 'main_sinscrire', {'id': sortie.id} ) }}" class="btn btn-secondary"
-                                   role="button">
-                                    S'inscrire
-                                </a>
+
+                             <td>
+
+        {# affichage du bouton Afficher détail #}
+
                                   <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                      role="button">
                                       Afficher
-{# affichage du bouton se desinscrire si on est inscrit#}
+
                                   </a>
+        {# affichage du bouton s'inscrire si Ouvert et si non inscrit #}
+
+
+                                      {% if sortie.etat.libelle == ouverte() and app.user.sorties.contains(sortie) == false%}
+                                       <a href="{{ path( 'main_sinscrire', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                        role="button">
+                                         S'inscrire
+                                         </a>
+
+                                  {% endif %}
+
+
+
+
+
                             {% for s in app.user.sorties %}
 
-                                  {% if s.id == sortie.id %}
-                                  <a href="{{ path( 'main_desinscription', {'id': sortie.id} ) }}" class="btn btn-secondary"
-                                     role="button">
-                                     Se Désinscrire
-                                  </a>
+                                  {% if s.id == sortie.id%}
+                                      {% if sortie.etat.libelle == ouverte() or sortie.etat.libelle == cloturee()%}
+                                          <a href="{{ path( 'main_desinscription', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                             role="button">
+                                              Se Désinscrire
+                                      {% endif %}
                                   {% endif %}
-                                  {% endfor %}
+                            {% endfor %}
 
-  {# affichage du bouton modifier si on est le createur et si l'etat est creee#}
+        {# affichage du bouton modifier si on est le createur et si l'etat est creee#}
                             {% if  creee()  == sortie.etat.libelle %}
                                 {% if sortie.getOrganisateurSortie.id == app.user.id %}
                                           <a href="{{ path( 'sortie_create', {'id': sortie.id} ) }}" class="btn btn-secondary"
@@ -146,8 +161,31 @@
                                       {% endif %}
                                   {% endif %}
 
+        {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture#}
+                            {% if sortie.getOrganisateurSortie.id == app.user.id %}
+                                {% if sortie.etat.libelle == ouverte() %}
+                                          <a href="{{ path( 'sortie_delete', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                             role="button">
+                                              Annuler
+                                          </a>
+                                {% elseif sortie.etat.libelle == cloturee() %}#}
+                                         <a href="{{ path( 'sortie_delete', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                           role="button">
+                                            Annuler
+                                        </a>
+                                {% endif %}
+                            {% endif %}
 
-                              </td>
+
+        {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture#}
+                                  {% if sortie.getOrganisateurSortie.id == app.user.id and sortie.etat.libelle == creee() %}
+                                          <a href="{{ path( 'sortie_publier', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                             role="button">
+                                              Publier
+                                          </a>
+                                  {% endif %}
+
+                                               </td>
 
                         </tr>
                     {% endfor %}

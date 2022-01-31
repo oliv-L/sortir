@@ -9,9 +9,11 @@ use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Model\FiltreSortie;
 
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\CampusRepository;
 
+use App\Service\MiseAJourEtatSortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -26,22 +28,32 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MainController extends AbstractController
 {
+
+
     /**
      * @Route("/", name="home")
      *
      */
     public function home(SortieRepository $sortieRespository,
+                         EtatRepository $etatRepository,
                          CampusRepository $campusRepository,
+                         EntityManagerInterface $entityManager,
                          Request          $request
 
     ): Response
     {
+            //todo mise à jour des états en fonction de la date
+            // ouverte -> fermé -> Termine -> archivé
+       //$maj = new MiseAJourEtatSortie();
+       // $maj->MiseAJour($sortieRespository, $etatRepository, $entityManager);
 
         $filtreSortie = new FiltreSortie();
         $filtreSortie->setCampus($this->getUser()->getCampus());
         $searchForm = $this->createForm(SearchType::class, $filtreSortie);
         $searchForm->handleRequest($request);
         $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
+
+
         $campus = $campusRepository->findAll();
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,
@@ -111,14 +123,24 @@ class MainController extends AbstractController
         return $this->redirectToRoute('main_home');
     }
 
+    /**
+     * @Route("/", name="accueil")
+     */
 
+        public function accueil(): Response
+        {
+
+
+            return $this->redirectToRoute("main_home");
+        }
     /**
      * @Route ("/afficher/{id}", name="afficher")
      *
      */
 
-    public function afficherSortie(SortieRepository $sortieRepository, $id){
-        
+    public function afficherSortie(SortieRepository $sortieRepository, $id)
+        {
+
         $sortie = $sortieRepository->find($id);
 
         return $this->render('sortie/affichage.html.twig', ['sortie' => $sortie]);

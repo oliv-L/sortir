@@ -32,7 +32,7 @@ window.onload = () => {
 
                   })
 
-                  document.querySelector('#lieu').innerHTML = options;
+                  document.querySelector('#sortie_lieu').innerHTML = options;
               })
       }
 
