@@ -21,6 +21,8 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, AppAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new Participant();
+        $user->setAdministrateur(0);
+        $user->setActif(1);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -35,13 +37,15 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');
             // do anything else you need here, like send an email
 
-            return $userAuthenticator->authenticateUser(
+            /* return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
                 $request
-            );
+            );*/
+            return $this->redirectToRoute('main_home');
         }
 
         return $this->render('registration/register.html.twig', [
