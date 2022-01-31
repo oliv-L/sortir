@@ -3,7 +3,7 @@
 {% block title %}Creation d'une sortie{% endblock %}
 
 {% block body %}
-    <main class="form-profil text-center">
+    <div class="card-body">
 
         <h2>Sortie {{ sortie.nom | upper }} organisée par {{ sortie.organisateurSortie.pseudo }} </h2>
 
@@ -24,8 +24,26 @@
                role="button">
                 Retour
             </a>
-
         </div>
+    </div>
+    <div class="card-body">
+        <h1>Liste des participants inscrits</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Pseudo </th>
+                <th>Nom</th>
+            </tr>
 
-    </main>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Afficher le pseudo</td>
+                <td>Afficher le nom</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 {% endblock %}

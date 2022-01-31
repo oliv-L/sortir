@@ -41,6 +41,7 @@ class MainController extends AbstractController
         $filtreSortie->setCampus($this->getUser()->getCampus());
         $searchForm = $this->createForm(SearchType::class, $filtreSortie);
         $searchForm->handleRequest($request);
+        //$nombreInscrits = count($sortie->getParticipants());
 
       /* if ($searchForm->isSubmitted())
        {
@@ -86,6 +87,7 @@ class MainController extends AbstractController
 
         if ($inscriptionDispo) {
             $sortie->addParticipant($this->getUser());
+
             $em->persist($sortie);
             $em->flush();
             $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');

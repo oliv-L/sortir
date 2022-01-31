@@ -51,7 +51,6 @@ class SortieController extends AbstractController
             }
 
 
-
             $campus = $this->getUser()->getCampus();
             $sortie->setEtat($etat);
             $sortie->setCampus($campus);

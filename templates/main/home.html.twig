@@ -82,15 +82,16 @@
                         <th>Nom de la sortie </th>
                         <th>Date de la sortie</th>
                         <th>Clôture</th>
-                        <th>Nombre de place</th>
+                        <th>Nombre de places</th>
                         <th>Etat</th>
-                        <th>Inscrits</th>
+                        <th>Inscrit</th>
                         <th>Organisateur</th>
                         <th>Action</th>
                     </tr>
 
                     </thead>
                     <tbody>
+
                     {% for sortie in sorties %}
                         {# 1-  Mettre lien pour afficher le profil de l'orga
                         2- gérer inscrit ou non
@@ -100,9 +101,14 @@
                             <td>{{ sortie.nom }}</td>
                             <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i') }}</td>
                             <td>{{ sortie.dateLimiteInscription | date('d/m/Y ') }}</td>
-                            <td>{{ sortie.nbInscriptionsMax}}</td>
+                            <td>{{sortie.participants | length }}  / {{ sortie.nbInscriptionsMax}}</td>
                             <td>{{ sortie.etat.libelle }}</td>
-                            <td>X</td>
+                            <td>
+                            {% for s in app.user.sorties %}
+                                {% if s.id == sortie.id %}
+                                     Oui
+                                {% endif %}
+                            {% endfor %}</td>
                             {# Faire la page afficher profil d'un autre utilisateur, changer la path par la suite #}
                             <td ><a href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
                             {# Générer les actions possibles : s'inscrire, se désinscrire, afficher si en cours, publier
