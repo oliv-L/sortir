@@ -61,47 +61,49 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route ("/sinscrire/{id}", name="sinscrire")
+     * @Route ("/main/sinscrire/{id}", name="sinscrire")
      *
      */
     public function inscription(EntityManagerInterface $em, int $id): Response
     {
 
-     /*   $sortie = $em->getRepository(Sortie::class)->find($id);
-        if (!$sortie) {//erreur404}
-            //Est ce que la sortie est publiée?
-            $sortiePubliee = $sortie->getStatus()->getLibelle() === Etat::ouverte();
-
-            //Est ce que les inscriptions sont ouvertes?
-            $sortieOuverte = $sortie->getDateLimiteInscription() > new \DateTime('now');
-
-            $sortieRemplie = count($sortie->getParticipants())->//nombre total autorisé;
-
-            $inscriptionDispo = $sortiePubliee && $sortieOuverte;
-
-            if ($inscriptionDispo) {
-                $sortie->addParticipant($this->getUser());
-                $em->persist($sortie);
-                $em->flush();
-                $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');
-            } else {
-                $this->addFlash('error', 'Impossible de s\'inscrire à l\'événement');
-            }
-
-            return $this->redirectToRoute('main_home');
-
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+        if(!$sortie)
+        {
+            throw $this->createNotFoundException("Sortie non existante");
         }
-        //return pour faire sauter le warning
+
+        //Est ce que la sortie est publiée?
+        $sortiePubliee = $sortie->getEtat()->getLibelle() === Etat::ouverte();
+
+        //Est ce que les inscriptions sont ouvertes?
+        $sortieOuverte = $sortie->getDateLimiteInscription() > new \DateTime('now');
+
+        //Est ce qu'il reste de la place?
+        $sortieRemplie = count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax();
+
+        $inscriptionDispo = $sortiePubliee && $sortieOuverte && $sortieRemplie;
+
+        if ($inscriptionDispo) {
+            $sortie->addParticipant($this->getUser());
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');
+        } else {
+            $this->addFlash('error', 'Impossible de s\'inscrire à l\'événement');
+        }
+
         return $this->redirectToRoute('main_home');
 
     }
+
     /**
      * @Route("/", name="accueil")
      */
-    /*
+
         public function accueil(): Response
         {
-*/
+
             return $this->redirectToRoute("main_home");
 
         }
