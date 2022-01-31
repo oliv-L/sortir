@@ -66,7 +66,7 @@ class MainController extends AbstractController
      */
     public function inscription(EntityManagerInterface $em, int $id): Response
     {
-
+        //au préalable charger la dépendance suivante => composer require nelmio/cors-bundle
         $sortie = $em->getRepository(Sortie::class)->find($id);
         if(!$sortie)
         {
