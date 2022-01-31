@@ -11,70 +11,65 @@
 
 </div>
         <main class="form-filtre text-center">
-            <div class="row ">
+
+            <div class="row text-center">
                 <h3>Filtrer les sorties</h3>
             </div>
 
-
                 {{ form_start(searchForm) }}
 
-                <div class="form-group row text-center">
-                         {{ form_label(searchForm.campus, "Campus", {'label_attr' : {'class' : 'col-auto col-form-label-lg '}}) }}
+                <div class="form-group row align-items-center">
+                         {{ form_label(searchForm.campus, "Campus", {'label_attr' : {'class' : 'col-form-label col-md-2 '}}) }}
 
-                    <div class="col-2">
+                    <div class="col-md-2 align-items-center">
                          {{ form_widget(searchForm.campus, {'attr': {'class' : 'form-select '}}) }}
-
-                    </div>
-                    <div class="col-4">
-                        {{ form_label(searchForm.organisateur ,"Sorties dont je suis l'organisateur(trice)", {'label_attr' : {'class' : 'custom-control-label '}}) }}
-                        {{ form_widget(searchForm.organisateur , {'attr' : {'class' : 'custom-control-input '}}) }}
                     </div>
 
+                        {{ form_label(searchForm.organisateur ,"Sorties dont je suis l'organisateur(trice)", {'label_attr' : {'class' : 'col-form-label col-md-2 '}}) }}
+                    <div class="col-md-2 align-items-center">
+                        {{ form_widget(searchForm.organisateur , {'attr' : {'class' : 'custom-control-input'}}) }}
+                    </div>
                 </div>
 
-                <div class="form-group row  text-center">
-                        {{ form_label(searchForm.search, "Recherchez" , {'label_attr' : {'class' : 'col-auto col-form-label-lg'}}) }}
-                    <div class="col-2">
+                <div class="form-group row align-items-center">
+                        {{ form_label(searchForm.search, "Recherchez" , {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+
+                    <div class="col-md-2 align-items-center">
                     {{ form_widget(searchForm.search, {'attr': {'class' : 'form-control'}}) }}
                     </div>
-                    <div class="col-4">
-                        {{ form_label(searchForm.inscrit ,"Sorties auxelles je suis inscrit(e)", {'label_attr' : {'class' : 'custom-control-label'}}) }}
+                    {{ form_label(searchForm.inscrit ,"Sorties auxelles je suis inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+
+                    <div class="col-md-2 align-items-center">
                         {{ form_widget(searchForm.inscrit , {'attr' : {'class' : 'custom-control-input'}}) }}
                     </div>
-
                 </div>
-                <div class="form-group row  text-center">
-                    {{ form_label(searchForm.dateMin, "Entre le ", {'label_attr' : {'class' : 'col-auto col-form-label-lg'}}) }}
 
-                    <div class="col-2">
+                <div class="form-group row align-items-center">
+                    {{ form_label(searchForm.dateMin, "Entre le ", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+
+                    <div class="col-md-2 align-items-center">
                         {{ form_widget(searchForm.dateMin, {'attr' : {'class' : 'form-control'}}) }}
                     </div>
-                    <div class="col-4">
-                        {{ form_label(searchForm.nonInscrit ,"Sorties auxelles je ne suis pas inscrit(e)", {'label_attr' : {'class' : 'custom-control-label'}}) }}
+                    {{ form_label(searchForm.nonInscrit ,"Sorties auxelles je ne suis pas inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                    <div class="col-md-2 align-items-center">
                         {{ form_widget(searchForm.nonInscrit, {'attr' : {'class' : 'custom-control-input'}}) }}
                     </div>
                 </div>
 
-                <div class="form-group row  text-center">
-
-                        {{ form_label(searchForm.dateMax, "Et le ", {'label_attr' : {'class' : 'col-auto col-form-label-lg'}}) }}
-                    <div class="col-2">
+                <div class="form-group row align-items-center">
+                        {{ form_label(searchForm.dateMax, "Et le ", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                    <div class="col-md-2 align-items-center">
                         {{ form_widget(searchForm.dateMax , {'attr' : {'class' : 'form-control'}}) }}
                     </div>
-                    <div class="col-4">
-                        {{ form_label(searchForm.sortiePassee ,"Sorties passées", {'label_attr' : {'class' : 'custom-control-label'}}) }}
+                    {{ form_label(searchForm.sortiePassee ,"Sorties passées", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                    <div class="col-md-2 align-items-center">
+
                         {{ form_widget(searchForm.sortiePassee , {'attr' : {'class' : 'custom-control-input'}}) }}
                     </div>
                 </div>
 
-               {# <div class="col-4"> #}
                       <button class="btn btn-secondary text-center" type="submit">Rechercher</button>
                     {{ form_end(searchForm) }}
-               {#  </div>#}
-
-
-
-
 
         </main>
 
