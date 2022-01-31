@@ -28,12 +28,23 @@ class ProfilController extends AbstractController
         $profilForm ->handleRequest($request);
 
 
-           if ($profilForm->isSubmitted() && $profilForm->isValid())
+       /* if(!$profilForm->isSubmitted())
+        {
+            return $this->redirectToRoute('main_home');
+        }*/
+          if ($profilForm->isSubmitted() && $profilForm->isValid())
            {
                $entityManager->persist($participant);
                $entityManager->flush();
+               $this->addFlash('success', 'Votre modification a bien été enregistrée ! ');
                return $this->redirectToRoute('main_home');
+           } else
+           {
+               $this->addFlash('error', 'Erreur lors de la modification, veuillez remplir les champs demandés');
            }
+
+
+
 
 
         return $this->render('profil/informationProfil.html.twig', [

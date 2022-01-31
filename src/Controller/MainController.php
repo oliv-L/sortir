@@ -41,16 +41,6 @@ class MainController extends AbstractController
         $filtreSortie->setCampus($this->getUser()->getCampus());
         $searchForm = $this->createForm(SearchType::class, $filtreSortie);
         $searchForm->handleRequest($request);
-        //$nombreInscrits = count($sortie->getParticipants());
-
-      /* if ($searchForm->isSubmitted())
-       {
-
-       }
-       //if ($filtreSortie->getCampus() === null) {
-         //   $filtreSortie->setCampus($this->getUser()->getCampus());
-       // }*/
-
         $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
         $campus = $campusRepository->findAll();
         return $this->render('main/home.html.twig', [
@@ -98,17 +88,30 @@ class MainController extends AbstractController
         return $this->redirectToRoute('main_home');
 
     }
-
     /**
-     * @Route("/", name="accueil")
+     * @Route("/main/desinscription/{id}", name="desinscription")
      */
+    public function desinscription(EntityManagerInterface $entityManager, int $id):Response
+    {
+        $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+        //Quel est l'état de la sortie : ouverte!
+        $ouvert = $sortie->getEtat()->getLibelle() === Etat::ouverte();
 
-        public function accueil(): Response
-        {
 
-            return $this->redirectToRoute("main_home");
-
+        if ($ouvert) {
+            //enlever le participant de la liste
+            $sortie->removeParticipant($this->getUser());;
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('success', 'Votre désistement à été enregistré');
+        } else {
+            $this->addFlash('error','Votre désistement n\'a pas pu être pris en compte' );
         }
+
+        return $this->redirectToRoute('main_home');
+    }
+
+
     /**
      * @Route ("/afficher/{id}", name="afficher")
      *

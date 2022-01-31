@@ -129,7 +129,7 @@
                             {% for s in app.user.sorties %}
 
                                   {% if s.id == sortie.id %}
-                                  <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                  <a href="{{ path( 'main_desinscription', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                      role="button">
                                      Se Désinscrire
                                   </a>
@@ -159,7 +159,7 @@
 
 
     {% else %}
-        <p> Veuillez vous connecter : <a href="{{ path('app_login') }}">Connexion</a> </p>
+        <p> Veuillez vous connecter : <a href="{{ path('main_home') }}">Connexion</a> </p>
     {% endif %}
 
 {% endblock %}
