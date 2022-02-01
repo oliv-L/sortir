@@ -18,6 +18,7 @@
 
                     {% if is_granted("ROLE_ADMIN") %}
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_register')}}">Ajouter Utilisateur</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ path('app_register')}}">Gestion Utilisateurs</a></li>
                     {% endif %}
                     <li class="nav-item"><a class="nav-link active" aria-current="page"  href="{{ path('app_logout') }}" >Déconnexion </a></li>
                 {% endif %}
