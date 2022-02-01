@@ -166,15 +166,16 @@
         {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture#}
                             {% if sortie.getOrganisateurSortie.id == app.user.id %}
                                 {% if sortie.etat.libelle == ouverte() %}
-                                          <a href="{{ path( 'sortie_delete', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                          <a href="{{ path( 'sortie_cancel', {'id': sortie.id}) }}" class="btn btn-secondary"
                                              role="button">
                                               Annuler
                                           </a>
                                 {% elseif sortie.etat.libelle == cloturee() %}
-                                         <a href="{{ path( 'sortie_delete', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                         <a href="{{  path( 'sortie_cancel', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                            role="button">
                                             Annuler
-                                        </a>
+
+
                                 {% endif %}
                             {% endif %}
 

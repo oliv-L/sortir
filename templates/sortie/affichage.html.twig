@@ -7,6 +7,10 @@
 
         <div class="row text-center">
             <h3>Sortie {{ sortie.nom | upper }} organisée par {{ sortie.organisateurSortie.pseudo }} </h3>
+            {% if sortie.etat.libelle == annulee() %}
+            <h3 class="alert alert-danger">Sortie Annulée pour le motif suivant :  {{ sortie.motif }} </h3>
+            {% endif %}
+
         </div>
 
         <div class="row ">
@@ -112,6 +116,8 @@
             </div>
         </div>
     </main>
+
+
     <div class="card mb-4">
         <div class="card-body">
             <h2 class="card-title text-center">Liste des participants inscrits</h2>

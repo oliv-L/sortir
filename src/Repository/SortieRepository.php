@@ -48,6 +48,21 @@ class SortieRepository extends ServiceEntityRepository
             $queryBuilder->setParameter(':organisateur', $participant->getId());
         }
 
+        if($filtreSortie->getInscrit())
+        {
+          $queryBuilder->innerJoin('s.participants', 'p')
+                        ->where('p.id = :id')
+                        ->addSelect('p');
+           $queryBuilder->setParameter('id', $participant->getId());
+        }
+
+        if ($filtreSortie->getNonInscrit()) {
+            $queryBuilder->leftJoin('s.participants', 'p')
+               ->where('p.id != :id')
+               ->addSelect('p');
+            $queryBuilder->setParameter('id', $participant->getId());
+
+        }
         if($filtreSortie->getDateMin() && $filtreSortie->getDateMax())
         {
             $queryBuilder->andWhere('s.dateHeureDebut between :dateMin and :dateMax');

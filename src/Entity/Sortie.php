@@ -51,6 +51,7 @@ class Sortie
 
     /**
      * @Assert\Type("integer", message="merci d'indiquer le nombre de place en chiffre")
+     * @Assert\GreaterThan(0, message="combien de places disponibles?")
      * @Assert\NotBlank (message="le nombre de participant max est obligatoire.")
      * @ORM\Column(type="integer")
      */
@@ -90,6 +91,12 @@ class Sortie
      * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sorties",cascade={"persist"} )
      */
     private $participants;
+
+    /**
+     * @Assert\Length (min=5, minMessage="Je ne comprend pas le motif, trop court", max=100, maxMessage="motif trop long, désolé")
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $motif;
 
     public function __construct()
     {
@@ -244,6 +251,18 @@ class Sortie
         if ($this->participants->removeElement($participant)) {
             $participant->removeSorty($this);
         }
+
+        return $this;
+    }
+
+    public function getMotif(): ?string
+    {
+        return $this->motif;
+    }
+
+    public function setMotif(?string $motif): self
+    {
+        $this->motif = $motif;
 
         return $this;
     }

@@ -61,7 +61,11 @@
         {#   <label class="btn btn-lg btn-secondary" type="submit" name="En creation"> Enregistrer</label>
         <label class="btn btn-lg btn-secondary" type="submit" name="Ouvert"> Publier</label>
        #}
+        {%  if sortie.etat %}
+        <button class="btn btn-lg btn-secondary" type="submit"> <a href="{{ path('sortie_cancel', {'id':sortie.id}) }}">Supprimer la sortie</a></button>
+       {% endif %}
         <button class="btn btn-lg btn-secondary" type="submit"> <a href="{{ path('main_home') }}">Annuler</a></button>
+
 
         {{ form_end(sortieForm) }}
     </div>

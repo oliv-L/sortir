@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Sortie;
+use App\Form\CancelSortieType;
 use App\Form\SortieType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
@@ -63,22 +64,34 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('main_home');
         }
         return $this->render('sortie/create.html.twig', [
-            'sortieForm' => $sortieForm->createView(),
+            'sortieForm' => $sortieForm->createView(), 'sortie'=>$sortie
         ]);
     }
 
     /**
-     * @Route("/delete/{id}", name="delete")
+     * @Route("/cancel/{id}", name="cancel")
      */
-    public function delete(Sortie $sortie, EntityManagerInterface $entityManager)
+    public function cancel(Sortie $sortie,
+                           Request $request,
+                           EtatRepository $etatRepository,
+                           EntityManagerInterface $entityManager)
     {
-        if(!$sortie)
+       if(!$sortie)
         {
             throw $this->createNotFoundException('cette sortie n\'existe plus');
         }
-        $entityManager->remove($sortie);
-        $entityManager->flush();
-        return $this->redirectToRoute('main_home');
+
+
+        $cancelForm = $this->createForm(CancelSortieType::class, $sortie);
+        $cancelForm->handleRequest($request);
+        if ( $cancelForm->isSubmitted() && $cancelForm->isValid()) {
+            $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::annulee()]));
+            $entityManager->persist($sortie);
+            $entityManager->flush();
+            $this->addFlash('succes', 'la sortie est bien annulée, dommage...');
+            return $this->redirectToRoute('main_home');
+        }
+        return $this->render('sortie/CancelSortie.html.twig', ['cancelForm'=>$cancelForm->createView(), 'sortie'=>$sortie ]);
 
 
     }
@@ -122,5 +135,6 @@ class SortieController extends AbstractController
 */
         return $this->redirectToRoute('main_home');
     }
+
 
 }
