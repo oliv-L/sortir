@@ -37,7 +37,7 @@
                     <div class="col-md-2 align-items-center">
                     {{ form_widget(searchForm.search, {'attr': {'class' : 'form-control'}}) }}
                     </div>
-                    {{ form_label(searchForm.inscrit ,"Sorties auxelles je suis inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                    {{ form_label(searchForm.inscrit ,"Sorties auquelles je suis inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
 
                     <div class="col-md-2 align-items-center">
                         {{ form_widget(searchForm.inscrit , {'attr' : {'class' : 'custom-control-input'}}) }}
@@ -50,7 +50,7 @@
                     <div class="col-md-2 align-items-center">
                         {{ form_widget(searchForm.dateMin, {'attr' : {'class' : 'form-control'}}) }}
                     </div>
-                    {{ form_label(searchForm.nonInscrit ,"Sorties auxelles je ne suis pas inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                    {{ form_label(searchForm.nonInscrit ,"Sorties auquelles je ne suis pas inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
                     <div class="col-md-2 align-items-center">
                         {{ form_widget(searchForm.nonInscrit, {'attr' : {'class' : 'custom-control-input'}}) }}
                     </div>
@@ -74,7 +74,7 @@
         </main>
 
         <div class="card mb-4">
-            <div class="card-body">
+            <div class="table-responsive">
                 <h2 class="card-title text-center" >Liste des sorties</h2>
                 <table class="table">
                     <thead>
@@ -174,6 +174,7 @@
                                          <a href="{{  path( 'sortie_cancel', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                            role="button">
                                             Annuler
+                                         </a>
 
 
                                 {% endif %}

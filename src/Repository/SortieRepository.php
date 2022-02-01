@@ -57,10 +57,13 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if ($filtreSortie->getNonInscrit()) {
-            $queryBuilder->leftJoin('s.participants', 'p')
-               ->where('p.id != :id')
+            //$queryBuilder->leftJoin('s.participants', 'p');
+            $queryBuilder->andWhere(':id NOT MEMBER OF s.participants');
+           $queryBuilder->setParameter('id', $participant->getId());
+            /*$queryBuilder->innerJoin('s.participants', 'p')
+               ->where('p.id  != :id')
                ->addSelect('p');
-            $queryBuilder->setParameter('id', $participant->getId());
+            $queryBuilder->setParameter(':id', $participant->getId());*/
 
         }
         if($filtreSortie->getDateMin() && $filtreSortie->getDateMax())
