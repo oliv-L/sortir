@@ -16,7 +16,7 @@ class HomeController extends AbstractController
  */
     public function index()
     {
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('main_accueil');
     }
   
     
