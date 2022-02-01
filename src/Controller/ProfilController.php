@@ -4,8 +4,10 @@ namespace App\Controller;
 
 
 use App\Entity\Sortie;
+use App\Entity\Participant;
 use App\Form\ProfilType;
 use App\Repository\ParticipantRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,9 +46,6 @@ class ProfilController extends AbstractController
            }
 
 
-
-
-
         return $this->render('profil/informationProfil.html.twig', [
             'profil' => $profilForm->createView(),
             'participant'=>$participant
@@ -67,4 +66,52 @@ class ProfilController extends AbstractController
 
         ]);
     }
+    /**
+     * @Route("/profilListe", name="profil_liste")
+     */
+    public function listeParticipant(ParticipantRepository $participantRepository){
+        $liste = $participantRepository->findAll();
+        
+        return $this->render("profil/profilListe.html.twig", [
+            "liste"=>$liste
+
+        ]);
+    }
+
+    /**
+     * @Route("/profilSupprimer/{id}", name="profil_supprimer")
+     */
+    public function supprimerParticipant(Participant $participant, EntityManagerInterface $entityManager)
+    {
+
+        $entityManager->remove($participant);
+        $entityManager->flush();
+        $this->addFlash('success', 'Suppression réussi !');
+        return $this->redirectToRoute('profil_liste');
+    }
+
+    /**
+     * @Route("/profilDesactiver/{id}", name="profil_desactiver")
+     */
+    public function desactiverParticipant(Participant $participant, EntityManagerInterface $entityManager){
+        // todo action boutton on passe setActif(0)
+        $participant->setActif(0);
+        $entityManager->persist($participant);
+        $entityManager->flush();
+        $this->addFlash('success', 'Desactivation Réussi !');
+        return $this->redirectToRoute('profil_liste');
+    }
+
+    /**
+     * @Route("/profilActiver/{id}", name="profil_activer")
+     */
+    public function activerParticipant(Participant $participant, EntityManagerInterface $entityManager){
+        // todo action boutton on passe setActif(0)
+        $participant->setActif(1);
+        $entityManager->persist($participant);
+        $entityManager->flush();
+        $this->addFlash('success', 'Activation Réussi !');
+        return $this->redirectToRoute('profil_liste');
+    }
+    
 }

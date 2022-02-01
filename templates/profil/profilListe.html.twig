@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+   Liste des Utilisateurs
+{% endblock %}
+
+{% block body %}
+    <div class="card mb-4">
+        <div class="card-body">
+            <h2 class="card-title text-center">Gestions des utilisateurs</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Nom</th>
+                    <th>Prenom</th>
+                    <th>Email</th>
+                    <th>Campus</th>
+                    <th>Telephone</th>
+                    <th>Etat Utilisateur</th>
+                    <th>Action</th>
+
+                </tr>
+
+                </thead>
+                <tbody>
+                {% for l in liste %}
+                    <tr>
+                        <td>{{l.pseudo}}</td>
+                        <td>{{ l.nom}}</td>
+                        <td>{{ l.prenom}}</td>
+                        <td>{{ l.email}}</td>
+                        <td>{{ l.campus.nom}}</td>
+                        <td>{{ l.telephone}}</td>
+                        <td>{% if l.actif == 1 %}
+                            Actif
+                            {% else %}
+                            Inactif
+                                {% endif %}
+                        </td>
+                        <td>
+                            {% if l.actif == 1 %}
+                                <a href="{{ path('profil_desactiver', {'id':l.id}) }}" class="btn btn-secondary"
+                                   role="button">Désactiver</a>
+                            {% else %}
+                                <a href="{{ path('profil_activer', {'id':l.id}) }}" class="btn btn-secondary"
+                                   role="button">Activer</a>
+                            {% endif %}
+                            <a href="{{ path('profil_supprimer', {'id':l.id}) }}" class="btn btn-secondary"
+                               role="button">Supprimer</a>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
