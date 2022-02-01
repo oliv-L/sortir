@@ -119,16 +119,17 @@
                              <td>
 
         {# affichage du bouton Afficher détail #}
-
+                                 {% if sortie.etat.libelle != archivee() %}
                                   <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                      role="button">
                                       Afficher
 
                                   </a>
+                                 {% endif %}
         {# affichage du bouton s'inscrire si Ouvert et si non inscrit #}
 
 
-                                      {% if sortie.etat.libelle == ouverte() and app.user.sorties.contains(sortie) == false%}
+                                      {% if sortie.etat.libelle == ouverte() and app.user.sorties.contains(sortie) == false %}
                                        <a href="{{ path( 'main_sinscrire', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                         role="button">
                                          S'inscrire
