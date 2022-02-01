@@ -129,15 +129,8 @@ class MainController extends AbstractController
                                 EtatRepository $etatRepository,
                                 EntityManagerInterface $entityManager): Response
         {
-            //todo mise à jour des états en fonction de la date
-            // ouverte -> fermé -> Termine -> archivé
-
-
-
-
             //$dateintervalle = new \DateInterval('P1M');
            // $dateFuture = $dateTime->add($dateintervalle);
-
 
             // définition des tableaux selon etat sortie
             $majSortie = $sortieRepository->MiseAJourEtat(
@@ -145,52 +138,39 @@ class MainController extends AbstractController
                 $etatRepository->findOneBy(['libelle'=>Etat::cloturee()]),
                 $etatRepository->findOneBy(['libelle'=>Etat::finie()]) );
 
-//dd($majSortie);
-
             foreach ($majSortie as $sortie)
             {
 
-                $inscription = $sortie->getDateLimiteInscription() > new \DateTime('now');
-                $finie = $sortie->getDateHeureDebut()>new \DateTime('now');
-                $archive = $sortie->getDateHeureDebut() > (new \DateTime('now'))->add(new \DateInterval('P1M'));
-
-                switch ($sortie->getEtat()->getLibelle())
+                $inscription = $sortie->getDateLimiteInscription() < new \DateTime('now');
+                $finie = $sortie->getDateHeureDebut()<new \DateTime('now');
+                $archive = $sortie->getDateHeureDebut()->add(new \DateInterval('P30D')) < (new \DateTime('now'));
+                //on vérifie si il est cloturé, passé ET archivé
+                if($archive && $inscription && $finie)
                 {
-                    case (Etat::ouverte()):
-
-                        if ($inscription === false)
+                    $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::archivee()]));
+                    $entityManager->persist($sortie);
+                    $entityManager->flush();
+                }
+                //sinon est il cloturé ET passé?
+                else if ($inscription && $finie)
+                {
+                    $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::finie()]));
+                    $entityManager->persist($sortie);
+                    $entityManager->flush();
+                }
+                //est il cloturé?
+                else if ($inscription)
                         {
                             $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::cloturee()]));
                             $entityManager->persist($sortie);
                             $entityManager->flush();
                         }
 
-
-
-                    case(Etat::cloturee()) :
-                        if($finie === false)
-                        {
-                            $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::finie()]));
-                            $entityManager->persist($sortie);
-                            $entityManager->flush();
-                        }
-
-
-
-                    case (Etat::finie()) :
-                        if($archive === false)
-                        {
-                            $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::archivee()]));
-                            $entityManager->persist($sortie);
-                            $entityManager->flush();
-                        }
-                        break;
-                }
             }
-
-
             return $this->redirectToRoute("main_home");
         }
+
+
     /**
      * @Route ("/afficher/{id}", name="afficher")
      *
