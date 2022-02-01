@@ -20,7 +20,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Validator\Constraints\Date;
+use function Sodium\add;
 
 
 /**
@@ -28,24 +29,18 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MainController extends AbstractController
 {
-
+    //todo voir pr recuperer le formulaire
 
     /**
      * @Route("/", name="home")
      *
      */
     public function home(SortieRepository $sortieRespository,
-                         EtatRepository $etatRepository,
                          CampusRepository $campusRepository,
-                         EntityManagerInterface $entityManager,
                          Request          $request
 
     ): Response
     {
-            //todo mise à jour des états en fonction de la date
-            // ouverte -> fermé -> Termine -> archivé
-       //$maj = new MiseAJourEtatSortie();
-       // $maj->MiseAJour($sortieRespository, $etatRepository, $entityManager);
 
         $filtreSortie = new FiltreSortie();
         $filtreSortie->setCampus($this->getUser()->getCampus());
@@ -69,6 +64,8 @@ class MainController extends AbstractController
      */
     public function inscription(EntityManagerInterface $em, int $id): Response
     {
+
+
         //au préalable charger la dépendance suivante => composer require nelmio/cors-bundle
         $sortie = $em->getRepository(Sortie::class)->find($id);
         if(!$sortie)
@@ -99,6 +96,7 @@ class MainController extends AbstractController
 
         return $this->redirectToRoute('main_home');
 
+
     }
     /**
      * @Route("/main/desinscription/{id}", name="desinscription")
@@ -124,11 +122,71 @@ class MainController extends AbstractController
     }
 
     /**
-     * @Route("/", name="accueil")
+     * @Route("/maj", name="accueil")
      */
 
-        public function accueil(): Response
+        public function accueil(SortieRepository $sortieRepository,
+                                EtatRepository $etatRepository,
+                                EntityManagerInterface $entityManager): Response
         {
+            //todo mise à jour des états en fonction de la date
+            // ouverte -> fermé -> Termine -> archivé
+
+
+
+
+            //$dateintervalle = new \DateInterval('P1M');
+           // $dateFuture = $dateTime->add($dateintervalle);
+
+
+            // définition des tableaux selon etat sortie
+            $majSortie = $sortieRepository->MiseAJourEtat(
+                $etatRepository->findOneBy(['libelle' => Etat::ouverte()]),
+                $etatRepository->findOneBy(['libelle'=>Etat::cloturee()]),
+                $etatRepository->findOneBy(['libelle'=>Etat::finie()]) );
+
+//dd($majSortie);
+
+            foreach ($majSortie as $sortie)
+            {
+
+                $inscription = $sortie->getDateLimiteInscription() > new \DateTime('now');
+                $finie = $sortie->getDateHeureDebut()>new \DateTime('now');
+                $archive = $sortie->getDateHeureDebut() > (new \DateTime('now'))->add(new \DateInterval('P1M'));
+
+                switch ($sortie->getEtat()->getLibelle())
+                {
+                    case (Etat::ouverte()):
+
+                        if ($inscription === false)
+                        {
+                            $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::cloturee()]));
+                            $entityManager->persist($sortie);
+                            $entityManager->flush();
+                        }
+
+
+
+                    case(Etat::cloturee()) :
+                        if($finie === false)
+                        {
+                            $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::finie()]));
+                            $entityManager->persist($sortie);
+                            $entityManager->flush();
+                        }
+
+
+
+                    case (Etat::finie()) :
+                        if($archive === false)
+                        {
+                            $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::archivee()]));
+                            $entityManager->persist($sortie);
+                            $entityManager->flush();
+                        }
+                        break;
+                }
+            }
 
 
             return $this->redirectToRoute("main_home");

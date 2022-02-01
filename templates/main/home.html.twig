@@ -147,19 +147,20 @@
                                           <a href="{{ path( 'main_desinscription', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                              role="button">
                                               Se Désinscrire
-                                      {% endif %}
+                                          </a>
+                                              {% endif %}
                                   {% endif %}
                             {% endfor %}
 
         {# affichage du bouton modifier si on est le createur et si l'etat est creee#}
-                            {% if  creee()  == sortie.etat.libelle %}
-                                {% if sortie.getOrganisateurSortie.id == app.user.id %}
-                                          <a href="{{ path( 'sortie_create', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                 {% if  creee()  == sortie.etat.libelle %}
+                                     {% if sortie.getOrganisateurSortie.id == app.user.id %}
+                                         <a href="{{ path( 'sortie_create', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                              role="button">
-                                              Modifier
+                                             Modifier
                                           </a>
-                                      {% endif %}
-                                  {% endif %}
+                                     {% endif %}
+                                 {% endif %}
 
         {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture#}
                             {% if sortie.getOrganisateurSortie.id == app.user.id %}
@@ -168,7 +169,7 @@
                                              role="button">
                                               Annuler
                                           </a>
-                                {% elseif sortie.etat.libelle == cloturee() %}#}
+                                {% elseif sortie.etat.libelle == cloturee() %}
                                          <a href="{{ path( 'sortie_delete', {'id': sortie.id} ) }}" class="btn btn-secondary"
                                            role="button">
                                             Annuler

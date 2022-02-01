@@ -69,21 +69,23 @@ class SortieRepository extends ServiceEntityRepository
         return $query;
     }
 
-    public function MiseAJourEtat($etat)
+    public function MiseAJourEtat($etatOuvert, $etatFerme, $etatTermine)
     {
+/*$dql = 'SELECT s FROM App\Entity\Sortie s
+        WHERE s.etat.id = $etatOuvert->getId()
+       OR s.etat.id = $etatFerme->getId()
+        OR s.etat.id ='+ $etatTermine->getId();
+
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery($dql);*/
+
 
         $queryBuilder = $this->createQueryBuilder('s');
-        $queryBuilder->andWhere('s.etat=:etat');
-        $queryBuilder->setParameter('etat', $etat->getId());
-/*
-        $queryBuilder->andWhere('s.etat=:etatCloturee');
-        $etat->setLibelle(Etat::cloturee());
-        $queryBuilder->setParameter('etatCloturee', $etat);
+        $queryBuilder->orWhere('s.etat=:etatOuvert or s.etat=:etatFerme or s.etat=:etatTermine');
+        $queryBuilder->setParameter('etatOuvert',$etatOuvert->getId());
+        $queryBuilder->setParameter('etatFerme', $etatFerme->getId());
+        $queryBuilder->setParameter('etatTermine', $etatTermine->getId());
 
-        $queryBuilder->andWhere('s.etat=:etatFinie');
-        $etat->setLibelle(Etat::finie());
-        $queryBuilder->setParameter('etatFinie', $etat);
-*/
        return $queryBuilder->getQuery()->getResult();
     }
  /*   public function findSortie($idOrganisateur){
