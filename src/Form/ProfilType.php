@@ -4,10 +4,12 @@ namespace App\Form;
 
 use App\Entity\Participant;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -36,6 +38,25 @@ class ProfilType extends AbstractType
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+                ],
+            ])
+            ->add('photo', FileType::class, [
+                'label' => 'Photo (JPG, PNG)',
+
+                // n'est pas associé aux propriétés de l'entité
+                'mapped' => false,
+
+                'required' => false,
+
+                // utilisation des constraints car non mappé
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'photo/jpg',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez choisir une photo au format valide',
+                    ])
                 ],
             ])
 

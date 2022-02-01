@@ -11,7 +11,7 @@
         <img src="#" title="photo du profil">
     </div>
          {{ form_start(profil) }}
-
+            {{ form_row(profil.photo) }}
             {{ form_label(profil.pseudo, "Pseudo", {'label_attr': {'class': 'form-floating '}}) }}
             {{ form_errors(profil.pseudo) }}
             {{ form_widget(profil.pseudo, {'attr': {'class': 'form-control text-center'}}) }}
