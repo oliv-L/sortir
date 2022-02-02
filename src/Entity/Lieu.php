@@ -29,19 +29,19 @@ class Lieu
 
     /**
      * @ORM\Column(type="string", length=50)
-     *
+     * @Groups({"lieu"})
      */
     private $rue;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     *
+     *@Groups({"lieu"})
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float", nullable=true)
-     *
+     *@Groups({"lieu"})
      */
     private $longitude;
 
@@ -49,6 +49,7 @@ class Lieu
      * @ORM\ManyToOne(targetEntity=Ville::class, inversedBy="lieux")
      * @ORM\JoinColumn(nullable=false)
      *@Groups ({"listeLieux"})
+     *@Groups({"lieu"})
      */
     private $ville;
 
