@@ -161,6 +161,26 @@ fieldset
     margin-top : 50px;
 
 }
+.hidden
+{
+    display: none;
+}
+@media screen and (max-width : 425px)
+{
+
+  .displayCreate
+  {
+      display: none;
+  }
+
+    .hidden
+    {
+        display: contents;
+    }
+
+
+    
+}
 
 
 

@@ -7,10 +7,10 @@
 {% block body %}
     {% if app.user %}
 <div class="profil">
-    <p>Date du jour: {{ "now"| date('d/m/Y ') }} {{ app.user.pseudo }} {%  for role in app.user.roles%}{{role}}{% endfor %}</p>
+    {#  <p>Date du jour: {{ "now"| date('d/m/Y ') }} {{ app.user.pseudo }} {%  for role in app.user.roles%}{{role}}{% endfor %}</p>#}
 
 </div>
-        <main class="form-filtre text-center">
+        <main class="form-filtre text-center displayCreate">
 
             <div class="row text-center">
                 <h3>Filtrer les sorties</h3>
@@ -81,12 +81,13 @@
                     <tr>
                         <th>Nom de la sortie </th>
                         <th>Date de la sortie</th>
-                        <th>Clôture</th>
-                        <th>Nombre de place</th>
-                        <th>Etat</th>
-                        <th>Inscrits</th>
-                        <th>Organisateur</th>
-                        <th>Action</th>
+                        <th class="hidden"> Lieu</th>
+                        <th class="displayCreate">Clôture</th>
+                        <th class="displayCreate">Nombre de place</th>
+                        <th class="displayCreate">Etat</th>
+                        <th class="displayCreate">Inscrits</th>
+                        <th class="displayCreate">Organisateur</th>
+                        <th class="displayCreate">Action</th>
                     </tr>
 
                     </thead>
@@ -97,26 +98,24 @@
                         3- gérer les actions
                         #}
                         <tr>
-                            <td>{{ sortie.nom }}</td>
+                            <td class="displayCreate">{{ sortie.nom }}</td>
+                            <td class="hidden"><a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}">{{ sortie.nom }}</a></td>
                             <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i') }}</td>
-                            <td>{{ sortie.dateLimiteInscription | date('d/m/Y ') }}</td>
-                            <td>{{ sortie.participants | length }} / {{ sortie.nbInscriptionsMax}}</td>
-                            <td>{{ sortie.etat.libelle }}</td>
-                            <td>
+                            <td class="hidden">{{ sortie.lieu.ville.nom }}</td>
+                            <td class="displayCreate">{{ sortie.dateLimiteInscription | date('d/m/Y ') }}</td>
+                            <td class="displayCreate">{{ sortie.participants | length }} / {{ sortie.nbInscriptionsMax}}</td>
+                            <td class="displayCreate">{{ sortie.etat.libelle }}</td>
+                            <td class="displayCreate">
                             {% for s in app.user.sorties %}
                                 {% if s.id == sortie.id %}
                                      Oui
                                 {% endif %}
                             {% endfor %}</td>
-                            {# Faire la page afficher profil d'un autre utilisateur, changer la path par la suite #}
-                            <td ><a href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
-                            {# Générer les actions possibles : s'inscrire, se désinscrire, afficher si en cours, publier
-                            Creer une action inscrire qui prend en parametre une sortie et un participant
-                            en cliquant sur le bouton s'inscrire le participant se rajoute à la liste, la table
-                            participant_sortie est alimentée par l'alimentation des tables sorties champ participants et de la table
-                            participant champ sorties#}
 
-                             <td>
+                            <td class="displayCreate"><a href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
+
+
+                             <td class="displayCreate">
 
         {# affichage du bouton Afficher détail #}
                                  {% if sortie.etat.libelle != archivee() %}
@@ -164,7 +163,7 @@
                                  {% endif %}
 
         {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture#}
-                            {% if sortie.getOrganisateurSortie.id == app.user.id %}
+                            {% if sortie.getOrganisateurSortie.id == app.user.id or app.user.roles == ['ROLE_ADMIN']%}
                                 {% if sortie.etat.libelle == ouverte() %}
                                           <a href="{{ path( 'sortie_cancel', {'id': sortie.id}) }}" class="btn btn-secondary"
                                              role="button">
