@@ -41,7 +41,7 @@ class ProfilType extends AbstractType
                 ],
             ])
             ->add('photo', FileType::class, [
-                'label' => 'Photo (JPG, JPEG)',
+                'label' => '',
 
                 // n'est pas associé aux propriétés de l'entité
                 'mapped' => false,

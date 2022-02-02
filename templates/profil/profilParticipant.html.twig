@@ -9,7 +9,7 @@
         <h2>{{ participant.pseudo }}</h2>
 
             <div class="form-profil text-center">
-
+                    <img src="{{ asset('uploads/photos/' ~ participant.photoFilename) }}" alt="" class="img-thumbnail">
                     <h5>Prénom : {{ participant.prenom | upper }}</h5><br>
                     <h5>Nom : {{ participant.nom | upper}}</h5><br>
                     <h5>Téléphone : {{ participant.telephone  }}</h5><br>

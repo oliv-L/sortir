@@ -7,9 +7,9 @@
 {% block body %}
     <main class="form-profil text-center">
     <h2>Modifiez votre profil</h2>
-    <div class="form-photo-profil">
+    <div class="photo-profil">
         {% if (participant.photoFilename) %}
-        <img src="{{ asset('uploads/photos/' ~ participant.photoFilename) }}" alt="">
+        <img src="{{ asset('uploads/photos/' ~ participant.photoFilename) }}" alt="" class="img-thumbnail">
         {% endif %}
     </div>
         <div>
