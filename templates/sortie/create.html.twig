@@ -2,8 +2,6 @@
 
 {% block title %}Creation d'une sortie{% endblock %}
 
-{% block javascript %}
-{% endblock %}
 {% block body %}
   <div class="form-sortie-creation">
 
@@ -37,15 +35,15 @@
     <div class="form-sortie-creation-bloc">
         <p>Campus : {{ app.user.campus.nom }}</p>
 
-         <label for="villes"> Villes : </label>
-        <select name="villes" id="villes" >
+        {{ form_label(sortieForm.ville) }}
+        {{ form_errors(sortieForm.ville) }}
+        {{ form_widget(sortieForm.ville) }}
 
-        </select>
      {{ form_label(sortieForm.lieu) }}
         {{ form_errors(sortieForm.lieu) }}
         {{ form_widget(sortieForm.lieu) }}
 
-        <fieldset id="fieldset">
+        <fieldset>
         <legend>Coordonnées du lieu de l'évènement : </legend>
         <div id="coordonnees"></div>
         </fieldset>
