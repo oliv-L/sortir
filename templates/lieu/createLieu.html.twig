@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}creation d'un lieu - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2 class="text-center"> Création d'un nouveau lieu</h2>
+    <div class="form-profil">
+
+    {{ form_start(createLieuForm) }}
+        <div>
+        {{ form_label(createLieuForm.nom) }}
+        {{ form_errors(createLieuForm.nom) }}
+        {{ form_widget(createLieuForm.nom) }}
+        </div>
+        <div>
+        {{ form_label(createLieuForm.rue) }}
+        {{ form_errors(createLieuForm.rue) }}
+        {{ form_widget(createLieuForm.rue) }}
+        </div>
+        <div>
+        {{ form_label(createLieuForm.latitude) }}
+        {{ form_errors(createLieuForm.latitude) }}
+        {{ form_widget(createLieuForm.latitude) }}
+        </div>
+        <div>
+        {{ form_label(createLieuForm.longitude) }}
+        {{ form_errors(createLieuForm.longitude) }}
+        {{ form_widget(createLieuForm.longitude) }}
+        </div>
+        <div>
+        {{ form_label(createLieuForm.ville) }}
+        {{ form_errors(createLieuForm.ville) }}
+        {{ form_widget(createLieuForm.ville) }}
+        </div>
+
+
+        <div class="form-bouton-create">
+            <button class="btn btn-lg btn-secondary form-creation-lieu" type="submit">Création du lieu</button>
+        </div>
+    {{ form_end(createLieuForm) }}
+    </div>
+{% endblock %}
