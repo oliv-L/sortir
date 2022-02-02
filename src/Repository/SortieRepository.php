@@ -27,25 +27,26 @@ class SortieRepository extends ServiceEntityRepository
     public function filtreSortie(FiltreSortie $filtreSortie, UserInterface $participant)
     {
 
+        //$organisateur = $participant->getId();
         $queryBuilder=$this->createQueryBuilder('s');
 
 
             if($filtreSortie->getCampus())
         {
             $queryBuilder->andWhere('s.campus =:campus');
-            $queryBuilder->setParameter(':campus', $filtreSortie->getCampus()->getId());
+            $queryBuilder->setParameter('campus', $filtreSortie->getCampus()->getId());
         }
 
         if($filtreSortie->getSearch())
         {
             $queryBuilder->andWhere('s.nom like :search');
-            $queryBuilder->setParameter(':search', '%'.$filtreSortie->getSearch().'%');
+            $queryBuilder->setParameter('search', '%'.$filtreSortie->getSearch().'%');
         }
 
         if($filtreSortie->getOrganisateur())
         {
-            $queryBuilder->andWhere('s.organisateurSortie = :organisateur');
-            $queryBuilder->setParameter(':organisateur', $participant->getId());
+            $queryBuilder->andWhere('s.organisateurSortie = :id');
+            $queryBuilder->setParameter('id', $participant->getId());
         }
 
         if($filtreSortie->getInscrit())
