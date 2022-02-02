@@ -14,92 +14,92 @@
         </div>
 
         <div class="row ">
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <h5>Nom de la sortie : </h5>
             </div>
-            <div class="col-4 ">
+            <div class="col-md-4 col-sm-12">
                 <p>{{ sortie.nom }}</p>
             </div>
 
-            <div class="col-2 ">
+            <div class="col-md-2 col-sm-12">
                 <h5>Campus : </h5>
             </div>
-            <div class="col-2 ">
+            <div class="col-md-2 col-sm-12">
                 <p>{{ sortie.campus.nom}}</p>
             </div>
         </div>
 
         <div class="row ">
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <h5>Date et heure de la sortie :</h5>
             </div>
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <p> {{ sortie.dateHeureDebut | date('d/m/Y H:i') }}</p>
             </div>
-            <div class="col-2 ">
+            <div class="col-md-2 col-sm-12">
                 <h5>Lieu :</h5>
             </div>
-            <div class="col-2 ">
+            <div class="col-md-2 col-sm-12">
                 <p>{{ sortie.lieu.nom}}</p>
             </div>
         </div>
 
-        <div class="row align-items-center">
-            <div class="col-4">
+        <div class="row ">
+            <div class="col-md-4 col-sm-12">
                 <h5>Date limite d'inscription : </h5>
             </div>
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <p>{{ sortie.dateLimiteInscription | date('d/m/Y')}}</p>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <h5>Rue:</h5>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <p>{{ sortie.lieu.rue}}</p>
             </div>
         </div>
 
-        <div class="row align-items-center">
-            <div class="col-4">
+        <div class="row ">
+            <div class="col-md-4 col-sm-12">
                 <h5>Nombre de place :</h5>
             </div>
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <p>{{ sortie.participants | length}} / {{ sortie.nbInscriptionsMax}}</p>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <h5>Code Postal :</h5>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <p>{{ sortie.lieu.ville.codePostal}}</p>
             </div>
         </div>
 
-        <div class="row align-items-center">
-            <div class="col-4">
+        <div class="row ">
+            <div class="col-md-4 col-sm-12">
                 <h5>Duree :</h5>
             </div>
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <p>{{ sortie.duree}} minutes</p>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <h5>Latitude :</h5>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <p>{{ sortie.lieu.latitude}}</p>
             </div>
         </div>
 
-        <div class="row align-items-center">
-            <div class="col-4">
+        <div class="row ">
+            <div class="col-md-4 col-sm-12">
                 <h5>Infos:</h5>
             </div>
-            <div class="col-4">
+            <div class="col-md-4 col-sm-12">
                 <p>{{ sortie.infosSortie}}</p>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <h5>Longitude :</h5>
             </div>
-            <div class="col-2">
+            <div class="col-md-2 col-sm-12">
                 <p>{{ sortie.lieu.longitude}}</p>
             </div>
         </div>
