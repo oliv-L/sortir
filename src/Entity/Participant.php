@@ -92,6 +92,11 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sorties;
 
+    /**
+     * @ORM\Column (type="string", length=255, nullable=true)
+     */
+    private $photoFilename;
+
     public function __construct()
     {
         $this->organisateurs = new ArrayCollection();
@@ -319,6 +324,18 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->sorties->removeElement($sorty);
 
+        return $this;
+    }
+
+
+    public function getPhotoFilename()
+    {
+        return $this->photoFilename;
+    }
+
+    public function setPhotoFilename($photoFilename)
+    {
+        $this->photoFilename = $photoFilename;
         return $this;
     }
 

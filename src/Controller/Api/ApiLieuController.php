@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 
+use App\Entity\Lieu;
 use App\Entity\Ville;
 use App\Repository\LieuRepository;
 use App\Repository\VilleRepository;
@@ -33,19 +34,29 @@ class ApiLieuController extends AbstractController
     /**
      * @Route("/lieu", name="lieu", methods={"GET"})
      */
-    public function lieu(Request $request,
+    public function lieu(Request        $request,
                          LieuRepository $lieuRepository
-    ): Response
+                         ): Response
     {
-      $idVille =$request->get('id');
-      $lieux= $lieuRepository->getLieu($idVille);
-      //$lieux = $lieuRepository->findAll();
-      return $this->json($lieux, Response::HTTP_OK, [], ['groups'=>'listeLieux']);
+        $idVille = $request->get('id');
+        $lieux = $lieuRepository->getLieu($idVille);
 
-
-
+        return $this->json($lieux, Response::HTTP_OK, [], ['groups' => 'listeLieux']);
     }
 
+    /**
+     * @Route("/adresse", name="adresse", methods={"GET"})
+     */
+    public function adresse(Request $request, LieuRepository $lieuRepository): Response
+    {
+        $idlieu = $request->get('id');
+        $lieu = $lieuRepository->lieuCodePostal($idlieu);
 
+        return $this->json($lieu, Response::HTTP_OK, [], ['groups' => 'lieu']);
 
+    }
 }
+
+
+
+

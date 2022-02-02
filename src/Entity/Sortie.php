@@ -70,6 +70,7 @@ class Sortie
     private $etat;
 
     /**
+     * @Assert\NotBlank (message ="choisir une ville et un lieu pour votre évènement")
      * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */

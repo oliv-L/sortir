@@ -41,7 +41,7 @@ class ProfilType extends AbstractType
                 ],
             ])
             ->add('photo', FileType::class, [
-                'label' => 'Photo (JPG, PNG)',
+                'label' => 'Photo (JPG, JPEG)',
 
                 // n'est pas associé aux propriétés de l'entité
                 'mapped' => false,
@@ -51,9 +51,10 @@ class ProfilType extends AbstractType
                 // utilisation des constraints car non mappé
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '10000k',
                         'mimeTypes' => [
-                            'photo/jpg',
+                            'image/jpeg',
+                            'image/png'
                         ],
                         'mimeTypesMessage' => 'Veuillez choisir une photo au format valide',
                     ])

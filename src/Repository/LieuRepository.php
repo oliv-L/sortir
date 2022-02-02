@@ -27,6 +27,17 @@ class LieuRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function lieuCodePostal(int $id)
+    {
+        $queryBuilder=$this->createQueryBuilder('l');
+        $queryBuilder->innerJoin('l.ville', 'v')->addSelect('v');
+        $queryBuilder->andWhere('l.id = :id');
+        $queryBuilder->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getResult();
+
+    }
+
     // /**
     //  * @return Lieu[] Returns an array of Lieu objects
     //  */

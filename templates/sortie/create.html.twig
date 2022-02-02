@@ -36,22 +36,19 @@
     </div>
     <div class="form-sortie-creation-bloc">
         <p>Campus : {{ app.user.campus.nom }}</p>
-        <label for="villes"> Villes : </label>
-        <select name="villes" id="villes">
+
+         <label for="villes"> Villes : </label>
+        <select name="villes" id="villes" >
+
         </select>
-        {{ form_label(sortieForm.lieu) }}
+     {{ form_label(sortieForm.lieu) }}
         {{ form_errors(sortieForm.lieu) }}
         {{ form_widget(sortieForm.lieu) }}
 
-        {#  <label for="lieu"> Lieu : </label>
-        <select name="lieu" id="lieu">
-        </select>#}
-
-        <div >rue :<div id="rue"></div></div>
-        <p>code postal : todo</p>
-        <p>latitude : todo</p>
-        <p>longitude : todo</p>
-     
+        <fieldset id="fieldset">
+        <legend>Coordonnées du lieu de l'évènement : </legend>
+        <div id="coordonnees"></div>
+        </fieldset>
 
     </div>
   </div>

@@ -10,9 +10,11 @@ use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProfilController extends AbstractController
 {
@@ -33,6 +35,19 @@ class ProfilController extends AbstractController
 
           if ($profilForm->isSubmitted() && $profilForm->isValid())
            {
+               $photoFile = $profilForm->get('photo')->getData();
+               if($photoFile){
+                   $newFilename = uniqid().'.'.$photoFile->guessExtension();
+                   try {
+                       $photoFile->move(
+                           $this->getParameter('photos_directory'),
+                           $newFilename
+                       );
+                   } catch (FileException $e) {
+                       throw new FileException();
+                   }
+                   $participant->setPhotoFilename($newFilename);
+               }
                $entityManager->persist($participant);
                $entityManager->flush();
                $this->addFlash('success', 'Votre modification a bien été enregistrée ! ');

@@ -30,6 +30,8 @@ class Ville
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"listeVilles"})
+     * @Groups({"lieu"})
      */
     private $codePostal;
 
