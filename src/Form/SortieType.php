@@ -60,11 +60,11 @@ class SortieType extends AbstractType
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
             //->add('lieu', EntityType::class, ['class'=>Lieu::class])
-            //todo voir pour un label avec :
+            ->add('ville', EntityType::class, ['class'=>Ville::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder'=>'choisir une ville'])
             ->add('lieu',EntityType::class, ['class'=>Lieu::class, 'choice_label'=>'nom','choices'=>[],'attr'=>['id'=>'lieu', 'name'=>'lieu']])
 
-            //->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'))
-            //->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'))
+            ->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'))
+            ->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'))
             ->add('save', SubmitType::class, ['label' => 'Enregistrer', 'attr'=>['class'=>"btn btn-lg btn-secondary"]])
             ->add('saveAndAdd', SubmitType::class, [
                 'label' => 'Publier la sortie',
@@ -72,31 +72,30 @@ class SortieType extends AbstractType
         ;
     }
 
-/*
+
   protected function addElements(FormInterface $form, Ville $ville = null)
   {
       $form->add('ville', EntityType::class, array(
           'required' => true,
           'mapped'=>false,
           'data' => $ville,
+          'choice_label'=>'nom',
           'placeholder' => 'choisir une ville',
           'class'=>Ville::class
       ));
+
       $lieux = array();
 
 
       if ($ville) {
-          $lieux = $this->lieuRepository->createQueryBuilder("l")
-              ->where("l.ville = :id")
-              ->setParameter("id", $ville->getId())
-              ->getQuery()
-              ->getArrayResult();
-              }
+          $lieux = $this->lieuRepository->getLieu($ville->getId());
+
+      }
 
       $form->add('lieu', EntityType::class, array(
           'required'=>true,
           'placeholder'=>'choisir une ville d\'abord',
-          'class'=>'App\Entity\Lieu',
+          'class'=>Lieu::class,
           'choices'=>$lieux
       ));
   }
@@ -104,9 +103,9 @@ class SortieType extends AbstractType
   function onPreSubmit(FormEvent $event)
   {
       $form = $event->getForm();
-      //$data = $event->getData();
-      $villes =$this->villeRepository->findAll();
-      $this->addElements($form, $villes);
+      $data = $event->getData();
+      $ville =$this->villeRepository->find($data['ville']);
+      $this->addElements($form, $ville);
   }
 
   function onPreSetData(FormEvent $event)
@@ -116,7 +115,9 @@ class SortieType extends AbstractType
 
       $ville = null;
       $this->addElements($form, $ville);
-  }*/
+  }
+
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

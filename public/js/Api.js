@@ -1,12 +1,13 @@
 window.onload = () => {
     initVilles();
 
-    document.getElementById('villes').addEventListener("change", function(){
+    document.getElementById('sortie_ville').addEventListener("change", function(){
 
         getLieu();
     })
 }
-  //todo voir avec le coach pourquoi ma variable app_url_api n'est pas reconnue
+
+  //todo voir avec le coach pourquoi ma variable app_url_api n'est pas reconnue {{ app_url_api }}
   function initVilles() {
       fetch("http://localhost/sortir/public/api/listeVilles", {method: "GET"})
           .then(response => response.json())
@@ -18,12 +19,15 @@ window.onload = () => {
 
               document.querySelector('#villes').innerHTML = options;
           })
+         // .catch(e => {
+          //    alert("impossible de charger les villes")
+         //})
   }
 
   function getLieu()
   {
       console.log("entrée dans la fonction getlieu")
-      fetch("http://localhost/sortir/public/api/lieu?id="+document.getElementById('villes').value, {method: "GET"})
+      fetch("http://localhost/sortir/public/api/lieu?id="+document.getElementById('sortie_ville').value, {method: "GET"})
       .then(response =>response.json())
       .then(response => {
       let options = "";
@@ -35,7 +39,11 @@ window.onload = () => {
           document.querySelector('#sortie_lieu').addEventListener("change", function (){
               getCoordonnees();
                   })
-  })}
+                  })
+         // .catch(e => {
+         //     alert("impossible de charger les lieux de rencontres")
+         // })
+  }
 
   function getCoordonnees()
   {
@@ -55,5 +63,8 @@ window.onload = () => {
 
               document.getElementById('coordonnees').innerHTML = options;
           })
+        //  .catch(e => {
+        //      alert("impossible de recuperer les informations sur le lieu de rencontre")
+         // })
   }
 
