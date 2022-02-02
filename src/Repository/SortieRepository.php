@@ -74,10 +74,12 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if($filtreSortie->getSortiePassee()) {
-            $etat = new Etat();
-            $etat->setLibelle('Fermé');
-            $queryBuilder->andWhere('s.etat = :etat ');
-            $queryBuilder->setParameter('etat', $etat);
+           // $etat = new Etat();
+            //$etat->setLibelle('Fermé');
+            //On récupère les sorties en etat passée
+            //13 correspond à l'id du libelle passée
+            $queryBuilder->andWhere('s.etat = :etat');
+            $queryBuilder->setParameter('etat', 13);
         }
         //todo définir la date du moment
         //todo filtrage par participant ou non
