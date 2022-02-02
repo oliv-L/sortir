@@ -79,7 +79,7 @@ class SortieRepository extends ServiceEntityRepository
             //On récupère les sorties en etat passée
             //13 correspond à l'id du libelle passée
             $queryBuilder->andWhere('s.etat = :etat');
-            $queryBuilder->setParameter('etat', 13);
+            $queryBuilder->setParameter('etat', Etat::finie());
         }
         //todo définir la date du moment
         //todo filtrage par participant ou non
