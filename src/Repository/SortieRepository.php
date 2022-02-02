@@ -27,7 +27,7 @@ class SortieRepository extends ServiceEntityRepository
     public function filtreSortie(FiltreSortie $filtreSortie, UserInterface $participant)
     {
 
-        //$organisateur = $participant->getId();
+
         $queryBuilder=$this->createQueryBuilder('s');
 
 
@@ -51,9 +51,7 @@ class SortieRepository extends ServiceEntityRepository
 
         if($filtreSortie->getInscrit())
         {
-          $queryBuilder->innerJoin('s.participants', 'p')
-                        ->where('p.id = :id')
-                        ->addSelect('p');
+          $queryBuilder->andWhere(':id MEMBER OF s.participants');
            $queryBuilder->setParameter('id', $participant->getId());
         }
 
