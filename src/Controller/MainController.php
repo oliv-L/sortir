@@ -14,6 +14,7 @@ use App\Repository\SortieRepository;
 use App\Repository\CampusRepository;
 
 use App\Service\MiseAJourEtatSortie;
+use ContainerFvamBba\getDoctrine_DatabaseDropCommandService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -62,7 +63,9 @@ class MainController extends AbstractController
      * @Route ("/main/sinscrire/{id}", name="sinscrire")
      *
      */
-    public function inscription(EntityManagerInterface $em, int $id): Response
+    public function inscription(EntityManagerInterface $em,
+                                EtatRepository $er,
+                                int $id): Response
     {
 
 
@@ -87,6 +90,11 @@ class MainController extends AbstractController
         if ($inscriptionDispo) {
             $sortie->addParticipant($this->getUser());
 
+            if (count($sortie->getParticipants()) >= $sortie->getNbInscriptionsMax())
+            {
+                $sortie->setEtat($er->findOneBy(['libelle'=>Etat::cloturee()]));
+            }
+
             $em->persist($sortie);
             $em->flush();
             $this->addFlash('success', 'Votre inscription a bien été enregistrée ! ');
@@ -101,16 +109,23 @@ class MainController extends AbstractController
     /**
      * @Route("/main/desinscription/{id}", name="desinscription")
      */
-    public function desinscription(EntityManagerInterface $entityManager, int $id):Response
+    public function desinscription(EntityManagerInterface $entityManager,
+                                   EtatRepository $er,
+                                   int $id):Response
     {
         $sortie = $entityManager->getRepository(Sortie::class)->find($id);
+
         //Quel est l'état de la sortie : ouverte!
         $ouvert = $sortie->getEtat()->getLibelle() === Etat::ouverte();
 
-
-        if ($ouvert) {
+        if ($sortie->getEtat()->getLibelle() === Etat::ouverte() ||$sortie->getEtat()->getLibelle() === Etat::cloturee() ) {
             //enlever le participant de la liste
-            $sortie->removeParticipant($this->getUser());;
+            $sortie->removeParticipant($this->getUser());
+
+            if (count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax() && $sortie->getDateLimiteInscription() > new \DateTime('now'))
+            {
+                $sortie->setEtat($er->findOneBy(['libelle'=>Etat::ouverte()]));
+            }
             $entityManager->persist($sortie);
             $entityManager->flush();
             $this->addFlash('success', 'Votre désistement à été enregistré');
