@@ -6,7 +6,7 @@
     <main class="form-filtre ">
 
         <div class="row text-center">
-            <h3>Sortie {{ sortie.nom | upper }} organisée par {{ sortie.organisateurSortie.pseudo }} </h3>
+            <h3>Sortie {{ sortie.nom }} Organisée par {{ sortie.organisateurSortie.pseudo }} </h3>
             {% if sortie.etat.libelle == annulee() %}
             <h3 class="alert alert-danger">Sortie Annulée pour le motif suivant :  {{ sortie.motif }} </h3>
             {% endif %}
@@ -269,8 +269,8 @@
                 {% for participants in sortie.participants %}
                 <tr>
                     <td>{{participants.pseudo}}</td>
-                    <td>{{ participants.nom}}</td>
-                    <td ><a href="{{ path('profil_profilParticipant', {'id':participants.id}) }}">Profil</a></td>
+                    <td>{{ participants.nom | upper}} {{ participants.prenom }}</td>
+                    <td ><a href="{{ path('profil_profilParticipant', {'id':participants.id}) }}">Voir profil</a></td>
                 </tr>
                 {% endfor %}
                 </tbody>

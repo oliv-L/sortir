@@ -47,14 +47,15 @@ class MainController extends AbstractController
         $filtreSortie->setCampus($this->getUser()->getCampus());
         $searchForm = $this->createForm(SearchType::class, $filtreSortie);
         $searchForm->handleRequest($request);
-        $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
+      //  $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
+        $sorties = $sortieRespository->filtreEvent($filtreSortie, $this->getUser());
 
 
         $campus = $campusRepository->findAll();
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,
-            'campus' => $campus
-            , 'searchForm' => $searchForm->createView()
+            'campus' => $campus,
+             'searchForm' => $searchForm->createView()
         ]);
 
     }

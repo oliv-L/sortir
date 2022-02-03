@@ -39,10 +39,13 @@
         {{ form_errors(sortieForm.ville) }}
         {{ form_widget(sortieForm.ville) }}
 
+
      {{ form_label(sortieForm.lieu) }}
         {{ form_errors(sortieForm.lieu) }}
       {{ form_widget(sortieForm.lieu) }}
-        <a href="{{ path('lieu_create') }}"><div class="plus"> <img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu" alt="créer un lieu" height="30" width="30"></div></a>
+
+
+        <a id="lieu_create" href="{{ path('lieu_create') }}"><div class="plus"> <img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu" alt="créer un lieu" height="30" width="30"></div></a>
 
         <fieldset>
         <legend>Coordonnées du lieu de l'évènement : </legend>

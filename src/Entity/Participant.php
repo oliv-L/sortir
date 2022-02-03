@@ -83,7 +83,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $campus;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur_sortie")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateurSortie")
      */
     private $organisateurs;
 
