@@ -12,14 +12,14 @@
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
-        {% if app.user %}
+       {#  {% if app.user %}
             <div class="mb-3">
                 Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
             </div>
-        {% endif %}
+        {% endif %}#}
         {% if is_granted("ROLE_INACTIF") %}
             <p>Votre compte est désactivé !</p>
-            <p>Contactez l'administarteur.</p>
+            <p>Contactez l'administrateur.</p>
         {% endif %}
 
         <div class="authentification">
