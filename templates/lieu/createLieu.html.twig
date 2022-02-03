@@ -3,42 +3,42 @@
 {% block title %}creation d'un lieu - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h2 class="text-center"> Création d'un nouveau lieu</h2>
-    <div class="form-profil">
+
+    <main class="form-signin text-center">
+        <div class="row text-center">
+            <h2>Ajouter un lieu</h2>
+        </div>
 
     {{ form_start(createLieuForm) }}
-        <div>
-        {{ form_label(createLieuForm.nom) }}
+
+        {{ form_label(createLieuForm.nom, "Nom", {'label_attr' : {'class' : 'form-label'}}) }}
         {{ form_errors(createLieuForm.nom) }}
-        {{ form_widget(createLieuForm.nom) }}
-        </div>
-        <div>
-        {{ form_label(createLieuForm.rue) }}
+        {{ form_widget(createLieuForm.nom, {'attr' : {'class' : 'form-control' , 'placeholder': 'Nom'}}) }}
+
+        {{ form_label(createLieuForm.rue, "Rue", {'label_attr' : {'class' : 'form-label'}}) }}
         {{ form_errors(createLieuForm.rue) }}
-        {{ form_widget(createLieuForm.rue) }}
-        </div>
-        <div>
-        {{ form_label(createLieuForm.latitude) }}
+        {{ form_widget(createLieuForm.rue, {'attr' : {'class' : 'form-control' , 'placeholder': 'Rue'}}) }}
+
+        {{ form_label(createLieuForm.latitude, "Latitude", {'label_attr' : {'class' : 'form-label'}}) }}
         {{ form_errors(createLieuForm.latitude) }}
-        {{ form_widget(createLieuForm.latitude) }}
-        </div>
-        <div>
-        {{ form_label(createLieuForm.longitude) }}
+        {{ form_widget(createLieuForm.latitude, {'attr' : {'class' : 'form-control' , 'placeholder': 'Latitude'}}) }}
+
+        {{ form_label(createLieuForm.longitude, "Longitude", {'label_attr' : {'class' : 'form-label'}}) }}
         {{ form_errors(createLieuForm.longitude) }}
-        {{ form_widget(createLieuForm.longitude) }}
-        </div>
-        <div>
+        {{ form_widget(createLieuForm.longitude, {'attr' : {'class' : 'form-control' , 'placeholder': 'Longitude'}}) }}
+
 
             {#  Ville : {{ lieu.ville.nom }}*/#}
-       {{ form_label(createLieuForm.ville) }}
+       {{ form_label(createLieuForm.ville, "Ville", {'label_attr' : {'class' : 'form-label'}}) }}
         {{ form_errors(createLieuForm.ville) }}
-        {{ form_widget(createLieuForm.ville) }}
-        </div>
+        {{ form_widget(createLieuForm.ville, {'attr' : {'class' : 'form-select' , 'placeholder': 'Ville'}}) }}
 
 
-        <div class="form-bouton-create">
-            <button class="btn btn-lg btn-secondary form-creation-lieu" type="submit">Création du lieu</button>
-        </div>
+
+
+            <button class="btn btn-lg btn-secondary form-creation-lieu" type="submit">Ajouter</button>
+
     {{ form_end(createLieuForm) }}
-    </div>
+    </main>
+
 {% endblock %}
