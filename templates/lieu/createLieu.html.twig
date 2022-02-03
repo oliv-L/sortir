@@ -28,7 +28,9 @@
         {{ form_widget(createLieuForm.longitude) }}
         </div>
         <div>
-        {{ form_label(createLieuForm.ville) }}
+
+            {#  Ville : {{ lieu.ville.nom }}*/#}
+       {{ form_label(createLieuForm.ville) }}
         {{ form_errors(createLieuForm.ville) }}
         {{ form_widget(createLieuForm.ville) }}
         </div>

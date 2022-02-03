@@ -24,6 +24,80 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function filtreEvent(FiltreSortie $filtreSortie, UserInterface $participant)
+    {
+        $queryBuilder=$this->createQueryBuilder('s');
+        $queryBuilder->leftJoin('s.lieu', 'l')->addSelect('l');
+        $queryBuilder->leftJoin('l.ville', 'v')->addSelect('v');
+        $queryBuilder->leftJoin('s.campus', 'c')->addSelect('c');
+
+        $queryBuilder->leftJoin('s.participants', 'p')->addSelect('p');
+
+        $queryBuilder->innerJoin('s.organisateurSortie', 'o')->addSelect('o');
+
+        $queryBuilder->leftJoin('s.etat', 'e')->addSelect('e');
+
+        $queryBuilder->leftJoin('p.sorties', 'ps')->addSelect('ps');
+
+
+
+        if($filtreSortie->getCampus())
+        {
+            $queryBuilder->andWhere('s.campus =:campus');
+            $queryBuilder->setParameter('campus', $filtreSortie->getCampus()->getId());
+        }
+
+        if($filtreSortie->getSearch())
+        {
+            $queryBuilder->andWhere('s.nom like :search');
+            $queryBuilder->setParameter('search', '%'.$filtreSortie->getSearch().'%');
+        }
+
+        if($filtreSortie->getOrganisateur())
+        {
+            $queryBuilder->andWhere('s.organisateurSortie = :id');
+            $queryBuilder->setParameter('id', $participant->getId());
+        }
+
+        if($filtreSortie->getInscrit())
+        {
+            $queryBuilder->andWhere(':id MEMBER OF s.participants');
+            $queryBuilder->setParameter('id', $participant->getId());
+        }
+
+        if ($filtreSortie->getNonInscrit()) {
+            //$queryBuilder->leftJoin('s.participants', 'p');
+            $queryBuilder->andWhere(':id NOT MEMBER OF s.participants');
+            $queryBuilder->setParameter('id', $participant->getId());
+            /*$queryBuilder->innerJoin('s.participants', 'p')
+               ->where('p.id  != :id')
+               ->addSelect('p');
+            $queryBuilder->setParameter(':id', $participant->getId());*/
+
+        }
+        if($filtreSortie->getDateMin() && $filtreSortie->getDateMax())
+        {
+            $queryBuilder->andWhere('s.dateHeureDebut between :dateMin and :dateMax');
+            $queryBuilder->setParameter('dateMin', $filtreSortie->getDateMin());
+            $queryBuilder->setParameter('dateMax', $filtreSortie->getDateMax());
+        }
+
+        if($filtreSortie->getSortiePassee()) {
+            // $etat = new Etat();
+            //$etat->setLibelle('Fermé');
+            //On récupère les sorties en etat passée
+            //13 correspond à l'id du libelle passée
+            $queryBuilder->andWhere('s.etat = :etat');
+            $queryBuilder->setParameter('etat', Etat::finie());
+        }
+
+
+
+
+
+        $query = $queryBuilder->getQuery()->getResult();
+        return $query;
+    }
     public function filtreSortie(FiltreSortie $filtreSortie, UserInterface $participant)
     {
 

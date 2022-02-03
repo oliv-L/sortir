@@ -7,7 +7,7 @@ window.onload = () => {
     })
 }
 
-  //todo voir avec le coach pourquoi ma variable app_url_api n'est pas reconnue {{ app_url_api }}
+  //todo voir a faire avec une variable déclarer sur une twig {{ app_url_api }}
   function initVilles() {
       fetch("http://localhost/sortir/public/api/listeVilles", {method: "GET"})
           .then(response => response.json())
@@ -31,11 +31,17 @@ window.onload = () => {
       .then(response =>response.json())
       .then(response => {
       let options = "";
+      //let href="{{path(\'lieu_create\',{\'id\':"+ document.getElementById('sortie_ville').value+"})}}";
+      //let href="{{'/sortir/public/lieu/create',{'id':"+ document.getElementById('sortie_ville').value+"} ) }}";
+
       response.map(lieu => {
       options += `<option value="${lieu.id}">${lieu.nom}</option>`;
                      })
 
       document.querySelector('#sortie_lieu').innerHTML = options;
+      //document.getElementById('lieu_create').setAttribute('href', href);
+
+
           document.querySelector('#sortie_lieu').addEventListener("change", function (){
               getCoordonnees();
                   })
