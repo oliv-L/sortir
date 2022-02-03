@@ -3,72 +3,139 @@
 {% block title %}Creation d'une sortie{% endblock %}
 
 {% block body %}
+
+<main class="form-filtre text-center displayCreate">
+    <div class="row text-center">
+        <h3>Créer une sortie</h3>
+    </div>
+
   <div class="form-sortie-creation">
+
 
       <div class="form-sortie-creation-bloc">
       {{form_start(sortieForm) }}
 
-      {{ form_label(sortieForm.nom) }}
-      {{ form_errors(sortieForm.nom) }}
-      {{ form_widget(sortieForm.nom) }}
+          <div class="form-group row align-items-center">
+              {{ form_label(sortieForm.nom, "Nom :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+              {{ form_errors(sortieForm.nom) }}
+              <div class="col-md-2 align-items-center">
+                 {{ form_widget(sortieForm.nom, {'attr' : {'class' : 'custom-control-input'}}) }}
+              </div>
+          </div>
 
-      {{ form_label(sortieForm.dateHeureDebut) }}
-      {{ form_errors(sortieForm.dateHeureDebut) }}
-      {{ form_widget(sortieForm.dateHeureDebut) }}
+          <div class="form-group row align-items-center">
+              {{ form_label(sortieForm.dateHeureDebut, "Date heure de début :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+              {{ form_errors(sortieForm.dateHeureDebut) }}
+              <div class="col-md-2 align-items-center">
+                 {{ form_widget(sortieForm.dateHeureDebut, {'attr' : {'class' : 'custom-control-input'}}) }}
+              </div>
+          </div>
+          <div class="form-group row align-items-center">
+              {{ form_label(sortieForm.dateLimiteInscription, "Date limite d'inscription :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+              {{ form_errors(sortieForm.dateLimiteInscription) }}
+              <div class="col-md-2 align-items-center">
+                {{ form_widget(sortieForm.dateLimiteInscription, {'attr' : {'class' : 'custom-control-input'}}) }}
+              </div>
+          </div>
 
-      {{ form_label(sortieForm.dateLimiteInscription) }}
-      {{ form_errors(sortieForm.dateLimiteInscription) }}
-      {{ form_widget(sortieForm.dateLimiteInscription) }}
+          <div class="form-group row align-items-center">
+              {{ form_label(sortieForm.nbInscriptionsMax, "Nb inscriptions max :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+              {{ form_errors(sortieForm.nbInscriptionsMax) }}
+              <div class="col-md-2 align-items-center">
+                  {{ form_widget(sortieForm.nbInscriptionsMax, {'attr' : {'class' : 'custom-control-input'}}) }}
+              </div>
+          </div>
 
-      {{ form_label(sortieForm.nbInscriptionsMax) }}
-      {{ form_errors(sortieForm.nbInscriptionsMax) }}
-      {{ form_widget(sortieForm.nbInscriptionsMax) }}
 
-      {{ form_label(sortieForm.duree) }}
-      {{ form_errors(sortieForm.duree) }}
-      {{ form_widget(sortieForm.duree) }}
+          <div class="form-group row align-items-center">
+              {{ form_label(sortieForm.duree, "Duree :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+              {{ form_errors(sortieForm.duree) }}
+              <div class="col-md-2 align-items-center">
+                  {{ form_widget(sortieForm.duree, {'attr' : {'class' : 'custom-control-input'}}) }}
+              </div>
+          </div>
 
-      {{ form_label(sortieForm.infosSortie) }}
-      {{ form_errors(sortieForm.infosSortie) }}
-      {{ form_widget(sortieForm.infosSortie) }}
+
+          <div class="form-group row align-items-center">
+              {{ form_label(sortieForm.infosSortie, "Infos :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+              {{ form_errors(sortieForm.infosSortie) }}
+              <div class="col-md-2 align-items-center">
+                  {{ form_widget(sortieForm.infosSortie, {'attr' : {'class' : 'custom-control-input'}}) }}
+              </div>
+          </div>
+
+
     </div>
     <div class="form-sortie-creation-bloc">
-        <p>Campus : {{ app.user.campus.nom }}</p>
-
-        {{ form_label(sortieForm.ville) }}
-        {{ form_errors(sortieForm.ville) }}
-        {{ form_widget(sortieForm.ville) }}
-        <a id="lieu_create" href="{{ path('ville_create') }}"><div class="plus"> <img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu" alt="créer une ville" height="30" width="30"></div></a>
-
-     {{ form_label(sortieForm.lieu) }}
-        {{ form_errors(sortieForm.lieu) }}
-      {{ form_widget(sortieForm.lieu) }}
 
 
-        <a id="lieu_create" href="{{ path('lieu_create') }}"><div class="plus"> <img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu" alt="créer un lieu" height="30" width="30"></div></a>
+        <div class="form-group row align-items-center">
+        <p class="col-form-label col-md-4 ">Campus : </p>
+            <div class="col-md-2 align-items-center">
 
-        <fieldset>
-        <legend>Coordonnées du lieu de l'évènement : </legend>
-        <div id="coordonnees"></div>
-        </fieldset>
+                <input type="email"  value="{{ app.user.campus.nom }}"   class="custom-control-input" readonly="readonly"/>
+            </div>
+        </div>
+
+
+        <div class="form-group row align-items-center">
+            {{ form_label(sortieForm.ville, "Ville :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+            {{ form_errors(sortieForm.ville) }}
+            <div class="col-md-4 align-items-center">
+                {{ form_widget(sortieForm.ville, {'attr' : {'class' : 'select-form'}}) }}
+            </div>
+            <div class="col-md-2 align-items-center">
+             <a id="lieu_create" href="{{ path('ville_create') }}">
+                 <div class="plus"> <img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu" alt="créer une ville" height="30" width="30">
+                 </div>
+             </a>
+            </div>
+        </div>
+
+            <div class="form-group row align-items-center">
+                 {{ form_label(sortieForm.lieu, "Lieu :", {'label_attr' : {'class' : 'col-form-label col-md-4'}}) }}
+                {{ form_errors(sortieForm.lieu) }}
+                <div class="col-md-4 align-items-center">
+                  {{ form_widget(sortieForm.lieu, {'attr' : {'class' : 'custom-control-input'}}) }}
+                </div>
+                <div class="col-md-2 align-items-center">
+                    <a id="lieu_create" href="{{ path('lieu_create') }}">
+                        <div class="plus"> <img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu" alt="créer un lieu" height="30" width="30">
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+
+        <div class="card">
+            <p>Coordonnées du lieu de l'évènement: </p>
+            <div id="coordonnees"></div>
+        </div>
 
     </div>
-  </div>
-    <div class="form-bouton-create">
-        {{ form_widget(sortieForm) }}
 
+  </div>
+    <div class="form-bouton-create form-group row align-items-center text-center">
+        <div class="col-md-2 align-items-center">
+        {{ form_widget(sortieForm.save) }}
+        </div>
+        <div class="col-md-4 align-items-center">
+        {{ form_widget(sortieForm.saveAndAdd) }}
+        </div>
         {#   <label class="btn btn-lg btn-secondary" type="submit" name="En creation"> Enregistrer</label>
         <label class="btn btn-lg btn-secondary" type="submit" name="Ouvert"> Publier</label>
        #}
+        <div class="col-md-4 align-items-center">
         {%  if sortie.etat %}
         <button class="btn btn-lg btn-secondary" type="submit"> <a href="{{ path('sortie_cancel', {'id':sortie.id}) }}">Supprimer la sortie</a></button>
        {% endif %}
+        </div>
+            <div class="col-md-2 align-items-center">
         <button class="btn btn-lg btn-secondary" type="submit"> <a href="{{ path('main_home') }}">Annuler</a></button>
-
-
+        </div>
         {{ form_end(sortieForm) }}
     </div>
-
+</main>
 
 {% endblock %}
 
