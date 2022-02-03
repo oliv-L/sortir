@@ -17,6 +17,10 @@
                 Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
             </div>
         {% endif %}
+        {% if is_granted("ROLE_INACTIF") %}
+            <p>Votre compte est désactivé !</p>
+            <p>Contactez l'administarteur.</p>
+        {% endif %}
 
         <div class="authentification">
         <h2 class="h3 mb-3 font-weight-normal">Veuillez vous identifier!</h2>

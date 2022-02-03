@@ -28,7 +28,7 @@
 {% include 'inc/nav.html.twig' %}
 
     <header>
-        <h1><a href="{{ path('main_home') }}"><img src="{{ asset('img/logo.png') }}" alt="sortir"></a></h1>
+        <h1>{% if is_granted("ROLE_INACTIF") == false %}<a href="{{ path('main_home') }}">{% endif %}<img src="{{ asset('img/logo.png') }}" alt="sortir"></a></h1>
         <div class="header-nav">
         </div>
     </header>

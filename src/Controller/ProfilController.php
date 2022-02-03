@@ -105,7 +105,9 @@ class ProfilController extends AbstractController
      */
     public function desactiverParticipant(Participant $participant, EntityManagerInterface $entityManager){
         // todo action boutton on passe setActif(0)
+
         $participant->setActif(0);
+        $participant->setRoles([3]);
         $entityManager->persist($participant);
         $entityManager->flush();
         $this->addFlash('success', 'Desactivation Réussi !');
@@ -117,7 +119,9 @@ class ProfilController extends AbstractController
      */
     public function activerParticipant(Participant $participant, EntityManagerInterface $entityManager){
         // todo action boutton on passe setActif(0)
+
         $participant->setActif(1);
+        $participant->setRoles([2]);
         $entityManager->persist($participant);
         $entityManager->flush();
         $this->addFlash('success', 'Activation Réussi !');
