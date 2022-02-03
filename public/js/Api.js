@@ -9,7 +9,7 @@ window.onload = () => {
 
   //todo voir a faire avec une variable déclarer sur une twig {{ app_url_api }}
   function initVilles() {
-      fetch("http://localhost/sortir/public/api/listeVilles", {method: "GET"})
+      fetch(url+"/listeVilles", {method: "GET"})
           .then(response => response.json())
           .then(response => {
               let options =  `<option value="">Choisir une ville</option>`;
@@ -27,7 +27,7 @@ window.onload = () => {
   function getLieu()
   {
       console.log("entrée dans la fonction getlieu")
-      fetch("http://localhost/sortir/public/api/lieu?id="+document.getElementById('sortie_ville').value, {method: "GET"})
+      fetch(url+"/lieu?id="+document.getElementById('sortie_ville').value, {method: "GET"})
       .then(response =>response.json())
       .then(response => {
       let options = "";
@@ -54,7 +54,7 @@ window.onload = () => {
   function getCoordonnees()
   {
       console.log("entrée dans la fonction getCoordonnees")
-      fetch("http://localhost/sortir/public/api/adresse?id="+document.querySelector('#sortie_lieu').value, {method: "GET"})
+      fetch(url+"/adresse?id="+document.querySelector('#sortie_lieu').value, {method: "GET"})
           .then(response =>response.json()
             )
           .then(response => {
