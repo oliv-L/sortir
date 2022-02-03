@@ -3,25 +3,26 @@
 {% block title %}creation d'une ville - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h2 class="text-center"> Ajouter une nouvelle ville</h2>
-    <div class="form-profil">
+<main class="form-signin text-center">
+    <div class="row text-center">
+        <h2>Ajouter une ville</h2>
+    </div>
 
         {{ form_start(createVilleForm) }}
-        <div>
-            {{ form_label(createVilleForm.nom) }}
-            {{ form_errors(createVilleForm.nom) }}
-            {{ form_widget(createVilleForm.nom) }}
-        </div>
-        <div>
-            {{ form_label(createVilleForm.codePostal) }}
-            {{ form_errors(createVilleForm.codePostal) }}
-            {{ form_widget(createVilleForm.codePostal) }}
-        </div>
 
-        <div class="form-bouton-create">
-            <button class="btn btn-lg btn-secondary form-creation-lieu" type="submit">Ajouter une ville</button>
-        </div>
+            {{ form_label(createVilleForm.nom, "Nom", {'label_attr' : {'class' : 'form-label'}}) }}
+            {{ form_errors(createVilleForm.nom) }}
+            {{ form_widget(createVilleForm.nom, {'attr' : {'class' : 'form-control' , 'placeholder': 'Nom'}}) }}
+
+            {{ form_label(createVilleForm.codePostal, "Code Postal", {'label_attr' : {'class' : 'form-label'}}) }}
+            {{ form_errors(createVilleForm.codePostal) }}
+            {{ form_widget(createVilleForm.codePostal, {'attr' : {'class' : 'form-control' , 'placeholder': 'Code Postal'}}) }}
+
+
+
+            <button class="btn btn-lg btn-secondary " type="submit">Ajouter une ville</button>
+
         {{ form_end(createVilleForm) }}
-    </div>
+    </main>
 {% endblock %}
 
