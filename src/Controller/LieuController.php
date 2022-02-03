@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
+use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,12 +33,14 @@ class LieuController extends AbstractController
     }
 
     /**
-     * @Route("/create", name="create")
+     * @Route("/create/{id}", name="create")
      */
 
-    public function create(Request $request, EntityManagerInterface $entityManager)
+    public function create(int $id, Request $request, VilleRepository $villeRepository, EntityManagerInterface $entityManager)
     {
         $lieu = new Lieu();
+        $ville = $villeRepository->find($id);
+        $lieu->setVille($ville);
         $createLieuForm = $this->createForm(LieuType::class, $lieu);
         $createLieuForm->handleRequest($request);
 
@@ -47,6 +51,6 @@ class LieuController extends AbstractController
                 return $this->redirectToRoute('sortie_create');
         }
 
-        return $this->render('lieu/createLieu.html.twig', ['createLieuForm'=>$createLieuForm->createView()]);
+        return $this->render('lieu/createLieu.html.twig', ['createLieuForm'=>$createLieuForm->createView(), 'lieu'=>$lieu]);
     }
 }
