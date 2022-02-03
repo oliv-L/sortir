@@ -98,7 +98,7 @@ class SortieRepository extends ServiceEntityRepository
         $query = $queryBuilder->getQuery()->getResult();
         return $query;
     }
-    public function filtreSortie(FiltreSortie $filtreSortie, UserInterface $participant)
+   /* public function filtreSortie(FiltreSortie $filtreSortie, UserInterface $participant)
     {
 
 
@@ -136,7 +136,7 @@ class SortieRepository extends ServiceEntityRepository
             /*$queryBuilder->innerJoin('s.participants', 'p')
                ->where('p.id  != :id')
                ->addSelect('p');
-            $queryBuilder->setParameter(':id', $participant->getId());*/
+            $queryBuilder->setParameter(':id', $participant->getId());
 
         }
         if($filtreSortie->getDateMin() && $filtreSortie->getDateMax())
@@ -160,7 +160,7 @@ class SortieRepository extends ServiceEntityRepository
         $query = $queryBuilder->getQuery()->getResult();
 
         return $query;
-    }
+    }*/
 
     public function MiseAJourEtat($etatOuvert, $etatFerme, $etatTermine)
     {
