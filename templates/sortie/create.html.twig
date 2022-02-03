@@ -38,7 +38,7 @@
         {{ form_label(sortieForm.ville) }}
         {{ form_errors(sortieForm.ville) }}
         {{ form_widget(sortieForm.ville) }}
-
+        <a id="lieu_create" href="{{ path('ville_create') }}"><div class="plus"> <img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu" alt="créer une ville" height="30" width="30"></div></a>
 
      {{ form_label(sortieForm.lieu) }}
         {{ form_errors(sortieForm.lieu) }}
