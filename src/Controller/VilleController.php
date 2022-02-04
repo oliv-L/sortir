@@ -29,7 +29,7 @@ class VilleController extends AbstractController
     {
         $ville = new Ville();
         $createVilleForm = $this->createForm(VilleType::class, $ville);
-        $createVilleForm->handleRequest($request);
+         $createVilleForm->handleRequest($request);
 
         if ($createVilleForm->isSubmitted() && $createVilleForm->isValid())
         {
