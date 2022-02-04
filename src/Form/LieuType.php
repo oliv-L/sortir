@@ -18,10 +18,11 @@ class LieuType extends AbstractType
             ->add('rue')
             ->add('latitude')
             ->add('longitude')
+
             ->add('ville', EntityType::class, array(
-                'required'=>true,
-                'placeholder'=>'choisir une ville',
+                'required'=>false,
                 'class'=>Ville::class,
+                'disabled'=>'disabled',
                 'choice_label'=>'nom'))
         ;
     }

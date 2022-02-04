@@ -19,9 +19,9 @@ window.onload = () => {
 
               document.querySelector('#villes').innerHTML = options;
           })
-         // .catch(e => {
-          //    alert("impossible de charger les villes")
-         //})
+          .catch(e => {
+             // alert("impossible de charger les villes")
+         })
   }
 
   function getLieu()
@@ -31,24 +31,24 @@ window.onload = () => {
       .then(response =>response.json())
       .then(response => {
       let options = "";
-      //let href="{{path(\'lieu_create\',{\'id\':"+ document.getElementById('sortie_ville').value+"})}}";
-      //let href="{{'/sortir/public/lieu/create',{'id':"+ document.getElementById('sortie_ville').value+"} ) }}";
+      //todo comment inserer un lien path() dans la twig avec javascript?
+     let href="/sortir/public/lieu/create/"+ document.getElementById('sortie_ville').value;
 
       response.map(lieu => {
       options += `<option value="${lieu.id}">${lieu.nom}</option>`;
                      })
 
       document.querySelector('#sortie_lieu').innerHTML = options;
-      //document.getElementById('lieu_create').setAttribute('href', href);
+      document.getElementById('lieu_create').setAttribute('href', href);
 
 
           document.querySelector('#sortie_lieu').addEventListener("change", function (){
               getCoordonnees();
                   })
                   })
-         // .catch(e => {
-         //     alert("impossible de charger les lieux de rencontres")
-         // })
+          .catch(e => {
+              alert("impossible de charger les lieux de rencontres")
+          })
   }
 
   function getCoordonnees()
@@ -69,8 +69,8 @@ window.onload = () => {
 
               document.getElementById('coordonnees').innerHTML = options;
           })
-        //  .catch(e => {
-        //      alert("impossible de recuperer les informations sur le lieu de rencontre")
-         // })
+          .catch(e => {
+              alert("impossible de recuperer les informations sur le lieu de rencontre")
+          })
   }
 
