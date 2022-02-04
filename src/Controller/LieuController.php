@@ -20,14 +20,14 @@ class LieuController extends AbstractController
 {
 
     /**
-     * @Route("/create/{id}", name="create")
+     * @Route("/create", name="create")
      */
 
-    public function create(int $id, Request $request, VilleRepository $villeRepository, EntityManagerInterface $entityManager)
+    public function create(Request $request, VilleRepository $villeRepository, EntityManagerInterface $entityManager)
     {
+
         $lieu = new Lieu();
-        $ville = $villeRepository->find($id);
-        $lieu->setVille($ville);
+
         $createLieuForm = $this->createForm(LieuType::class, $lieu);
         $createLieuForm->handleRequest($request);
 
