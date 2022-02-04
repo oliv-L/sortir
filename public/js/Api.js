@@ -7,7 +7,7 @@ window.onload = () => {
     })
 }
 
-  //todo voir a faire avec une variable déclarer sur une twig {{ app_url_api }}
+
   function initVilles() {
       fetch(url+"/listeVilles", {method: "GET"})
           .then(response => response.json())
@@ -37,7 +37,7 @@ window.onload = () => {
       response.map(lieu => {
       options += `<option value="${lieu.id}">${lieu.nom}</option>`;
                      })
-
+        console.log(href)
       document.querySelector('#sortie_lieu').innerHTML = options;
       document.getElementById('lieu_create').setAttribute('href', href);
 

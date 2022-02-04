@@ -74,7 +74,7 @@
                     <div class="col-md-2 align-items-center">
 
                         <input type="email" value="{{ app.user.campus.nom }}" class="custom-control-input"
-                               readonly="readonly"/>
+                               readonly="readonly" id=campus">
                     </div>
                 </div>
 
@@ -86,7 +86,7 @@
                         {{ form_widget(sortieForm.ville, {'attr' : {'class' : 'select-form'}}) }}
                     </div>
                     <div class="col-md-2 align-items-center">
-                        <a id="lieu_create" href="{{ path('ville_create') }}">
+                        <a id="ville_create" href="{{ path('ville_create') }}">
                             <div class="plus"><img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu"
                                                    alt="créer une ville" height="30" width="30">
                             </div>
@@ -101,7 +101,7 @@
                         {{ form_widget(sortieForm.lieu, {'attr' : {'class' : 'custom-control-input'}}) }}
                     </div>
                     <div class="col-md-2 align-items-center">
-                        <a id="lieu_create" href="{{ path('lieu_create') }}">
+                        <a id="lieu_create" href="">
 
                             <div class="plus"><img src="{{ asset('img/plus_PNG95.png') }}" title="créer un lieu"
                                                    alt="créer un lieu" height="30" width="30">

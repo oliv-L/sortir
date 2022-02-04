@@ -21,7 +21,7 @@ class LieuType extends AbstractType
             ->add('ville', EntityType::class, array(
                 'required'=>false,
                 'class'=>Ville::class,
-               // 'disabled'=>'disabled',
+                'disabled'=>'disabled',
                 'choice_label'=>'nom'))
         ;
     }

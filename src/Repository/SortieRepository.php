@@ -67,8 +67,10 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if ($filtreSortie->getSortiePassee()) {
+
             $queryBuilder->andWhere('s.etat = :etat');
             $queryBuilder->setParameter('etat', Etat::finie());
+
         }
 
 

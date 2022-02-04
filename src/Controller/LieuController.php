@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
+use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
 use App\Repository\VilleRepository;
@@ -20,14 +21,14 @@ class LieuController extends AbstractController
 {
 
     /**
-     * @Route("/create", name="create")
+     * @Route("/create/{id}", name="create")
      */
 
-    public function create(Request $request, VilleRepository $villeRepository, EntityManagerInterface $entityManager)
+    public function create( Ville $ville, Request $request, VilleRepository $villeRepository, EntityManagerInterface $entityManager)
     {
 
         $lieu = new Lieu();
-
+        $lieu ->setVille($ville);
         $createLieuForm = $this->createForm(LieuType::class, $lieu);
         $createLieuForm->handleRequest($request);
 
