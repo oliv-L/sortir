@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-   Liste des Utilisateurs
+    Liste des Utilisateurs
 {% endblock %}
 
 {% block body %}
     <div class="card mb-4">
         <div class="table-responsive">
-            <h2 class="card-title text-center">Gestions des utilisateurs</h2>
+            <h2 class="card-title text-center">Gestion des utilisateurs</h2>
             <table class="table">
                 <thead>
                 <tr>
@@ -26,17 +26,17 @@
                 <tbody>
                 {% for l in liste %}
                     <tr>
-                        <td>{{l.pseudo}}</td>
-                        <td>{{ l.nom}}</td>
-                        <td>{{ l.prenom}}</td>
-                        <td>{{ l.email}}</td>
-                        <td>{{ l.campus.nom}}</td>
-                        <td>{{ l.telephone}}</td>
+                        <td>{{ l.pseudo }}</td>
+                        <td>{{ l.nom }}</td>
+                        <td>{{ l.prenom }}</td>
+                        <td>{{ l.email }}</td>
+                        <td>{{ l.campus.nom }}</td>
+                        <td>{{ l.telephone }}</td>
                         <td>{% if l.actif == 1 %}
-                            Actif
+                                Actif
                             {% else %}
-                            Inactif
-                                {% endif %}
+                                Inactif
+                            {% endif %}
                         </td>
                         <td>
                             {% if l.actif == 1 %}

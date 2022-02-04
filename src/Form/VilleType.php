@@ -13,14 +13,13 @@ class VilleType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('codePostal')
-        ;
+            ->add('codePostal');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-             'data_class' => Ville::class,
+            'data_class' => Ville::class,
         ]);
     }
 }

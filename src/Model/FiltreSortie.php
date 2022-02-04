@@ -4,12 +4,11 @@ namespace App\Model;
 
 use App\Entity\Campus;
 
-use phpDocumentor\Reflection\Types\Boolean;
 
 class FiltreSortie
 {
+    // ? : valide la possibilité d'un null
     private ?Campus $campus;
-   // ? : valide la possibilité d'un null
     private ?string $search = null;
     private ?\DateTimeInterface $dateMin = null;
     private ?\DateTimeInterface $dateMax = null;

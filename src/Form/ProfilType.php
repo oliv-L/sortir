@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 class ProfilType extends AbstractType
 {
@@ -41,11 +41,9 @@ class ProfilType extends AbstractType
                 ],
             ])
             ->add('photo', FileType::class, [
-                'label' => '',
 
                 // n'est pas associé aux propriétés de l'entité
                 'mapped' => false,
-
                 'required' => false,
 
                 // utilisation des constraints car non mappé

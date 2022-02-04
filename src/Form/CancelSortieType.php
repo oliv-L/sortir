@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
-use Doctrine\DBAL\Types\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +22,7 @@ class CancelSortieType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Sortie::class,
+            //desactivation des notifications html5 (optionnel)
             //'attr' =>['novalidate'=>'novalidate']
         ]);
     }

@@ -11,15 +11,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VilleController extends AbstractController
 {
-    /**
-     * @Route("/ville", name="ville")
-     */
-    public function index(): Response
-    {
-        return $this->render('ville/index.html.twig', [
-            'controller_name' => 'VilleController',
-        ]);
-    }
 
     /**
      * @Route("/create", name="ville_create")

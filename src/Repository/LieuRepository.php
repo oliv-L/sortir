@@ -33,7 +33,6 @@ class LieuRepository extends ServiceEntityRepository
         $queryBuilder->innerJoin('l.ville', 'v')->addSelect('v');
         $queryBuilder->andWhere('l.id = :id');
         $queryBuilder->setParameter('id', $id);
-
         return $queryBuilder->getQuery()->getResult();
 
     }

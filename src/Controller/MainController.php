@@ -2,27 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Campus;
 use App\Entity\Etat;
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SearchType;
 use App\Model\FiltreSortie;
-
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\CampusRepository;
-
-use App\Service\MiseAJourEtatSortie;
-use ContainerFvamBba\getDoctrine_DatabaseDropCommandService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
-use function Sodium\add;
 
 
 /**
@@ -30,7 +21,6 @@ use function Sodium\add;
  */
 class MainController extends AbstractController
 {
-    //todo voir pr recuperer le formulaire
 
     /**
      * @Route("/", name="home")
@@ -39,7 +29,6 @@ class MainController extends AbstractController
     public function home(SortieRepository $sortieRespository,
                          CampusRepository $campusRepository,
                          Request          $request
-
     ): Response
     {
 
@@ -47,15 +36,14 @@ class MainController extends AbstractController
         $filtreSortie->setCampus($this->getUser()->getCampus());
         $searchForm = $this->createForm(SearchType::class, $filtreSortie);
         $searchForm->handleRequest($request);
-      //  $sorties = $sortieRespository->filtreSortie($filtreSortie, $this->getUser());
         $sorties = $sortieRespository->filtreEvent($filtreSortie, $this->getUser());
 
-
         $campus = $campusRepository->findAll();
+
         return $this->render('main/home.html.twig', [
             'sorties' => $sorties,
             'campus' => $campus,
-             'searchForm' => $searchForm->createView()
+            'searchForm' => $searchForm->createView()
         ]);
 
     }
@@ -65,15 +53,12 @@ class MainController extends AbstractController
      *
      */
     public function inscription(EntityManagerInterface $em,
-                                EtatRepository $er,
-                                int $id): Response
+                                EtatRepository         $er,
+                                int                    $id): Response
     {
 
-
-        //au préalable charger la dépendance suivante => composer require nelmio/cors-bundle
         $sortie = $em->getRepository(Sortie::class)->find($id);
-        if(!$sortie)
-        {
+        if (!$sortie) {
             throw $this->createNotFoundException("Sortie non existante");
         }
 
@@ -91,9 +76,8 @@ class MainController extends AbstractController
         if ($inscriptionDispo) {
             $sortie->addParticipant($this->getUser());
 
-            if (count($sortie->getParticipants()) >= $sortie->getNbInscriptionsMax())
-            {
-                $sortie->setEtat($er->findOneBy(['libelle'=>Etat::cloturee()]));
+            if (count($sortie->getParticipants()) >= $sortie->getNbInscriptionsMax()) {
+                $sortie->setEtat($er->findOneBy(['libelle' => Etat::cloturee()]));
             }
 
             $em->persist($sortie);
@@ -107,31 +91,31 @@ class MainController extends AbstractController
 
 
     }
+
     /**
      * @Route("/main/desinscription/{id}", name="desinscription")
      */
     public function desinscription(EntityManagerInterface $entityManager,
-                                   EtatRepository $er,
-                                   int $id):Response
+                                   EtatRepository         $er,
+                                   int                    $id): Response
     {
         $sortie = $entityManager->getRepository(Sortie::class)->find($id);
 
         //Quel est l'état de la sortie : ouverte!
         $ouvert = $sortie->getEtat()->getLibelle() === Etat::ouverte();
 
-        if ($sortie->getEtat()->getLibelle() === Etat::ouverte() ||$sortie->getEtat()->getLibelle() === Etat::cloturee() ) {
+        if ($ouvert || $sortie->getEtat()->getLibelle() === Etat::cloturee()) {
             //enlever le participant de la liste
             $sortie->removeParticipant($this->getUser());
 
-            if (count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax() && $sortie->getDateLimiteInscription() > new \DateTime('now'))
-            {
-                $sortie->setEtat($er->findOneBy(['libelle'=>Etat::ouverte()]));
+            if (count($sortie->getParticipants()) < $sortie->getNbInscriptionsMax() && $sortie->getDateLimiteInscription() > new \DateTime('now')) {
+                $sortie->setEtat($er->findOneBy(['libelle' => Etat::ouverte()]));
             }
             $entityManager->persist($sortie);
             $entityManager->flush();
             $this->addFlash('success', 'Votre désistement à été enregistré');
         } else {
-            $this->addFlash('error','Votre désistement n\'a pas pu être pris en compte' );
+            $this->addFlash('error', 'Votre désistement n\'a pas pu être pris en compte');
         }
 
         return $this->redirectToRoute('main_home');
@@ -141,50 +125,46 @@ class MainController extends AbstractController
      * @Route("/maj", name="accueil")
      */
 
-        public function accueil(SortieRepository $sortieRepository,
-                                EtatRepository $etatRepository,
-                                EntityManagerInterface $entityManager): Response
-        {
-            //$dateintervalle = new \DateInterval('P1M');
-           // $dateFuture = $dateTime->add($dateintervalle);
+    public function accueil(SortieRepository       $sortieRepository,
+                            EtatRepository         $etatRepository,
+                            EntityManagerInterface $entityManager): Response
+    {
+       // mise a jour des états des sorties au moment de la connexion utilisateur
 
-            // définition des tableaux selon etat sortie
-            $majSortie = $sortieRepository->MiseAJourEtat(
-                $etatRepository->findOneBy(['libelle' => Etat::ouverte()]),
-                $etatRepository->findOneBy(['libelle'=>Etat::cloturee()]),
-                $etatRepository->findOneBy(['libelle'=>Etat::finie()]) );
+        // définition des tableaux selon etat sortie
+        $majSortie = $sortieRepository->MiseAJourEtat(
+            $etatRepository->findOneBy(['libelle' => Etat::ouverte()]),
+            $etatRepository->findOneBy(['libelle' => Etat::cloturee()]),
+            $etatRepository->findOneBy(['libelle' => Etat::finie()]));
 
-            foreach ($majSortie as $sortie)
-            {
+        foreach ($majSortie as $sortie) {
 
-                $inscription = $sortie->getDateLimiteInscription() < new \DateTime('now');
-                $finie = $sortie->getDateHeureDebut()<new \DateTime('now');
-                $archive = $sortie->getDateHeureDebut()->add(new \DateInterval('P30D')) < (new \DateTime('now'));
-                //on vérifie si il est cloturé, passé ET archivé
-                if($archive && $inscription && $finie)
-                {
-                    $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::archivee()]));
-                    $entityManager->persist($sortie);
-                    $entityManager->flush();
-                }
-                //sinon est il cloturé ET passé?
-                else if ($inscription && $finie)
-                {
-                    $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::finie()]));
-                    $entityManager->persist($sortie);
-                    $entityManager->flush();
-                }
-                //est il cloturé?
-                else if ($inscription)
-                        {
-                            $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::cloturee()]));
-                            $entityManager->persist($sortie);
-                            $entityManager->flush();
-                        }
+            $inscription = $sortie->getDateLimiteInscription() < new \DateTime('now');
+            $finie = $sortie->getDateHeureDebut() < new \DateTime('now');
+            $archive = $sortie->getDateHeureDebut()->add(new \DateInterval('P30D')) < (new \DateTime('now'));
 
+            //on vérifie si il est cloturé, passé ET archivé
+            if ($archive && $inscription && $finie) {
+                $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::archivee()]));
+                $entityManager->persist($sortie);
+                $entityManager->flush();
             }
-            return $this->redirectToRoute("main_home");
+            //sinon est il cloturé ET passé?
+            else if ($inscription && $finie) {
+                $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::finie()]));
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+            //est il cloturé?
+            else if ($inscription) {
+                $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::cloturee()]));
+                $entityManager->persist($sortie);
+                $entityManager->flush();
+            }
+
         }
+        return $this->redirectToRoute("main_home");
+    }
 
 
     /**
@@ -193,7 +173,7 @@ class MainController extends AbstractController
      */
 
     public function afficherSortie(SortieRepository $sortieRepository, $id)
-        {
+    {
 
         $sortie = $sortieRepository->find($id);
 

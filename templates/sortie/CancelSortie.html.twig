@@ -8,23 +8,17 @@
     <p> Nom de la sortie : {{ sortie.nom }}</p>
     <p> Date de la sortie : {{ sortie.dateHeureDebut|date('d-m-Y') }}</p>
     <p> Campus : {{ sortie.campus.nom }}</p>
-    <p> Lieu : {{ sortie.lieu.nom|upper}}</p>
+    <p> Lieu : {{ sortie.lieu.nom|upper }}</p>
     <p> Adresse : {{ sortie.lieu.rue }} {{ sortie.lieu.ville.nom }}</p>
 
     <div class="form-sortie-creation text-center">
 
 
-            {{form_start(cancelForm) }}
-            {{ form_widget(cancelForm) }}
-
-
-
-        {#   <label class="btn btn-lg btn-secondary" type="submit" name="En creation"> Enregistrer</label>
-        <label class="btn btn-lg btn-secondary" type="submit" name="Ouvert"> Publier</label>
-        #}
+        {{ form_start(cancelForm) }}
+        {{ form_widget(cancelForm) }}
 
         <button class="btn btn-lg btn-secondary" type="submit">Supprimer la sortie</button>
-        <button class="btn btn-lg btn-secondary" type="submit"> <a href="{{ path('main_home') }}">Annuler</a></button>
+        <button class="btn btn-lg btn-secondary" type="submit"><a href="{{ path('main_home') }}">Annuler</a></button>
 
 
         {{ form_end(cancelForm) }}

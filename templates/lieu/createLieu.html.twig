@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}creation d'un lieu - {{ parent() }}{% endblock %}
+{% block title %}Création d'un lieu - {{ parent() }}{% endblock %}
 
 {% block body %}
 
@@ -9,7 +9,7 @@
             <h2>Ajouter un lieu à {{ lieu.ville.nom }}</h2>
         </div>
 
-    {{ form_start(createLieuForm) }}
+        {{ form_start(createLieuForm) }}
 
         {{ form_label(createLieuForm.nom, "Nom", {'label_attr' : {'class' : 'form-label'}}) }}
         {{ form_errors(createLieuForm.nom) }}
@@ -28,17 +28,16 @@
         {{ form_widget(createLieuForm.longitude, {'attr' : {'class' : 'form-control' , 'placeholder': 'Longitude'}}) }}
 
 
-         <div id="lieuVille">
-       {{ form_label(createLieuForm.ville, "Ville", {'label_attr' : {'class' : 'form-label'}}) }}
-        {{ form_errors(createLieuForm.ville) }}
-        {{ form_widget(createLieuForm.ville, {'attr' : {'class' : 'form-select' , 'placeholder': 'Ville'}}) }}
-         </div>
+        <div id="lieuVille">
+            {{ form_label(createLieuForm.ville, "Ville", {'label_attr' : {'class' : 'form-label'}}) }}
+            {{ form_errors(createLieuForm.ville) }}
+            {{ form_widget(createLieuForm.ville, {'attr' : {'class' : 'form-select' , 'placeholder': 'Ville'}}) }}
+        </div>
 
 
+        <button class="btn btn-lg btn-secondary form-creation-lieu" type="submit">Ajouter</button>
 
-            <button class="btn btn-lg btn-secondary form-creation-lieu" type="submit">Ajouter</button>
-
-    {{ form_end(createLieuForm) }}
+        {{ form_end(createLieuForm) }}
     </main>
 
 {% endblock %}

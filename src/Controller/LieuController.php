@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
-use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Repository\LieuRepository;
 use App\Repository\VilleRepository;
@@ -19,18 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LieuController extends AbstractController
 {
-    /**
-     * @Route("/", name="route")
-     */
-    public function route($nom,
-                          LieuRepository $lieuRepository,
-                          Lieu $lieu): Response
-    {
-        $lieu = $lieuRepository->findOneBy($nom);
-        return $this->render('lieu/index.html.twig', [
-            'lieu' => $lieu
-        ]);
-    }
 
     /**
      * @Route("/create/{id}", name="create")

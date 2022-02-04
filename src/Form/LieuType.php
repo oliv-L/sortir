@@ -18,7 +18,6 @@ class LieuType extends AbstractType
             ->add('rue')
             ->add('latitude')
             ->add('longitude')
-
             ->add('ville', EntityType::class, array(
                 'required'=>false,
                 'class'=>Ville::class,

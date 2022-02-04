@@ -10,11 +10,8 @@ use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -35,8 +32,8 @@ class SortieType extends AbstractType
      * @param VilleRepository $villeRepository
      */
     public function __Construct(EntityManagerInterface $entityManager,
-                                VilleRepository $villeRepository,
-                                LieuRepository $lieuRepository)
+                                VilleRepository        $villeRepository,
+                                LieuRepository         $lieuRepository)
     {
         $this->entityManager = $entityManager;
         $this->lieuRepository = $lieuRepository;
@@ -50,79 +47,76 @@ class SortieType extends AbstractType
             ->add('nom')
             ->add('dateHeureDebut',
                 DateTimeType::class,
-                ['html5'=>true,
-                    'widget'=>'single_text'])
-            ->add('duree',null,['attr'=>['min'=>0, 'max'=>300, 'step'=>15]])
+                ['html5' => true,
+                    'widget' => 'single_text'])
+            ->add('duree', null, ['attr' => ['min' => 0, 'max' => 300, 'step' => 15]])
             ->add('dateLimiteInscription',
                 DateType::class,
-                     ['html5'=>true,
-                    'widget'=>'single_text'])
+                ['html5' => true,
+                    'widget' => 'single_text'])
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
-            //->add('lieu', EntityType::class, ['class'=>Lieu::class])
-            ->add('ville', EntityType::class, ['class'=>Ville::class, 'choice_label'=>'nom', 'mapped'=>false, 'placeholder'=>'choisir une ville'])
-            ->add('lieu',EntityType::class, ['class'=>Lieu::class, 'choice_label'=>'nom','choices'=>[],'attr'=>['id'=>'lieu', 'name'=>'lieu']])
-
+            ->add('ville', EntityType::class, ['class' => Ville::class, 'choice_label' => 'nom', 'mapped' => false, 'placeholder' => 'choisir une ville'])
+            ->add('lieu', EntityType::class, ['class' => Lieu::class, 'choice_label' => 'nom', 'choices' => [], 'attr' => ['id' => 'lieu', 'name' => 'lieu']])
             ->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'))
             ->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'))
-            ->add('save', SubmitType::class, ['label' => 'Enregistrer', 'attr'=>['class'=>"btn btn-lg btn-secondary"]])
+            ->add('save', SubmitType::class, ['label' => 'Enregistrer', 'attr' => ['class' => "btn btn-lg btn-secondary"]])
             ->add('saveAndAdd', SubmitType::class, [
                 'label' => 'Publier la sortie',
-                'attr'=>['class'=>"btn btn-lg btn-secondary"]])
-        ;
+                'attr' => ['class' => "btn btn-lg btn-secondary"]]);
     }
 
 
-  protected function addElements(FormInterface $form, Ville $ville = null)
-  {
-      $form->add('ville', EntityType::class, array(
-          'required' => true,
-          'mapped'=>false,
-          'data' => $ville,
-          'choice_label'=>'nom',
-          'placeholder' => 'choisir une ville',
-          'class'=>Ville::class
-      ));
+    protected function addElements(FormInterface $form, Ville $ville = null)
+    {
+        $form->add('ville', EntityType::class, array(
+            'required' => true,
+            'mapped' => false,
+            'data' => $ville,
+            'choice_label' => 'nom',
+            'placeholder' => 'Choisir une ville',
+            'class' => Ville::class
+        ));
 
-      $lieux = array();
+        $lieux = array();
 
 
-      if ($ville) {
-          $lieux = $this->lieuRepository->getLieu($ville->getId());
+        if ($ville) {
+            $lieux = $this->lieuRepository->getLieu($ville->getId());
 
-      }
+        }
 
-      $form->add('lieu', EntityType::class, array(
-          'required'=>true,
-          'placeholder'=>'choisir une ville d\'abord',
-          'class'=>Lieu::class,
-          'choices'=>$lieux
-      ));
-  }
+        $form->add('lieu', EntityType::class, array(
+            'required' => true,
+            'placeholder' => 'Choisir une ville d\'abord',
+            'class' => Lieu::class,
+            'choices' => $lieux
+        ));
+    }
 
-  function onPreSubmit(FormEvent $event)
-  {
-      $form = $event->getForm();
-      $data = $event->getData();
-      $ville =$this->villeRepository->find($data['ville']);
-      $this->addElements($form, $ville);
-  }
+    function onPreSubmit(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $data = $event->getData();
+        $ville = $this->villeRepository->find($data['ville']);
+        $this->addElements($form, $ville);
+    }
 
-  function onPreSetData(FormEvent $event)
-  {
-      $sortie = $event->getData();
-      $form = $event->getForm();
+    function onPreSetData(FormEvent $event)
+    {
+        $sortie = $event->getData();
+        $form = $event->getForm();
 
-      $ville = null;
-      $this->addElements($form, $ville);
-  }
+        $ville = null;
+        $this->addElements($form, $ville);
+    }
 
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Sortie::class,
-            'attr' =>['novalidate'=>'novalidate']
+            'attr' => ['novalidate' => 'novalidate']
         ]);
     }
 }

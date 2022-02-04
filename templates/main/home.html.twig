@@ -1,85 +1,84 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}|Home
+    {{ parent() }}
 {% endblock %}
 
 {% block body %}
     {% if app.user %}
-<div class="profil">
-    {#  <p>Date du jour: {{ "now"| date('d/m/Y ') }} {{ app.user.pseudo }} {%  for role in app.user.roles%}{{role}}{% endfor %}</p>#}
+        <div class="profil">
 
-</div>
+        </div>
         <main class="form-filtre text-center displayCreate">
 
             <div class="row text-center">
                 <h3>Filtrer les sorties</h3>
             </div>
 
-                {{ form_start(searchForm) }}
+            {{ form_start(searchForm) }}
 
-                <div class="form-group row align-items-center">
-                         {{ form_label(searchForm.campus, "Campus", {'label_attr' : {'class' : 'col-form-label col-md-2 '}}) }}
+            <div class="form-group row align-items-center">
+                {{ form_label(searchForm.campus, "Campus", {'label_attr' : {'class' : 'col-form-label col-md-2 '}}) }}
 
-                    <div class="col-md-2 align-items-center">
-                         {{ form_widget(searchForm.campus, {'attr': {'class' : 'form-select '}}) }}
-                    </div>
-
-                        {{ form_label(searchForm.organisateur ,"Sorties dont je suis l'organisateur(trice)", {'label_attr' : {'class' : 'col-form-label col-md-2 '}}) }}
-                    <div class="col-md-2 align-items-center">
-                        {{ form_widget(searchForm.organisateur , {'attr' : {'class' : 'custom-control-input'}}) }}
-                    </div>
+                <div class="col-md-2 align-items-center">
+                    {{ form_widget(searchForm.campus, {'attr': {'class' : 'form-select '}}) }}
                 </div>
 
-                <div class="form-group row align-items-center">
-                        {{ form_label(searchForm.search, "Recherchez" , {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                {{ form_label(searchForm.organisateur ,"Sorties dont je suis l'organisateur(trice)", {'label_attr' : {'class' : 'col-form-label col-md-2 '}}) }}
+                <div class="col-md-2 align-items-center">
+                    {{ form_widget(searchForm.organisateur , {'attr' : {'class' : 'custom-control-input'}}) }}
+                </div>
+            </div>
 
-                    <div class="col-md-2 align-items-center">
+            <div class="form-group row align-items-center">
+                {{ form_label(searchForm.search, "Rechercher" , {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+
+                <div class="col-md-2 align-items-center">
                     {{ form_widget(searchForm.search, {'attr': {'class' : 'form-control'}}) }}
-                    </div>
-                    {{ form_label(searchForm.inscrit ,"Sorties auxquelles je suis inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
-
-                    <div class="col-md-2 align-items-center">
-                        {{ form_widget(searchForm.inscrit , {'attr' : {'class' : 'custom-control-input'}}) }}
-                    </div>
                 </div>
+                {{ form_label(searchForm.inscrit ,"Sorties auxquelles je suis inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
 
-                <div class="form-group row align-items-center">
-                    {{ form_label(searchForm.dateMin, "Entre le ", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
-
-                    <div class="col-md-2 align-items-center">
-                        {{ form_widget(searchForm.dateMin, {'attr' : {'class' : 'form-control'}}) }}
-                    </div>
-                    {{ form_label(searchForm.nonInscrit ,"Sorties auxquelles je ne suis pas inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
-                    <div class="col-md-2 align-items-center">
-                        {{ form_widget(searchForm.nonInscrit, {'attr' : {'class' : 'custom-control-input'}}) }}
-                    </div>
+                <div class="col-md-2 align-items-center">
+                    {{ form_widget(searchForm.inscrit , {'attr' : {'class' : 'custom-control-input'}}) }}
                 </div>
+            </div>
 
-                <div class="form-group row align-items-center">
-                        {{ form_label(searchForm.dateMax, "Et le ", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
-                    <div class="col-md-2 align-items-center">
-                        {{ form_widget(searchForm.dateMax , {'attr' : {'class' : 'form-control'}}) }}
-                    </div>
-                    {{ form_label(searchForm.sortiePassee ,"Sorties passées", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
-                    <div class="col-md-2 align-items-center">
+            <div class="form-group row align-items-center">
+                {{ form_label(searchForm.dateMin, "Entre le ", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
 
-                        {{ form_widget(searchForm.sortiePassee , {'attr' : {'class' : 'custom-control-input'}}) }}
-                    </div>
+                <div class="col-md-2 align-items-center">
+                    {{ form_widget(searchForm.dateMin, {'attr' : {'class' : 'form-control'}}) }}
                 </div>
+                {{ form_label(searchForm.nonInscrit ,"Sorties auxquelles je ne suis pas inscrit(e)", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                <div class="col-md-2 align-items-center">
+                    {{ form_widget(searchForm.nonInscrit, {'attr' : {'class' : 'custom-control-input'}}) }}
+                </div>
+            </div>
 
-                      <button class="btn btn-secondary text-center" type="submit">Rechercher</button>
-                    {{ form_end(searchForm) }}
+            <div class="form-group row align-items-center">
+                {{ form_label(searchForm.dateMax, "Et le ", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                <div class="col-md-2 align-items-center">
+                    {{ form_widget(searchForm.dateMax , {'attr' : {'class' : 'form-control'}}) }}
+                </div>
+                {{ form_label(searchForm.sortiePassee ,"Sorties passées", {'label_attr' : {'class' : 'col-form-label col-md-2'}}) }}
+                <div class="col-md-2 align-items-center">
+
+                    {{ form_widget(searchForm.sortiePassee , {'attr' : {'class' : 'custom-control-input'}}) }}
+                </div>
+            </div>
+
+            <button class="btn btn-secondary text-center" type="submit">Rechercher</button>
+            {{ form_end(searchForm) }}
 
         </main>
 
         <div class="card mb-4">
             <div class="table-responsive">
-                <h2 class="card-title text-center" >Liste des sorties</h2>
+                <h2 class="card-title text-center">Liste des sorties</h2>
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Nom de la sortie </th>
+                        <th>Nom de la sortie</th>
                         <th>Date de la sortie</th>
                         <th class="hidden"> Lieu</th>
                         <th class="displayCreate">Clôture</th>
@@ -93,114 +92,110 @@
                     </thead>
                     <tbody>
                     {% for sortie in sorties %}
-                        {# 1-  Mettre lien pour afficher le profil de l'orga
-                        2- gérer inscrit ou non
-                        3- gérer les actions
-                        #}
+
                         <tr>
                             <td class="displayCreate">{{ sortie.nom }}</td>
-                            <td class="hidden"><a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}">{{ sortie.nom }}</a></td>
+                            <td class="hidden"><a
+                                        href="{{ path( 'main_afficher', {'id': sortie.id} ) }}">{{ sortie.nom }}</a>
+                            </td>
                             <td>{{ sortie.dateHeureDebut | date('d/m/Y H:i') }}</td>
                             <td class="hidden">{{ sortie.lieu.ville.nom }}</td>
                             <td class="displayCreate">{{ sortie.dateLimiteInscription | date('d/m/Y ') }}</td>
-                            <td class="displayCreate">{{ sortie.participants | length }} / {{ sortie.nbInscriptionsMax}}</td>
+                            <td class="displayCreate">{{ sortie.participants | length }}
+                                / {{ sortie.nbInscriptionsMax }}</td>
                             <td class="displayCreate">{{ sortie.etat.libelle }}</td>
                             <td class="displayCreate">
-                            {% for s in app.user.sorties %}
-                                {% if s.id == sortie.id %}
-                                     Oui
+                                {% for s in app.user.sorties %}
+                                    {% if s.id == sortie.id %}
+                                        Oui
+                                    {% endif %}
+                                {% endfor %}</td>
+
+                            <td class="displayCreate"><a
+                                        href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a>
+                            </td>
+
+
+                            <td class="displayCreate">
+
+                                {# affichage du bouton Afficher détail #}
+                                {% if sortie.etat.libelle != archivee() %}
+                                    <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                       role="button">
+                                        Afficher
+
+                                    </a>
                                 {% endif %}
-                            {% endfor %}</td>
 
-                            <td class="displayCreate"><a href="{{ path('profil_profilParticipant', {'id':sortie.getOrganisateurSortie.id}) }}">{{ sortie.getOrganisateurSortie.pseudo }}</a></td>
+                                {# affichage du bouton s'inscrire si Ouvert et si non inscrit #}
+                                {% if sortie.etat.libelle == ouverte() and app.user.sorties.contains(sortie) == false %}
+                                    <a href="{{ path( 'main_sinscrire', {'id': sortie.id} ) }}"
+                                       class="btn btn-secondary"
+                                       role="button">
+                                        S'inscrire
+                                    </a>
+                                {% endif %}
 
+                                {# affichage du bouton se désinscrire si Ouvert et si Inscrit #}
+                                {% for s in app.user.sorties %}
+                                    {% if s.id == sortie.id %}
+                                        {% if sortie.etat.libelle == ouverte() or sortie.etat.libelle == cloturee() %}
+                                            <a href="{{ path( 'main_desinscription', {'id': sortie.id} ) }}"
+                                               class="btn btn-secondary"
+                                               role="button">
+                                                Se Désinscrire
+                                            </a>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
 
-                             <td class="displayCreate">
+                                {# affichage du bouton modifier si on est le createur et si l'etat est cree #}
+                                {% if  creee()  == sortie.etat.libelle %}
+                                    {% if sortie.getOrganisateurSortie.id == app.user.id %}
+                                        <a href="{{ path( 'sortie_create', {'id': sortie.id} ) }}"
+                                           class="btn btn-secondary"
+                                           role="button">
+                                            Modifier
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
 
-        {# affichage du bouton Afficher détail #}
-                                 {% if sortie.etat.libelle != archivee() %}
-                                  <a href="{{ path( 'main_afficher', {'id': sortie.id} ) }}" class="btn btn-secondary"
-                                     role="button">
-                                      Afficher
-
-                                  </a>
-                                 {% endif %}
-        {# affichage du bouton s'inscrire si Ouvert et si non inscrit #}
-
-
-                                      {% if sortie.etat.libelle == ouverte() and app.user.sorties.contains(sortie) == false %}
-                                       <a href="{{ path( 'main_sinscrire', {'id': sortie.id} ) }}" class="btn btn-secondary"
-                                        role="button">
-                                         S'inscrire
-                                         </a>
-
-                                  {% endif %}
-
-
-
-
-
-                            {% for s in app.user.sorties %}
-
-                                  {% if s.id == sortie.id%}
-                                      {% if sortie.etat.libelle == ouverte() or sortie.etat.libelle == cloturee()%}
-                                          <a href="{{ path( 'main_desinscription', {'id': sortie.id} ) }}" class="btn btn-secondary"
-                                             role="button">
-                                              Se Désinscrire
-                                          </a>
-                                              {% endif %}
-                                  {% endif %}
-                            {% endfor %}
-
-        {# affichage du bouton modifier si on est le createur et si l'etat est creee#}
-                                 {% if  creee()  == sortie.etat.libelle %}
-                                     {% if sortie.getOrganisateurSortie.id == app.user.id %}
-                                         <a href="{{ path( 'sortie_create', {'id': sortie.id} ) }}" class="btn btn-secondary"
-                                             role="button">
-                                             Modifier
-                                          </a>
-                                     {% endif %}
-                                 {% endif %}
-
-        {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture#}
-                            {% if sortie.getOrganisateurSortie.id == app.user.id or app.user.roles == ['ROLE_ADMIN']%}
-                                {% if sortie.etat.libelle == ouverte() %}
-                                          <a href="{{ path( 'sortie_cancel', {'id': sortie.id}) }}" class="btn btn-secondary"
-                                             role="button">
-                                              Annuler
-                                          </a>
-                                {% elseif sortie.etat.libelle == cloturee() %}
-                                         <a href="{{  path( 'sortie_cancel', {'id': sortie.id} ) }}" class="btn btn-secondary"
+                                {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture #}
+                                {% if sortie.getOrganisateurSortie.id == app.user.id or app.user.roles == ['ROLE_ADMIN'] %}
+                                    {% if sortie.etat.libelle == ouverte() %}
+                                        <a href="{{ path( 'sortie_cancel', {'id': sortie.id}) }}"
+                                           class="btn btn-secondary"
                                            role="button">
                                             Annuler
-                                         </a>
-
-
+                                        </a>
+                                    {% elseif sortie.etat.libelle == cloturee() %}
+                                        <a href="{{ path( 'sortie_cancel', {'id': sortie.id} ) }}"
+                                           class="btn btn-secondary"
+                                           role="button">
+                                            Annuler
+                                        </a>
+                                    {% endif %}
                                 {% endif %}
-                            {% endif %}
 
 
-        {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture#}
-                                  {% if sortie.getOrganisateurSortie.id == app.user.id and sortie.etat.libelle == creee() %}
-                                          <a href="{{ path( 'sortie_publier', {'id': sortie.id} ) }}" class="btn btn-secondary"
-                                             role="button">
-                                              Publier
-                                          </a>
-                                  {% endif %}
-
-                                               </td>
-
+                                {# affichage du bouton annuler si on est le createur et si etat ouvert et cloture #}
+                                {% if sortie.getOrganisateurSortie.id == app.user.id and sortie.etat.libelle == creee() %}
+                                    <a href="{{ path( 'sortie_publier', {'id': sortie.id} ) }}"
+                                       class="btn btn-secondary"
+                                       role="button">
+                                        Publier
+                                    </a>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-
             </div>
         </div>
 
-
     {% else %}
-        <p> Veuillez vous connecter : <a href="{{ path('main_home') }}">Connexion</a> </p>
+        <p> Veuillez vous connecter : <a href="{{ path('main_home') }}">Connexion</a></p>
     {% endif %}
 
 {% endblock %}

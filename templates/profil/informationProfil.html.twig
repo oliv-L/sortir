@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    profil de {{ participant.pseudo }}
+    Profil de {{ participant.pseudo }}
 {% endblock %}
 
 {% block body %}
     <main class="form-profil text-center">
-    <h2>Modifiez votre profil</h2>
-    <div class="photo-profil">
-        {% if (participant.photoFilename) %}
-        <img src="{{ asset('uploads/photos/' ~ participant.photoFilename) }}" alt="" class="img-thumbnail">
-        {% endif %}
-    </div>
+        <h2>Modifier votre profil</h2>
+        <div class="photo-profil">
+            {% if (participant.photoFilename) %}
+                <img src="{{ asset('uploads/photos/' ~ participant.photoFilename) }}" alt="" class="img-thumbnail">
+            {% endif %}
+        </div>
+
         <div>
-         {{ form_start(profil) }}
+            {{ form_start(profil) }}
             {{ form_row(profil.photo) }}
             {{ form_label(profil.pseudo, "Pseudo", {'label_attr': {'class': 'form-floating '}}) }}
             {{ form_errors(profil.pseudo) }}
@@ -27,33 +28,30 @@
             {{ form_errors(profil.nom) }}
             {{ form_widget(profil.nom, {'attr': {'class': 'form-control text-center '}}) }}
 
-        {{ form_label(profil.telephone, "Telephone", {'label_attr': {'class': 'form-floating '}}) }}
-        {{ form_errors(profil.telephone) }}
-        {{ form_widget(profil.telephone, {'attr': {'class': 'form-control text-center '}}) }}
+            {{ form_label(profil.telephone, "Telephone", {'label_attr': {'class': 'form-floating '}}) }}
+            {{ form_errors(profil.telephone) }}
+            {{ form_widget(profil.telephone, {'attr': {'class': 'form-control text-center '}}) }}
 
-        {{ form_label(profil.email, "Email", {'label_attr': {'class': 'form-floating '}}) }}
-        {{ form_errors(profil.email) }}
-        {{ form_widget(profil.email, {'attr': {'class': 'form-control text-center '}}) }}
+            {{ form_label(profil.email, "Email", {'label_attr': {'class': 'form-floating '}}) }}
+            {{ form_errors(profil.email) }}
+            {{ form_widget(profil.email, {'attr': {'class': 'form-control text-center '}}) }}
 
-        {{ form_label(profil.plainPassword.first, "Mot de passe", {'label_attr': {'class': 'form-floating '}}) }}
-        {{ form_errors(profil.plainPassword.first) }}
-        {{ form_widget(profil.plainPassword.first, {'attr': {'class': 'form-control text-center '}}) }}
+            {{ form_label(profil.plainPassword.first, "Mot de passe", {'label_attr': {'class': 'form-floating '}}) }}
+            {{ form_errors(profil.plainPassword.first) }}
+            {{ form_widget(profil.plainPassword.first, {'attr': {'class': 'form-control text-center '}}) }}
 
-        {{ form_label(profil.plainPassword.second, "Confirmation", {'label_attr': {'class': 'form-floating '}}) }}
-        {{ form_errors(profil.plainPassword.second) }}
-        {{ form_widget(profil.plainPassword.second, {'attr': {'class': 'form-control text-center '}}) }}
+            {{ form_label(profil.plainPassword.second, "Confirmation", {'label_attr': {'class': 'form-floating '}}) }}
+            {{ form_errors(profil.plainPassword.second) }}
+            {{ form_widget(profil.plainPassword.second, {'attr': {'class': 'form-control text-center '}}) }}
 
-       {# {{ form_widget(profil) }}
-        {{ form_start(profil) }}
-        {{ form_widget(profil) }}#}
-        <button class="btn btn-lg btn-secondary" type="submit">
-            Valider
-        </button>
+            <button class="btn btn-lg btn-secondary" type="submit">
+                Valider
+            </button>
 
-        <button class="btn btn-lg btn-secondary" type="submit">
-            <a href="{{ path('main_home') }}">Annuler</a>
-        </button>
-        {{ form_end(profil) }}
-    </div>
-</main>
+            <button class="btn btn-lg btn-secondary" type="submit">
+                <a href="{{ path('main_home') }}">Annuler</a>
+            </button>
+            {{ form_end(profil) }}
+        </div>
+    </main>
 {% endblock %}

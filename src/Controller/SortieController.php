@@ -26,16 +26,15 @@ class SortieController extends AbstractController
     public function create(EntityManagerInterface $entityManager,
                            Request                $request,
                            EtatRepository         $etatRepository,
-                           $id =0,
-                           SortieRepository $sortieRepository
+                           int                    $id = 0,
+                           SortieRepository       $sortieRepository
 
 
     ): Response
     {
 
         $sortie = new Sortie();
-        if($id !=0)
-        {
+        if ($id != 0) {
             $sortie = $sortieRepository->find($id);
         }
         $sortieForm = $this->createForm(SortieType::class, $sortie);
@@ -45,10 +44,8 @@ class SortieController extends AbstractController
 
             if ($sortieForm->get('save')->isClicked()) {
                 $etat = $etatRepository->findOneBy(['libelle' => Etat::creee()]);
-
             } else {
                 $etat = $etatRepository->findOneBy(['libelle' => Etat::ouverte()]);
-
             }
 
 
@@ -64,34 +61,33 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('main_home');
         }
         return $this->render('sortie/create.html.twig', [
-            'sortieForm' => $sortieForm->createView(), 'sortie'=>$sortie
+            'sortieForm' => $sortieForm->createView(), 'sortie' => $sortie
         ]);
     }
 
     /**
      * @Route("/cancel/{id}", name="cancel")
      */
-    public function cancel(Sortie $sortie,
-                           Request $request,
-                           EtatRepository $etatRepository,
+    public function cancel(Sortie                 $sortie,
+                           Request                $request,
+                           EtatRepository         $etatRepository,
                            EntityManagerInterface $entityManager)
     {
-       if(!$sortie)
-        {
+        if (!$sortie) {
             throw $this->createNotFoundException('cette sortie n\'existe plus');
         }
 
 
         $cancelForm = $this->createForm(CancelSortieType::class, $sortie);
         $cancelForm->handleRequest($request);
-        if ( $cancelForm->isSubmitted() && $cancelForm->isValid()) {
-            $sortie->setEtat($etatRepository->findOneBy(['libelle'=>Etat::annulee()]));
+        if ($cancelForm->isSubmitted() && $cancelForm->isValid()) {
+            $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::annulee()]));
             $entityManager->persist($sortie);
             $entityManager->flush();
-            $this->addFlash('succes', 'la sortie est bien annulée, dommage...');
+            $this->addFlash('succes', 'la sortie est annulée');
             return $this->redirectToRoute('main_home');
         }
-        return $this->render('sortie/CancelSortie.html.twig', ['cancelForm'=>$cancelForm->createView(), 'sortie'=>$sortie ]);
+        return $this->render('sortie/CancelSortie.html.twig', ['cancelForm' => $cancelForm->createView(), 'sortie' => $sortie]);
 
 
     }
@@ -99,17 +95,17 @@ class SortieController extends AbstractController
     /**
      * @Route("/publier/{id}", name="publier")
      */
-    public function publier(Sortie $sortie,
+    public function publier(Sortie                 $sortie,
                             EntityManagerInterface $entityManager,
-                            EtatRepository $etatRepository)
+                            EtatRepository         $etatRepository)
     {
-        if(!$sortie)
-        {
+        if (!$sortie) {
             throw $this->createNotFoundException('cette sortie n\'existe plus');
         }
         $sortie->setEtat($etatRepository->findOneBy(['libelle' => Etat::ouverte()]));
         $entityManager->persist($sortie);
         $entityManager->flush();
+        $this->addFlash('succes', 'la sortie est maintenant disponible');
         return $this->redirectToRoute('main_home');
 
 
@@ -118,21 +114,12 @@ class SortieController extends AbstractController
     /**
      * @Route("/desincription/{id}", name="desinscription")
      */
-    public function desinscription(Sortie $sortie,
-                                   EntityManagerInterface $entityManager
-    )
+    public function desinscription(Sortie                 $sortie,
+                                   EntityManagerInterface $entityManager)
     {
-
         $sortie->removeParticipant($this->getUser());
         $entityManager->flush();
 
-       /* $participants = $sortie->getParticipants();
-        foreach ($participants as $p)
-       {
-            if($p->getid() == $this->getUser()->getid())
-                $id = $p->getid();}
-       // dd($id);
-*/
         return $this->redirectToRoute('main_home');
     }
 

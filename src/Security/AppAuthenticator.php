@@ -46,9 +46,6 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     }
 
 
-
-
-
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
@@ -66,8 +63,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     }
 
 
-
-    public function supports(Request $request) : bool
+    public function supports(Request $request): bool
     {
         //return self::LOGIN_ROUTE === $request->attributes->get('_route') && $request->isMethod('POST');
         return $request->isMethod('POST') && self::LOGIN_ROUTE === $request->attributes->get('_route');
